@@ -1,0 +1,10 @@
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+node_modules
+dist
+dist-ssr
+.content-collections
+.netlify
+.tanstack
+.output

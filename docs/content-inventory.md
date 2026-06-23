@@ -8,20 +8,20 @@ Use this as a working checklist while collecting content from the artist.
 
 ## Site-Level Content
 
-| Item | Status | Notes |
-| --- | --- | --- |
-| Artist name | Needed | Exact public name to show in header and page titles. |
-| Site title | Needed | Usually artist name or artist name + art. |
-| Short tagline | Needed | One short sentence for the home page. |
-| Short intro | Needed | 2-4 sentences for home page. |
-| Full artist bio | Needed | About page text. |
-| Contact email | Needed | Email that receives buyer inquiries. |
-| Public phone number | Optional | Only include if the artist wants phone contact. |
-| Location/region | Optional | Useful for pickup/local context. |
-| Social links | Optional | Instagram, Facebook, portfolio platforms, etc. |
-| Artist portrait | Needed | Used on about page. |
-| Studio/process images | Optional | Helps make the site more personal. |
-| Privacy/contact text | Needed | Explain how inquiry data is used. |
+| Item                  | Status   | Notes                                                |
+| --------------------- | -------- | ---------------------------------------------------- |
+| Artist name           | Needed   | Exact public name to show in header and page titles. |
+| Site title            | Needed   | Usually artist name or artist name + art.            |
+| Short tagline         | Needed   | One short sentence for the home page.                |
+| Short intro           | Needed   | 2-4 sentences for home page.                         |
+| Full artist bio       | Needed   | About page text.                                     |
+| Contact email         | Needed   | Email that receives buyer inquiries.                 |
+| Public phone number   | Optional | Only include if the artist wants phone contact.      |
+| Location/region       | Optional | Useful for pickup/local context.                     |
+| Social links          | Optional | Instagram, Facebook, portfolio platforms, etc.       |
+| Artist portrait       | Needed   | Used on about page.                                  |
+| Studio/process images | Optional | Helps make the site more personal.                   |
+| Privacy/contact text  | Needed   | Explain how inquiry data is used.                    |
 
 ## Language Decision
 
