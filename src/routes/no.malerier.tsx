@@ -1,7 +1,27 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 
-import { LocalizedPage } from '#/components/LocalizedPage'
+import { LocalizedGalleryPage } from '#/components/LocalizedGalleryPage'
+import { galleryDefaults, validateGallerySearch } from '#/lib/gallery/gallery'
 
 export const Route = createFileRoute('/no/malerier')({
-  component: () => <LocalizedPage locale="no" page="paintings" />,
+  validateSearch: validateGallerySearch,
+  search: {
+    middlewares: [stripSearchParams(galleryDefaults)],
+  },
+  component: NorwegianPaintingsRoute,
 })
+
+function NorwegianPaintingsRoute() {
+  const search = Route.useSearch()
+  const navigate = Route.useNavigate()
+
+  return (
+    <LocalizedGalleryPage
+      locale="no"
+      search={search}
+      onSearchChange={(nextSearch) => {
+        void navigate({ search: nextSearch })
+      }}
+    />
+  )
+}
