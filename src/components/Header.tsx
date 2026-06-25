@@ -36,16 +36,29 @@ export default function Header() {
 
   return (
     <header className="relative z-20 border-b border-border bg-background">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-5 sm:px-8 lg:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-8 lg:px-12">
         <a
           href={paths.home}
-          className="text-xl font-semibold tracking-tight text-foreground"
+          aria-label="Engela Art"
+          className="block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
         >
-          Engela Art
+          <picture>
+            <source
+              srcSet="/assets/brand/logo-header-dark.webp"
+              type="image/webp"
+            />
+            <img
+              src="/assets/brand/logo-header-dark.png"
+              width="720"
+              height="202"
+              alt="Engela Art"
+              className="h-auto w-28 sm:w-52"
+            />
+          </picture>
         </a>
 
         <nav aria-label={labels.navigation} className="hidden md:block">
-          <ul className="flex items-center gap-5 text-sm sm:gap-8">
+          <ul className="flex items-center gap-5 text-sm lg:gap-8">
             {navigationItems.map((item) => (
               <li key={item.href}>
                 <a
