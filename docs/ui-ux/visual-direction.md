@@ -15,6 +15,34 @@ Recommended qualities:
 
 The paintings should carry the strongest visual expression. The interface should support the work rather than compete with it.
 
+## Artwork-Led Brand Direction
+
+The artist's body of work frequently uses warm brown, burnt orange, copper, ochre, peach, charcoal, and soft earth tones, often balanced by misty blue, turquoise, green, and violet accents. The work ranges from atmospheric landscapes to expressive abstraction and can be highly saturated.
+
+The interface should borrow the collection's warmth at low intensity:
+
+- Warm off-white or pale sand page background
+- Deep brown-charcoal primary text
+- Muted terracotta or copper primary accent
+- Soft peach or clay supporting surfaces
+- Restrained blue-green only as an occasional secondary accent
+
+Do not reproduce the paintings' full saturation in navigation, cards, or large surfaces. Artwork remains the strongest source of color.
+
+The default site theme is light. Warm sand and cream surfaces provide the main canvas, while dark autumn brown, burgundy, terracotta, and ochre appear selectively for contrast in the footer, primary actions, status treatments, and compact brand moments. Avoid large dark content backgrounds that compete with colorful artwork.
+
+## Logo System Direction
+
+The existing Engela Art logo establishes a dark brown, orange, ochre, burgundy, cream, and autumn-leaf identity with an artist palette motif. Preserve that recognizable warmth and handmade character while adapting it into a practical website logo system:
+
+- Full illustrated logo for larger brand moments, footer, About, and social use
+- Simplified Engela Art wordmark for the site header
+- Compact palette or botanical mark for favicon and small avatars
+- Light and dark variants
+- Optimized raster exports and clean vector assets where appropriate
+
+Do not use the detailed illustrated logo at sizes where its leaves, brush, or lettering become illegible. Logo recreation and export production are a separate visual-asset task after product decisions are complete.
+
 ## Decisions To Make Before Coding
 
 ### Brand Mood
@@ -100,17 +128,42 @@ Default:
 
 ### Language
 
-Choose language before coding final routes and copy.
+V1 is fully bilingual in Norwegian and English. Both languages must support the complete buyer journey rather than translating only navigation or selected pages.
 
-Options:
+Use explicit language-prefixed URLs:
 
-- Norwegian-first
-- English-first
-- Bilingual
+- Norwegian: `/no/...`
+- English: `/en/...`
 
-Default for Norway-first sales:
+The root URL directs first-time visitors according to browser language, with Norwegian as the fallback. Always provide a visible language switcher and preserve the equivalent page when switching languages.
 
-- Norwegian-first, with future bilingual support if international buyers become important.
+## Supplied Brand Asset Roles
+
+The supplied brand assets establish the approved visual source material:
+
+- The artist portrait is the primary About-page portrait and may appear as a smaller trust image on Contact.
+- The dark square palette-and-leaves logo is the source for the social avatar, compact brand mark, app icons, and favicon derivatives.
+- The dark horizontal Engela Art banner is the default brand Open Graph/social-sharing image and may be used for occasional large brand treatments.
+- The cream autumn art pattern is decorative source material for restrained certificate, social, or compact brand accents; do not use it as a full-page website wallpaper.
+- The full logo with name is appropriate for larger footer/About brand moments after cleanup and optimization.
+
+Do not replace the homepage's seasonal painting hero with the brand banner. The homepage remains artwork-led.
+
+Several supplied files visually show a checkerboard but are RGB images without real transparency. Treat those as source material only. Produce genuinely transparent derivatives before using them over site surfaces; never ship the checkerboard as part of the visible logo.
+
+Before launch, create and verify:
+
+- Transparent header wordmark or simplified equivalent
+- Transparent compact logo mark
+- Light-on-dark and dark-on-light logo variants
+- Favicon and manifest icon sizes
+- Social avatar crop
+- Default Open Graph image
+- A simplified Engela Art artwork-watermark asset with light and dark variants
+- Responsive portrait derivatives
+- Appropriate PNG/WebP/AVIF outputs by use case
+
+The artwork watermark should use a simplified brand mark or wordmark rather than the full illustrated logo. It must remain legible at small sizes and work over both light and dark painting areas.
 
 ## Visual Risks
 

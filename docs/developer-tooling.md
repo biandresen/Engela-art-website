@@ -362,3 +362,24 @@ This toolset should teach:
 - How to add tests where they protect real behavior.
 
 The best learning path is to keep the first version focused, then add complexity when the project has earned it.
+
+# Artwork image preparation
+
+Maintain original artwork photographs outside Git. Add or document one repeatable local command that produces responsive, watermarked, web-ready AVIF/WebP/JPEG derivatives and reports output dimensions and sizes before assets are committed.
+
+Generated public painting derivatives should be deterministic and reviewable. The preparation command applies the approved Engela Art watermark with configurable placement for exceptional compositions. Do not copy private master files into the public asset tree.
+
+## Preview verification
+
+Use Netlify deploy previews to review route, responsive, language, image, form, and content changes before production. Preview submissions must not contact real buyers or the artist through production email.
+
+## Continuous integration
+
+Add a GitHub Actions workflow that runs on pull requests and pushes to `main`:
+
+1. Check out the repository.
+2. Set up Node 22.12.0 with npm caching.
+3. Install the lockfile exactly with `npm ci`.
+4. Run `npm run verify`.
+
+After the workflow is stable, configure branch protection so its verification check is required before merging to `main`.

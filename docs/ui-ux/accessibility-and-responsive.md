@@ -14,17 +14,22 @@ Check these viewport categories:
 Requirements:
 
 - Navigation works on mobile and desktop.
+- Mobile navigation uses an accessible menu button and simple panel.
 - Text stays readable without horizontal scrolling.
 - Buttons and links are easy to tap.
 - Painting cards do not become cramped.
+- Hero artwork preserves the full painting by default and stacks cleanly on mobile.
 - Detail page images remain inspectable.
 - Form fields are comfortable to use on mobile.
 - Text and UI elements do not overlap.
 - Image containers have stable dimensions.
+- Mobile sticky painting actions respect safe areas and do not cover content.
 
 ## Accessibility Requirements
 
 The site should be usable by keyboard, screen reader, and touch users.
+
+Target WCAG 2.2 AA for core user journeys.
 
 Requirements:
 
@@ -39,6 +44,11 @@ Requirements:
 - Artwork images have meaningful alt text.
 - Decorative images use empty alt text when appropriate.
 - Status information is not communicated by color alone.
+- Motion respects `prefers-reduced-motion`.
+
+The mobile menu must expose its expanded state, move focus predictably, close after navigation, support Escape to close, and restore focus to the menu button.
+
+FAQ disclosures must be keyboard-operable, expose expanded state, and remain functional without client JavaScript.
 
 ## Form Accessibility
 
@@ -73,6 +83,15 @@ Artwork
 ```
 
 If the painting title already appears next to the image, the alt text can describe the visual content rather than repeat the title.
+
+The fullscreen image viewer must:
+
+- Open from a keyboard-operable control
+- Move focus into the viewer and restore it on close
+- Support Escape to close
+- Provide accessible previous, next, and close names
+- Keep captions available to assistive technology
+- Avoid exposing original-resolution source files
 
 ## Visual Quality Checks
 

@@ -33,6 +33,12 @@ Avoid:
 - Overly playful interface elements
 - Generic e-commerce styling
 
+The visual identity is grounded in the artist's recurring warm brown, orange, copper, ochre, and peach tones, balanced by occasional muted blue-green. Use these colors as quiet interface references rather than matching the artwork's saturation.
+
+Use a light warm theme for primary content surfaces. Reserve dark brown and richer autumn colors for secondary or tertiary contrast, especially the footer, selected actions, and brand details. Do not apply a site-wide dark theme in v1.
+
+V1 does not include a dark-mode preference or theme toggle. A light-on-dark logo treatment may be used inside intentionally dark sections such as the footer without creating a second site theme.
+
 ## Color Palette
 
 Use a restrained neutral palette with one muted accent.
@@ -40,62 +46,82 @@ Use a restrained neutral palette with one muted accent.
 ### Recommended V1 Palette
 
 ```txt
-Background:       #F7F4EF
-Surface:          #FFFFFF
-Text primary:     #1F1D1A
-Text secondary:   #6B6258
-Border:           #DDD5CB
-Accent:           #7A4E2D
-Accent hover:     #5F3C22
-Muted green:      #5F6F52
-Muted red/brown:  #8A4B3A
+Background:       #F7F1E8
+Surface:          #FFFDFC
+Text primary:     #2A211D
+Text secondary:   #706159
+Border:           #DDCFC3
+Accent:           #A65332
+Accent hover:     #7E3D26
+Soft peach:       #E8C2AA
+Muted blue-green: #557A78
+Available:        #5F6F52
+Sold:             #8A5547
 ```
 
 Why:
 
-- Warm neutral backgrounds feel more personal than pure white.
-- Dark brown-black text is softer than pure black.
-- The accent color is warm but not loud.
-- The palette should not fight with colorful paintings.
+- Warm sand and peach tones reflect recurring colors in the artwork without becoming decorative.
+- Deep brown-charcoal text is softer and more aligned with the work than pure black.
+- Terracotta provides a distinctive action color while remaining quieter than the paintings.
+- Blue-green offers controlled contrast for occasional secondary details.
+- The palette remains restrained enough to support highly colorful and varied artwork.
 
 ### Tailwind Token Names
 
-When implementing, map these colors to semantic names instead of using only raw hex values everywhere.
+Implement the palette as CSS custom properties exposed to Tailwind through semantic token names. Components consume roles rather than raw hex values or numbered names such as `button1`.
 
-Suggested semantic names:
+Required semantic roles:
 
 ```txt
 background
 surface
 foreground
-muted
+muted-foreground
 border
+input
+ring
+primary
+primary-foreground
+primary-hover
+secondary
+secondary-foreground
 accent
-accent-hover
+accent-foreground
 available
+reserved
 sold
 ```
 
-The important habit: name colors by their role, not by the exact color. That makes future palette changes easier.
+Buttons use variants such as `primary`, `secondary`, and `text`, but their colors resolve through the semantic roles above. Do not create `button1`, `button2`, or color-specific tokens; those names obscure purpose and make later changes harder.
+
+Keep the token interface centralized in the global stylesheet so a palette adjustment does not require editing individual route or component classes. Raw color values should be exceptional and documented.
 
 ## Typography
 
-Use typography that feels refined but readable.
+Use one type family across headings, body, navigation, forms, and buttons.
 
-### Recommended Direction
+### Primary Font
 
-- Headings: elegant serif or high-quality display serif.
-- Body: readable sans-serif or quiet serif.
-- UI labels/buttons: readable sans-serif.
+Use **Manrope**, self-hosted as a variable WOFF2 font under the SIL Open Font License. It is readable at body and interface sizes, modern, and has enough soft geometric character to complement the warm organic visual identity without competing with artwork.
 
-Suggested pairing:
+Runtime stack:
 
-```txt
-Headings: Cormorant Garamond, Playfair Display, or similar
-Body/UI: Inter, Source Sans 3, or similar
+```css
+font-family: 'Manrope', system-ui, sans-serif;
 ```
 
-If using external fonts, keep the number of font families low. Two families is enough.
+Use weight, size, spacing, and line height—not a second family—to distinguish headings from body and UI text.
+
+### Approved Backups
+
+If visual testing rejects Manrope:
+
+1. Instrument Sans — cleaner and more editorial
+2. Nunito Sans — softer and friendlier
+3. Lora — more artistic, but less suitable as the only form/UI face
+
+All selected fonts must remain free for commercial use and be self-hosted. Do not load fonts from a third-party CDN.
 
 ### Type Scale
 
@@ -211,6 +237,17 @@ Default card approach:
 - Minimal border or no border
 - Hover state that feels quiet, such as slight image opacity or subtle border change
 
+## Motion
+
+Use smooth, lightweight motion only where it clarifies interaction:
+
+- Short color, opacity, and small transform transitions
+- Restrained mobile-menu and fullscreen-viewer transitions
+- No parallax, autoplay animation, or scroll-triggered spectacle
+- No animation library unless a concrete interaction cannot be handled cleanly with CSS
+
+Respect `prefers-reduced-motion` by removing nonessential movement and shortening necessary state transitions.
+
 ## Image Aspect Ratios
 
 The artwork itself may vary in shape, so use rules that preserve the work.
@@ -252,6 +289,8 @@ Recommended treatment:
 - Sold: muted red-brown or neutral gray text/border
 
 Do not make sold paintings disappear from the portfolio. They still help show the artist's body of work.
+
+Place status badges in card metadata rather than overlaying artwork images. On detail pages, show status beside title and price. Always include localized text; color is supplementary.
 
 ## Forms
 

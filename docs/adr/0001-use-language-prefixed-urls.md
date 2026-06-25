@@ -1,0 +1,3 @@
+# Use language-prefixed URLs
+
+The bilingual site will use explicit `/no/...` and `/en/...` URL prefixes so each Norwegian and English page has a stable, indexable address. Route segments may be translated, but each painting uses one stable language-neutral slug in both languages so identity and cross-language linking remain simple. The root URL uses an explicitly selected first-party language cookie when present, otherwise browser language with Norwegian as the fallback. A visible language switcher, canonical URLs, and `hreflang` links preserve user control and help search engines associate equivalent translations.

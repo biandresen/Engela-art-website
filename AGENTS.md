@@ -43,3 +43,17 @@ npm run verify
 ```
 
 If that is too broad while actively developing, run the relevant subset and explain what was skipped.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs are tracked in GitHub Issues; external pull requests are not a triage request surface. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the canonical `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix` labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Use the single-context layout with `CONTEXT.md` at the repository root and ADRs in `docs/adr/`. See `docs/agents/domain.md`.

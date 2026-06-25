@@ -35,10 +35,20 @@ Create the public route structure:
 
 ```txt
 /
-/paintings
-/paintings/$slug
-/about
-/contact
+/no/malerier
+/no/malerier/$slug
+/no/bestillingsverk
+/no/om
+/no/kontakt
+/no/personvern
+/no/salg-og-retur
+/en/paintings
+/en/paintings/$slug
+/en/commissions
+/en/about
+/en/contact
+/en/privacy
+/en/sales-and-returns
 ```
 
 Also prepare:
@@ -64,31 +74,33 @@ Define a structured painting model and sample records.
 
 Required fields:
 
+- immutable painting ID
 - title
 - slug
-- medium
-- dimensions
+- bilingual medium
+- bilingual visual summary
+- optional bilingual artist note
+- numeric width, height, and depth
+- creation year
+- listed price in NOK
 - status
-- description
-- images with alt text
-- featured flag
-
-Optional fields:
-
-- year
-- price in NOK
+- straight-on and room-context images with bilingual alt text
+- featured flag and order when selected
+- care profiles and optional exceptional care note
 
 Add helper functions:
 
 - get all paintings
 - get featured paintings
 - get painting by slug
-- get available paintings if needed
+- derive orientation and total area
+- filter and sort paintings from validated URL state
 
 Expected result:
 
 - Pages can read painting data from one source of truth.
-- Invalid or duplicate slugs can be caught by tests.
+- Invalid IDs, duplicate slugs, missing translations, invalid measurements, missing image roles, and featured-order conflicts are caught by validation tests.
+- Public painting images are generated as responsive watermarked derivatives while private masters stay outside Git.
 
 Suggested commit:
 
@@ -103,6 +115,7 @@ Build:
 - Site header
 - Navigation
 - Footer
+- Approved header, footer, favicon, manifest, portrait, and social-image brand derivatives
 - Responsive content container
 - Base typography
 - Base button/link styles
@@ -119,6 +132,7 @@ Design direction:
 Expected result:
 
 - The app feels coherent before individual pages are polished.
+- Brand assets render without checkerboard artifacts, broken manifest references, or oversized source downloads.
 
 Suggested commit:
 
@@ -153,10 +167,12 @@ Build the gallery page with:
 
 - Responsive painting grid
 - Painting cards
-- Image, title, medium, dimensions
+- Image, title, medium, width × height × depth
 - Status label
-- Price display when available
+- Public or historical NOK price
 - Sold/reserved visual treatment
+- Combined status and orientation filters
+- URL-backed year, total-area, and price sorting
 
 Expected result:
 
@@ -253,6 +269,7 @@ Add:
 - Page descriptions
 - Painting-specific metadata
 - Open Graph basics
+- Structured data for artwork, business identity, and available offers
 - Meaningful image alt text
 - Site URL environment configuration
 
@@ -318,6 +335,31 @@ Deployment requirements:
 
 - Build command works in CI/hosting environment.
 - Required environment variables are documented.
+
+## Future Enhancement: Safe Mobile Status Updates
+
+If phone-based updates become useful, add a manually triggered GitHub Actions workflow that:
+
+1. Accepts a painting identifier and allowed target status.
+2. Validates the painting and state value.
+3. Updates only the painting status.
+4. Runs repository verification.
+5. Opens a pull request for review rather than publishing directly.
+
+This automation is explicitly outside v1 and the launch-critical path. Reconsider it only after manual updates demonstrate enough friction to justify maintenance.
+
+## Other Future Enhancements
+
+After the three-month review, consider only evidence-supported additions:
+
+- CMS/database/admin dashboard
+- Checkout and payment integration
+- Customer accounts or tracking portal
+- Automated invoicing and interest-list management
+- Newsletter
+- Embedded social feeds
+- Gallery search, tags, or pagination
+- Review and carrier integrations
 - Production URL is configured.
 - Inquiry email works in production.
 

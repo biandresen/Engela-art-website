@@ -1,4 +1,3 @@
-
 # Javascript snippets
 
 - `np` - nextPage
@@ -34,7 +33,7 @@ const FileName = ({}) => {
 
 export const getServerSideProps = async (ctx) => {
   return {
-    props: {}
+    props: {},
   }
 }
 
@@ -79,7 +78,7 @@ export default FileName
 ```javascript
 export const getServerSideProps = async (ctx) => {
   return {
-    props: {}
+    props: {},
   }
 }
 ```
@@ -109,9 +108,7 @@ export const getStaticPaths = async () => {
 
 ```javascript
 FileName.getInitialProps = async (ctx) => {
-  return {
-    
-  }
+  return {}
 }
 ```
 
@@ -149,7 +146,7 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
@@ -159,18 +156,14 @@ export default MyDocument
 ## `napi` - nextApi
 
 ```javascript
-export default async function handler(req, res) {
-  
-}
+export default async function handler(req, res) {}
 ```
 
 ## `nmid` - nextMiddleware
 
 ```javascript
 import { NextResponse } from 'next/server'
-export async function middleware(request) {
-  
-}
+export async function middleware(request) {}
 
 export const config = {
   matcher: '/about/:path*',

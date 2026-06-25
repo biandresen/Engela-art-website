@@ -5,7 +5,7 @@
 - Site header
 - Main navigation
 - Mobile navigation
-- Footer
+- Footer with accessible Instagram and Facebook links
 - Page container
 - Section layout
 
@@ -16,13 +16,13 @@
 - Painting status badge
 - Price display
 - Artwork metadata list
+- Painting care card
 - Featured paintings section
 - Image gallery or image detail layout
 
 ## Form Components
 
-- Inquiry form
-- Contact form
+- Unified contact and inquiry form
 - Text input
 - Email input
 - Optional phone input
@@ -45,6 +45,10 @@
 - Page heading
 - Intro text block
 - Artist bio block
+- Commission process steps
+- Commission pricing and timeline guidance
+- Reusable FAQ section with contextual subsets
+- Testimonials section with review cards, display-limit options, and empty-list suppression
 - Empty state
 - Not-found state
 
