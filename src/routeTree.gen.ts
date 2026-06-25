@@ -9,25 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PaintingsRouteImport } from './routes/paintings'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as NoRouteImport } from './routes/no'
+import { Route as EnRouteImport } from './routes/en'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PaintingsSlugRouteImport } from './routes/paintings.$slug'
+import { Route as NoSalgOgReturRouteImport } from './routes/no.salg-og-retur'
+import { Route as NoPersonvernRouteImport } from './routes/no.personvern'
+import { Route as NoOmRouteImport } from './routes/no.om'
+import { Route as NoMalerierRouteImport } from './routes/no.malerier'
+import { Route as NoKontaktRouteImport } from './routes/no.kontakt'
+import { Route as NoBestillingsverkRouteImport } from './routes/no.bestillingsverk'
+import { Route as EnSalesAndReturnsRouteImport } from './routes/en.sales-and-returns'
+import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
+import { Route as EnPaintingsRouteImport } from './routes/en.paintings'
+import { Route as EnContactRouteImport } from './routes/en.contact'
+import { Route as EnCommissionsRouteImport } from './routes/en.commissions'
+import { Route as EnAboutRouteImport } from './routes/en.about'
+import { Route as ApiLanguageRouteImport } from './routes/api.language'
+import { Route as NoMalerierSlugRouteImport } from './routes/no.malerier_.$slug'
+import { Route as EnPaintingsSlugRouteImport } from './routes/en.paintings_.$slug'
 
-const PaintingsRoute = PaintingsRouteImport.update({
-  id: '/paintings',
-  path: '/paintings',
+const NoRoute = NoRouteImport.update({
+  id: '/no',
+  path: '/no',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -35,76 +43,227 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PaintingsSlugRoute = PaintingsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PaintingsRoute,
+const NoSalgOgReturRoute = NoSalgOgReturRouteImport.update({
+  id: '/salg-og-retur',
+  path: '/salg-og-retur',
+  getParentRoute: () => NoRoute,
+} as any)
+const NoPersonvernRoute = NoPersonvernRouteImport.update({
+  id: '/personvern',
+  path: '/personvern',
+  getParentRoute: () => NoRoute,
+} as any)
+const NoOmRoute = NoOmRouteImport.update({
+  id: '/om',
+  path: '/om',
+  getParentRoute: () => NoRoute,
+} as any)
+const NoMalerierRoute = NoMalerierRouteImport.update({
+  id: '/malerier',
+  path: '/malerier',
+  getParentRoute: () => NoRoute,
+} as any)
+const NoKontaktRoute = NoKontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => NoRoute,
+} as any)
+const NoBestillingsverkRoute = NoBestillingsverkRouteImport.update({
+  id: '/bestillingsverk',
+  path: '/bestillingsverk',
+  getParentRoute: () => NoRoute,
+} as any)
+const EnSalesAndReturnsRoute = EnSalesAndReturnsRouteImport.update({
+  id: '/sales-and-returns',
+  path: '/sales-and-returns',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnPrivacyRoute = EnPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnPaintingsRoute = EnPaintingsRouteImport.update({
+  id: '/paintings',
+  path: '/paintings',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnCommissionsRoute = EnCommissionsRouteImport.update({
+  id: '/commissions',
+  path: '/commissions',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => EnRoute,
+} as any)
+const ApiLanguageRoute = ApiLanguageRouteImport.update({
+  id: '/api/language',
+  path: '/api/language',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoMalerierSlugRoute = NoMalerierSlugRouteImport.update({
+  id: '/malerier_/$slug',
+  path: '/malerier/$slug',
+  getParentRoute: () => NoRoute,
+} as any)
+const EnPaintingsSlugRoute = EnPaintingsSlugRouteImport.update({
+  id: '/paintings_/$slug',
+  path: '/paintings/$slug',
+  getParentRoute: () => EnRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/paintings': typeof PaintingsRouteWithChildren
-  '/paintings/$slug': typeof PaintingsSlugRoute
+  '/en': typeof EnRouteWithChildren
+  '/no': typeof NoRouteWithChildren
+  '/api/language': typeof ApiLanguageRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/commissions': typeof EnCommissionsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/paintings': typeof EnPaintingsRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/sales-and-returns': typeof EnSalesAndReturnsRoute
+  '/no/bestillingsverk': typeof NoBestillingsverkRoute
+  '/no/kontakt': typeof NoKontaktRoute
+  '/no/malerier': typeof NoMalerierRoute
+  '/no/om': typeof NoOmRoute
+  '/no/personvern': typeof NoPersonvernRoute
+  '/no/salg-og-retur': typeof NoSalgOgReturRoute
+  '/en/paintings/$slug': typeof EnPaintingsSlugRoute
+  '/no/malerier/$slug': typeof NoMalerierSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/paintings': typeof PaintingsRouteWithChildren
-  '/paintings/$slug': typeof PaintingsSlugRoute
+  '/en': typeof EnRouteWithChildren
+  '/no': typeof NoRouteWithChildren
+  '/api/language': typeof ApiLanguageRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/commissions': typeof EnCommissionsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/paintings': typeof EnPaintingsRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/sales-and-returns': typeof EnSalesAndReturnsRoute
+  '/no/bestillingsverk': typeof NoBestillingsverkRoute
+  '/no/kontakt': typeof NoKontaktRoute
+  '/no/malerier': typeof NoMalerierRoute
+  '/no/om': typeof NoOmRoute
+  '/no/personvern': typeof NoPersonvernRoute
+  '/no/salg-og-retur': typeof NoSalgOgReturRoute
+  '/en/paintings/$slug': typeof EnPaintingsSlugRoute
+  '/no/malerier/$slug': typeof NoMalerierSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/paintings': typeof PaintingsRouteWithChildren
-  '/paintings/$slug': typeof PaintingsSlugRoute
+  '/en': typeof EnRouteWithChildren
+  '/no': typeof NoRouteWithChildren
+  '/api/language': typeof ApiLanguageRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/commissions': typeof EnCommissionsRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/paintings': typeof EnPaintingsRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/sales-and-returns': typeof EnSalesAndReturnsRoute
+  '/no/bestillingsverk': typeof NoBestillingsverkRoute
+  '/no/kontakt': typeof NoKontaktRoute
+  '/no/malerier': typeof NoMalerierRoute
+  '/no/om': typeof NoOmRoute
+  '/no/personvern': typeof NoPersonvernRoute
+  '/no/salg-og-retur': typeof NoSalgOgReturRoute
+  '/en/paintings_/$slug': typeof EnPaintingsSlugRoute
+  '/no/malerier_/$slug': typeof NoMalerierSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/paintings' | '/paintings/$slug'
+  fullPaths:
+    | '/'
+    | '/en'
+    | '/no'
+    | '/api/language'
+    | '/en/about'
+    | '/en/commissions'
+    | '/en/contact'
+    | '/en/paintings'
+    | '/en/privacy'
+    | '/en/sales-and-returns'
+    | '/no/bestillingsverk'
+    | '/no/kontakt'
+    | '/no/malerier'
+    | '/no/om'
+    | '/no/personvern'
+    | '/no/salg-og-retur'
+    | '/en/paintings/$slug'
+    | '/no/malerier/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/paintings' | '/paintings/$slug'
+  to:
+    | '/'
+    | '/en'
+    | '/no'
+    | '/api/language'
+    | '/en/about'
+    | '/en/commissions'
+    | '/en/contact'
+    | '/en/paintings'
+    | '/en/privacy'
+    | '/en/sales-and-returns'
+    | '/no/bestillingsverk'
+    | '/no/kontakt'
+    | '/no/malerier'
+    | '/no/om'
+    | '/no/personvern'
+    | '/no/salg-og-retur'
+    | '/en/paintings/$slug'
+    | '/no/malerier/$slug'
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/contact'
-    | '/paintings'
-    | '/paintings/$slug'
+    | '/en'
+    | '/no'
+    | '/api/language'
+    | '/en/about'
+    | '/en/commissions'
+    | '/en/contact'
+    | '/en/paintings'
+    | '/en/privacy'
+    | '/en/sales-and-returns'
+    | '/no/bestillingsverk'
+    | '/no/kontakt'
+    | '/no/malerier'
+    | '/no/om'
+    | '/no/personvern'
+    | '/no/salg-og-retur'
+    | '/en/paintings_/$slug'
+    | '/no/malerier_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ContactRoute: typeof ContactRoute
-  PaintingsRoute: typeof PaintingsRouteWithChildren
+  EnRoute: typeof EnRouteWithChildren
+  NoRoute: typeof NoRouteWithChildren
+  ApiLanguageRoute: typeof ApiLanguageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/paintings': {
-      id: '/paintings'
-      path: '/paintings'
-      fullPath: '/paintings'
-      preLoaderRoute: typeof PaintingsRouteImport
+    '/no': {
+      id: '/no'
+      path: '/no'
+      fullPath: '/no'
+      preLoaderRoute: typeof NoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -114,33 +273,163 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/paintings/$slug': {
-      id: '/paintings/$slug'
-      path: '/$slug'
-      fullPath: '/paintings/$slug'
-      preLoaderRoute: typeof PaintingsSlugRouteImport
-      parentRoute: typeof PaintingsRoute
+    '/no/salg-og-retur': {
+      id: '/no/salg-og-retur'
+      path: '/salg-og-retur'
+      fullPath: '/no/salg-og-retur'
+      preLoaderRoute: typeof NoSalgOgReturRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/no/personvern': {
+      id: '/no/personvern'
+      path: '/personvern'
+      fullPath: '/no/personvern'
+      preLoaderRoute: typeof NoPersonvernRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/no/om': {
+      id: '/no/om'
+      path: '/om'
+      fullPath: '/no/om'
+      preLoaderRoute: typeof NoOmRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/no/malerier': {
+      id: '/no/malerier'
+      path: '/malerier'
+      fullPath: '/no/malerier'
+      preLoaderRoute: typeof NoMalerierRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/no/kontakt': {
+      id: '/no/kontakt'
+      path: '/kontakt'
+      fullPath: '/no/kontakt'
+      preLoaderRoute: typeof NoKontaktRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/no/bestillingsverk': {
+      id: '/no/bestillingsverk'
+      path: '/bestillingsverk'
+      fullPath: '/no/bestillingsverk'
+      preLoaderRoute: typeof NoBestillingsverkRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/en/sales-and-returns': {
+      id: '/en/sales-and-returns'
+      path: '/sales-and-returns'
+      fullPath: '/en/sales-and-returns'
+      preLoaderRoute: typeof EnSalesAndReturnsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/privacy': {
+      id: '/en/privacy'
+      path: '/privacy'
+      fullPath: '/en/privacy'
+      preLoaderRoute: typeof EnPrivacyRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/paintings': {
+      id: '/en/paintings'
+      path: '/paintings'
+      fullPath: '/en/paintings'
+      preLoaderRoute: typeof EnPaintingsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/commissions': {
+      id: '/en/commissions'
+      path: '/commissions'
+      fullPath: '/en/commissions'
+      preLoaderRoute: typeof EnCommissionsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/api/language': {
+      id: '/api/language'
+      path: '/api/language'
+      fullPath: '/api/language'
+      preLoaderRoute: typeof ApiLanguageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/no/malerier_/$slug': {
+      id: '/no/malerier_/$slug'
+      path: '/malerier/$slug'
+      fullPath: '/no/malerier/$slug'
+      preLoaderRoute: typeof NoMalerierSlugRouteImport
+      parentRoute: typeof NoRoute
+    }
+    '/en/paintings_/$slug': {
+      id: '/en/paintings_/$slug'
+      path: '/paintings/$slug'
+      fullPath: '/en/paintings/$slug'
+      preLoaderRoute: typeof EnPaintingsSlugRouteImport
+      parentRoute: typeof EnRoute
     }
   }
 }
 
-interface PaintingsRouteChildren {
-  PaintingsSlugRoute: typeof PaintingsSlugRoute
+interface EnRouteChildren {
+  EnAboutRoute: typeof EnAboutRoute
+  EnCommissionsRoute: typeof EnCommissionsRoute
+  EnContactRoute: typeof EnContactRoute
+  EnPaintingsRoute: typeof EnPaintingsRoute
+  EnPrivacyRoute: typeof EnPrivacyRoute
+  EnSalesAndReturnsRoute: typeof EnSalesAndReturnsRoute
+  EnPaintingsSlugRoute: typeof EnPaintingsSlugRoute
 }
 
-const PaintingsRouteChildren: PaintingsRouteChildren = {
-  PaintingsSlugRoute: PaintingsSlugRoute,
+const EnRouteChildren: EnRouteChildren = {
+  EnAboutRoute: EnAboutRoute,
+  EnCommissionsRoute: EnCommissionsRoute,
+  EnContactRoute: EnContactRoute,
+  EnPaintingsRoute: EnPaintingsRoute,
+  EnPrivacyRoute: EnPrivacyRoute,
+  EnSalesAndReturnsRoute: EnSalesAndReturnsRoute,
+  EnPaintingsSlugRoute: EnPaintingsSlugRoute,
 }
 
-const PaintingsRouteWithChildren = PaintingsRoute._addFileChildren(
-  PaintingsRouteChildren,
-)
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
+
+interface NoRouteChildren {
+  NoBestillingsverkRoute: typeof NoBestillingsverkRoute
+  NoKontaktRoute: typeof NoKontaktRoute
+  NoMalerierRoute: typeof NoMalerierRoute
+  NoOmRoute: typeof NoOmRoute
+  NoPersonvernRoute: typeof NoPersonvernRoute
+  NoSalgOgReturRoute: typeof NoSalgOgReturRoute
+  NoMalerierSlugRoute: typeof NoMalerierSlugRoute
+}
+
+const NoRouteChildren: NoRouteChildren = {
+  NoBestillingsverkRoute: NoBestillingsverkRoute,
+  NoKontaktRoute: NoKontaktRoute,
+  NoMalerierRoute: NoMalerierRoute,
+  NoOmRoute: NoOmRoute,
+  NoPersonvernRoute: NoPersonvernRoute,
+  NoSalgOgReturRoute: NoSalgOgReturRoute,
+  NoMalerierSlugRoute: NoMalerierSlugRoute,
+}
+
+const NoRouteWithChildren = NoRoute._addFileChildren(NoRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ContactRoute: ContactRoute,
-  PaintingsRoute: PaintingsRouteWithChildren,
+  EnRoute: EnRouteWithChildren,
+  NoRoute: NoRouteWithChildren,
+  ApiLanguageRoute: ApiLanguageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

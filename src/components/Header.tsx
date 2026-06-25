@@ -1,39 +1,82 @@
-import { Link } from '@tanstack/react-router'
+import { useRouterState } from '@tanstack/react-router'
 
-const navigationItems = [
-  { to: '/paintings', label: 'Paintings' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-] as const
+import { getNavigationLabels } from '#/lib/i18n/content'
+import {
+  getEquivalentLocalizedPath,
+  getLocaleFromPathname,
+  localizedPaths,
+} from '#/lib/i18n/routes'
+
+import { MobileNavigation } from './MobileNavigation'
 
 export default function Header() {
+  const location = useRouterState({
+    select: (state) => state.location,
+  })
+  const locale = getLocaleFromPathname(location.pathname)
+  const targetLocale = locale === 'no' ? 'en' : 'no'
+  const labels = getNavigationLabels(locale)
+  const paths = localizedPaths[locale]
+  const navigationItems = [
+    { href: paths.home, label: labels.home },
+    { href: paths.paintings, label: labels.paintings },
+    { href: paths.commissions, label: labels.commissions },
+    { href: paths.about, label: labels.about },
+    { href: paths.contact, label: labels.contact },
+  ]
+  const equivalentPath = getEquivalentLocalizedPath(
+    location.pathname,
+    location.searchStr,
+    targetLocale,
+  )
+  const languageHref = `/api/language?${new URLSearchParams({
+    locale: targetLocale,
+    redirect: equivalentPath,
+  })}`
+
   return (
-    <header className="border-b border-border bg-background">
+    <header className="relative z-20 border-b border-border bg-background">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-5 sm:px-8 lg:px-12">
-        <Link
-          to="/"
+        <a
+          href={paths.home}
           className="text-xl font-semibold tracking-tight text-foreground"
         >
           Engela Art
-        </Link>
+        </a>
 
-        <nav aria-label="Main navigation">
+        <nav aria-label={labels.navigation} className="hidden md:block">
           <ul className="flex items-center gap-5 text-sm sm:gap-8">
             {navigationItems.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className="text-muted-foreground transition-colors hover:text-foreground focus-visible rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                  activeProps={{
-                    className: 'text-foreground',
-                  }}
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  aria-current={
+                    location.pathname === item.href ? 'page' : undefined
+                  }
+                  className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring aria-[current=page]:text-foreground"
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
         </nav>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={languageHref}
+            hrefLang={targetLocale}
+            lang={targetLocale}
+            className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            {labels.switchLanguage}
+          </a>
+          <MobileNavigation
+            items={navigationItems}
+            menuLabel={labels.openMenu}
+            closeLabel={labels.closeMenu}
+          />
+        </div>
       </div>
     </header>
   )

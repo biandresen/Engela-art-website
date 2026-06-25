@@ -1,8 +1,15 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Scripts,
+  createRootRoute,
+  useRouterState,
+} from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { NotFoundPage } from '../components/NotFoundPage'
+import { getLocaleFromPathname } from '../lib/i18n/routes'
 
 import appCss from '../styles.css?url'
 
@@ -27,18 +34,24 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  notFoundComponent: NotFoundPage,
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
+  const locale = getLocaleFromPathname(pathname)
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
         <Header />
-        {children}
+        <div className="min-h-[calc(100vh-12rem)]">{children}</div>
         <Footer />
         <TanStackDevtools
           config={{
