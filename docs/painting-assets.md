@@ -45,3 +45,21 @@ Before launch, the artist must approve or replace every temporary field. Change
 `metadataApproval` to `"artist-approved"` only after that review; the marker is a
 content workflow signal and does not make placeholder commercial data safe to
 publish.
+
+## Homepage approval requirements
+
+Issue #6 uses `temporary-painting-04` as an explicitly configured temporary
+seasonal hero and uses the catalog's temporary featured order for paintings
+01–03. Before launch, the artist must approve or replace:
+
+- the seasonal hero selection;
+- the featured selection and editorial order;
+- all temporary status and listed-price values;
+- the Norwegian and English homepage introduction;
+- the concise artist biography and process preview;
+- every temporary painting title, medium, dimension, year, description, and
+  alternative text already listed above.
+
+The runtime homepage deliberately labels unavailable content as temporary. Do
+not remove those labels until the corresponding artist-owned facts and
+developer-reviewed translations are approved.

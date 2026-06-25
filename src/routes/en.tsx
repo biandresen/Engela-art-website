@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 
-import { LocalizedPage } from '#/components/LocalizedPage'
+import { LocalizedHomePage } from '#/components/LocalizedHomePage'
 
 export const Route = createFileRoute('/en')({
   component: EnglishRoute,
@@ -11,9 +11,5 @@ function EnglishRoute() {
     select: (state) => state.location.pathname,
   })
 
-  return pathname === '/en' ? (
-    <LocalizedPage locale="en" page="home" />
-  ) : (
-    <Outlet />
-  )
+  return pathname === '/en' ? <LocalizedHomePage locale="en" /> : <Outlet />
 }

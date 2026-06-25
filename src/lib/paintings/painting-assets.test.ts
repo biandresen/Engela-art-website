@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import sharp from 'sharp'
@@ -127,4 +127,47 @@ describe('painting image pipeline', () => {
       }),
     ).rejects.toThrow(/missing or is not a generated watermarked derivative/)
   })
+
+  it('keeps temporary source PNG filenames out of runtime application code', async () => {
+    const temporarySourceFilenames = [
+      'blue-crow.png',
+      'broken-woods.png',
+      'purple-cotton.png',
+      'rough-sea.png',
+      'space.png',
+      'winter-landscape.png',
+    ]
+    const runtimeFiles = await listRuntimeSourceFiles(resolve(root, 'src'))
+
+    for (const runtimeFile of runtimeFiles) {
+      const contents = await readFile(runtimeFile, 'utf8')
+
+      for (const filename of temporarySourceFilenames) {
+        expect(contents, `${runtimeFile} references ${filename}`).not.toContain(
+          filename,
+        )
+      }
+    }
+  })
 })
+
+async function listRuntimeSourceFiles(
+  directory: string,
+): Promise<Array<string>> {
+  const entries = await readdir(directory, { withFileTypes: true })
+  const files = await Promise.all(
+    entries.map(async (entry) => {
+      const path = resolve(directory, entry.name)
+
+      if (entry.isDirectory()) {
+        return listRuntimeSourceFiles(path)
+      }
+
+      return /\.(ts|tsx)$/.test(entry.name) && !entry.name.includes('.test.')
+        ? [path]
+        : []
+    }),
+  )
+
+  return files.flat()
+}
