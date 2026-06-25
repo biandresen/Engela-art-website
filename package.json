@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "dotenv -e .env.local -- vite dev --port 3000",
+    "assets:brand": "node scripts/prepare-brand-assets.mjs",
     "generate-routes": "tsr generate",
     "build": "vite build",
     "preview": "vite preview",
@@ -22,6 +23,7 @@
     "start": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/manrope": "^5.2.8",
     "@radix-ui/react-slot": "^1.2.0",
     "@t3-oss/env-core": "^0.13.10",
     "@tailwindcss/vite": "^4.1.18",
@@ -57,7 +59,9 @@
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9.20.0",
     "jsdom": "^28.1.0",
+    "png-to-ico": "^3.0.1",
     "prettier": "^3.8.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
     "vitest": "^4.1.5"
