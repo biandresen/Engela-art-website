@@ -1,6 +1,22 @@
 [build]
-  command = "vite build"
+  command = "npm run build"
   publish = "dist/client"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
+
+[context.production.environment]
+  INTEGRATIONS_MODE = "production"
+
+[context.deploy-preview.environment]
+  INTEGRATIONS_MODE = "safe"
+
+[context.branch-deploy.environment]
+  INTEGRATIONS_MODE = "safe"
+
+[context.dev.environment]
+  INTEGRATIONS_MODE = "safe"
+
 [dev]
   command = "npm run dev"
   targetPort = 3000

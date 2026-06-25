@@ -20,14 +20,51 @@ Use Netlify deploy previews for pull requests.
 
 Preview environments must:
 
-- Use a recording/fake email adapter or a dedicated test inbox
+- Use the safe integration mode configured in `netlify.toml`
 - Never receive the production Resend API key or production receiver address
-- Disable production analytics or route it to a separate test site
-- Disable production Sentry reporting or use a distinct preview environment
-- Use preview-safe canonical and robots behavior so preview URLs are not indexed
+- Disable production analytics and Sentry reporting
+- Use preview-safe canonical behavior
 - Display a visible non-production indicator when practical
 
-Only the production deployment receives production email, analytics, monitoring, and domain configuration.
+Netlify automatically adds an `X-Robots-Tag: noindex` response header to Deploy
+Previews. Verify that header on a real preview before merging changes to preview
+configuration.
+
+Only the production deployment receives production email, analytics, monitoring,
+and domain configuration. Configure secrets in the Netlify UI and scope them to
+the production deploy context. Do not place secret values in `netlify.toml`.
+
+The application resolves integrations defensively:
+
+- `production` context plus `INTEGRATIONS_MODE=production` enables production
+  adapters once they are implemented.
+- Every other combination uses safe no-op or recording adapters.
+- An unknown or missing deploy context is safe by default.
+
+This means an accidentally misconfigured preview cannot enable production
+integrations merely by receiving `INTEGRATIONS_MODE=production`.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` for local development. Keep
+`INTEGRATIONS_MODE=safe`; local development and automated tests must not contact
+live providers.
+
+| Variable                 | Responsibility                                                                               |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| `SITE_URL`               | Canonical application origin. Production is `https://engelaart.no`.                          |
+| `CONTEXT`                | Netlify deploy context. Local development uses `dev`.                                        |
+| `INTEGRATIONS_MODE`      | Requests safe or production adapters. Production still requires a production deploy context. |
+| `INQUIRY_RECEIVER_EMAIL` | Production Engela Art inbox receiving inquiries.                                             |
+| `INQUIRY_SENDER_EMAIL`   | Authenticated `engelaart.no` sender used for transactional email.                            |
+| `EMAIL_PROVIDER_API_KEY` | Production Resend credential.                                                                |
+| `POSTHOG_API_KEY`        | Production PostHog project credential.                                                       |
+| `POSTHOG_HOST`           | PostHog EU ingestion host.                                                                   |
+| `SENTRY_DSN`             | Production Sentry project DSN.                                                               |
+
+Production credentials belong in Netlify's environment-variable settings with
+production-only scope. Preview, branch-deploy, and local contexts receive none of
+these credentials.
 
 ## Publishing authority
 

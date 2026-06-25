@@ -4,9 +4,16 @@ import { z } from 'zod'
 export const env = createEnv({
   server: {
     SITE_URL: z.string().url().optional(),
+    CONTEXT: z
+      .enum(['production', 'deploy-preview', 'branch-deploy', 'dev'])
+      .optional(),
+    INTEGRATIONS_MODE: z.enum(['safe', 'production']).default('safe'),
     INQUIRY_RECEIVER_EMAIL: z.string().email().optional(),
     INQUIRY_SENDER_EMAIL: z.string().email().optional(),
     EMAIL_PROVIDER_API_KEY: z.string().min(1).optional(),
+    POSTHOG_API_KEY: z.string().min(1).optional(),
+    POSTHOG_HOST: z.string().url().optional(),
+    SENTRY_DSN: z.string().url().optional(),
   },
 
   /**
