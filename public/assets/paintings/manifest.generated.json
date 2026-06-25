@@ -1,0 +1,647 @@
+{
+  "version": 1,
+  "paintings": [
+    {
+      "slug": "temporary-painting-01",
+      "watermark": {
+        "asset": "/assets/brand/watermark-light.png",
+        "corner": "bottom-right",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 640,
+              "sha256": "3c7084f8d1b74d9abd85e7b8c83d16ed58de379c92b437290648a5f0a704e61b"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 640,
+              "sha256": "4101ecbf66f5b4da88ce948d9d5cdae1b6c42d9e9409d21943e2f6672d749a08"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 640,
+              "sha256": "6d801b0666f5886932e8553f5bf611a4d243fa54ec2f7b6d26a64ea2a1d819f5"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 1280,
+              "sha256": "1fd58a9e766aa0a80eec29740c544d8c75d5a59989ed00e7e4e399660a9bb503"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 1280,
+              "sha256": "c9cbeb9a7590f26255be0d749d853809abe0296a627e73074beef7288eb15c72"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 1280,
+              "sha256": "d67d62f22d22498457c18d293ad80f7e350d8cb9a0f80893c4e037cc4cf17c97"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "51b8121df8020971aaac860a42d78272ce32644182d0af18f3dbf3739a1bf945"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "d1332dd8d9ac9fd4aa3dab2b99a31e2dc2df89b66a4c7e4b15ac1ed4cb3da00e"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "409ba06be1a807c90a0b337b9fd296b57844d827877744901e6efdbb537c4555"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "e33e512efed04df2b827a773693800977d9018c78a1d0eb1a629a57b404e40de"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "f47ed6a3e33cce828a032d9e436a500854f2b05e111939d10605d3e7b77e69d6"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-01/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "bce9b2210dd87dd6e1bf4aa5d6eb4af61ecee6fd63f4bfdf177a60e7adc47084"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-painting-02",
+      "watermark": {
+        "asset": "/assets/brand/watermark-light.png",
+        "corner": "bottom-right",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 360,
+              "sha256": "47540e865efb0afb680c0e083c68756869e844363a33ec08d17af1dd6e787b36"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 360,
+              "sha256": "0edca93b2ea9302514ca175ff692fc96b07e85e6c8800d3426d4182bcf233a98"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 360,
+              "sha256": "8f17426ca12260c59500a722abe4ac75b161895f888dbfd184c33d596705c318"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 721,
+              "sha256": "4eb1a2765c6bb2289faaf0429a6b47d0d4d1a3955e2dbed44a0e6f0747ba7a41"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 721,
+              "sha256": "a3e92cf438909b178fbc2ff0ea3fddcc6b80b6a7a8ff07467a9fc4016852fa72"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 721,
+              "sha256": "903e6252d09854a59d9ffe6318035b1e280fec92fac3e1b22382d3e42b4e5b8e"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "de544f88b16b85d7e356b81115f94460bad6d2f9272393db8157369fef27ee55"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "14a7cb2e49fbb5a18597fb2aea97333d27512d4f36a890a18087594d2f1a171e"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "5b95e39a9905ee0431e68ab6afee4dc38b33483ad8e038ee086fee1bdecdc28d"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "a06c29f9cf007db202907b38fc996e09fd3f49f6c4393df829a793daf97f1070"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "108055dd2fca32026e1dd8585e64da66bee47cf550645b5fed269138d3953bab"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-02/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "0f3140565fc330ae54202aeb039db36310fd21aa1c4a89daa18d694e972c35dc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-painting-03",
+      "watermark": {
+        "asset": "/assets/brand/watermark-dark.png",
+        "corner": "top-left",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 478,
+              "sha256": "6446ab6e0ccb385cf0d2fc10634680c7320533f4edc1e2b971065287e148db12"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 478,
+              "sha256": "25df8dc09476a313cecb8c968ddc84f6191f3d9d4f485e91a63e992a3b4ee1bb"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 478,
+              "sha256": "2fca416a14f1a82dcfa72cc3dff357a49b1b81121ca19226a2a74733a3aeaa19"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 957,
+              "sha256": "354bf1d7dcb692e0c8d781c0052fa2286ab60b7714d6d7cff83d0eb25988e5e8"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 957,
+              "sha256": "68e214549f92154279ad4b88bde23768f693161c3e204cb13021c9c6d6af9bdb"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 957,
+              "sha256": "5d92028abc76bb4d1e9497bf6b6ebc832d51a4b50e882fce92008343d74221cd"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "0d2e1edf9e6a141ecc87ac897ca59922336a91b25d1ccf0208c1069dabba13da"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "5bd629b3a65c0c03e703abc549beef2940f4acaafb3aed42b16dcc84957d2973"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "b73d3e9c7494c33759fcfc3fb5c333dba0dc2e5f0dbf0cbc6fe7e6ba80b51de8"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "cc98ac65bb6ad0d3fb88208585a2f78e4546d1c577615d016541293730342b03"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "3f3b52d3d4e0e08513e900ba5558f833deec09b64d529e6965a926da7841eec6"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-03/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "d0599cdc8d23c10c535b96165e340e813fb2f4bdcf8fee7316fd7c665245d99e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-painting-04",
+      "watermark": {
+        "asset": "/assets/brand/watermark-light.png",
+        "corner": "bottom-right",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 361,
+              "sha256": "e622da463ae082b86eb2fc56fb584d76715bd228731cacbc3ddfbe22950e2294"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 361,
+              "sha256": "4085c01c473ea1ffcd419bf6549a0bfde649c53a09ebb05d1714ca9a29cf92aa"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 361,
+              "sha256": "5e2eaba2d83e8d3a12a6f70d9cfb24e1918bcbed7cfe71202b0d3c36ea6abcd8"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 722,
+              "sha256": "43365532c805103b4535b388feaf8729cb0f6958bfb149e80269150bc45f248e"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 722,
+              "sha256": "b473ffbb8814e353b812f71572df0ed39a18ab687bf4f17c1c4e56ef34ee9731"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 722,
+              "sha256": "75898a451b5037391c1681fa3a411f60a4f328a9ab5c9415cebe56bf9cf094bf"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "23037469b5c9a28a332b3d56b3a4778e845ae89d501009b726a12a72a8a00b9c"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "cd378e5fa69df98e2b4794d31d4d66700922ce35c5b9fbee019fb7bad333dc18"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "3b866bb0451a6aeeddb8b7eb0d041732afd97e72858756df34381c330bdcdd8d"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "2d7d36de19b6caa602ce64a10b55d74efed51d2c61ec7443fed6afca1944636b"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "1cd25b46c13a442f3ec61c6992c9fc428b33a8e9c18d4d739cdf10ed7f271b6a"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-04/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "531e7854cfe0c017b96681b61d4c57fb5d1f54e79541f85e26f9f338e21eb828"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-painting-05",
+      "watermark": {
+        "asset": "/assets/brand/watermark-light.png",
+        "corner": "bottom-right",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 596,
+              "sha256": "17f199b2a0c6b5314d7b8cc4f37a3f68e007e66d3a50818eb4680ce8a95a790e"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 596,
+              "sha256": "2acb3f2981b1467728a6daac34276a70449585064812f59cd436accd1f32283f"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 596,
+              "sha256": "c41c956c6c3f101ff6aee7e2c2614066409cd18c639921332641749a6a139991"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 1191,
+              "sha256": "bca1fa4278652ae95e73caea7d62bfcd11d2bffc4766dbd8e260370d41bf88d4"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 1191,
+              "sha256": "86791e767cc06eed240baad44e68a8488ac04117f25f84b1891a3b1633923972"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 1191,
+              "sha256": "cd2425975e51be81a8178fd4b8d4da7e9fbfb419e04d0d00f10ac2a995db311a"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "abebae12bcae8f830d3810fe69d81bf22d9525eada494dece670a19789bc2609"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "f54370dbf7cca76448c2fef4ba1730de456a28c962f266cff481c0d5580cfbb3"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "bd8b1a876bb2ae368049c35a43ac67c68b68e410b5dc8bfae474da9b982cc49f"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "bec90b5b3d6ec71f48aa72029f24098b7a7124e1c009c213986d0b476abf1beb"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "bd61313beed40dc64c233539be9548abf87460af0be82144fd8fb75e32551fa3"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-05/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "862c7d3efe8f8ef90fd45aa8d935e905848e67c6e485f8e0f8af2d90aa2ec078"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-painting-06",
+      "watermark": {
+        "asset": "/assets/brand/watermark-dark.png",
+        "corner": "bottom-right",
+        "opacity": 0.22,
+        "scale": 0.1,
+        "margin": 0.035,
+        "pixelDifferenceVerified": true
+      },
+      "images": [
+        {
+          "role": "main",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-480.avif",
+              "format": "avif",
+              "width": 480,
+              "height": 478,
+              "sha256": "edd70ecc9a73f5c82cdf0a4d4c6f6b4ad6bb38344770c67375d448c9162a8e1c"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-480.webp",
+              "format": "webp",
+              "width": 480,
+              "height": 478,
+              "sha256": "1f393c63a2be115d0d50e9e86ef3354867b3abf8d3f71788dbeb33b9758463eb"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-480.jpg",
+              "format": "jpeg",
+              "width": 480,
+              "height": 478,
+              "sha256": "8870e683b887aaa1427ad625bfa172aceed7b43f8e8abff4eec20fc92bd9e3b7"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-960.avif",
+              "format": "avif",
+              "width": 960,
+              "height": 957,
+              "sha256": "cef26d3bb39708cb54e84592c57c9d4647516db520f667b73d1e160fbd5aa195"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-960.webp",
+              "format": "webp",
+              "width": 960,
+              "height": 957,
+              "sha256": "439a064fa174b3dc79bae611934621d0ab69991e3bf6c47becd044f1250ad6e8"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/main-960.jpg",
+              "format": "jpeg",
+              "width": 960,
+              "height": 957,
+              "sha256": "e0edd18513bdb657e6d08996a0c6fc1ffbf247f2061afb4af9cc2ab6a42a4c12"
+            }
+          ]
+        },
+        {
+          "role": "room-context",
+          "variants": [
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-640.avif",
+              "format": "avif",
+              "width": 640,
+              "height": 480,
+              "sha256": "d4362e6df7799728cdc691195253f789281fab59b42c55d0907ace45c42ee6f0"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-640.webp",
+              "format": "webp",
+              "width": 640,
+              "height": 480,
+              "sha256": "4709991429e478d9a2bfbd781254d61a69eccd4dc70858a8393e280def1fdf71"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-640.jpg",
+              "format": "jpeg",
+              "width": 640,
+              "height": 480,
+              "sha256": "1247d61fb7f56baecdd0e77355d08cd9dd997ccbacb80000f2e4b5cdd0bc01b4"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-1200.avif",
+              "format": "avif",
+              "width": 1200,
+              "height": 900,
+              "sha256": "898509435ca293ec0d02d1ef4c429338dd66150d2c1e32d481f8b25c67ef9d59"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-1200.webp",
+              "format": "webp",
+              "width": 1200,
+              "height": 900,
+              "sha256": "dc86370dd4b9feb0613e2ad9abdc503dbf762c4f5e0921d8c129859d3ca1a5a4"
+            },
+            {
+              "path": "/assets/paintings/temporary-painting-06/room-context-1200.jpg",
+              "format": "jpeg",
+              "width": 1200,
+              "height": 900,
+              "sha256": "f9c9b7261747caa7c6116312ed7b398cc035cc54c12929c3f1fdefe3f2fd94d8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

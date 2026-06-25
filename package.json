@@ -11,8 +11,9 @@
   "scripts": {
     "dev": "dotenv -e .env.local -- vite dev --port 3000",
     "assets:brand": "node scripts/prepare-brand-assets.mjs",
+    "assets:paintings": "node scripts/prepare-painting-assets.mjs",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "vite build && node scripts/strip-private-painting-sources.mjs",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint",

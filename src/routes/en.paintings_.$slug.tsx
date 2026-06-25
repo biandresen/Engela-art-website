@@ -1,11 +1,11 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import { LocalizedPage } from '#/components/LocalizedPage'
-import { getPaintingBySlug } from '#/lib/helpers/getPaintingBySlug'
+import { paintingCatalog } from '#/local-db/paintings'
 
 export const Route = createFileRoute('/en/paintings_/$slug')({
   loader: ({ params }) => {
-    const painting = getPaintingBySlug(params.slug)
+    const painting = paintingCatalog.getBySlug(params.slug)
 
     if (!painting) {
       throw notFound()
