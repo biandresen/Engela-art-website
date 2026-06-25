@@ -4,6 +4,7 @@ dist
 dist-ssr
 .content-collections
 .netlify
+.playwright-mcp
 .fallow
 *.local
 .env
