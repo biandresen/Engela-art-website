@@ -1,17 +1,12 @@
-type PaintingStatus = 'available' | 'reserved' | 'sold'
-
-export type Painting = {
-  title: string
-  slug: string
-  medium: string
-  dimensions: string
-  year?: number
-  priceNok?: number
-  status: PaintingStatus
-  description: string
-  images: Array<{
-    src: string
-    alt: string
-  }>
-  featured: boolean
-}
+export type {
+  CareProfile,
+  LocalizedText,
+  Painting,
+  PaintingImage,
+  PaintingImageRole,
+  PaintingOrientation,
+  PaintingQuery,
+  PaintingRecord,
+  PaintingSort,
+  PaintingStatus,
+} from '#/lib/paintings/types'
