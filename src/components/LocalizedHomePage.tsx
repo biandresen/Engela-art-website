@@ -2,6 +2,7 @@ import type { Locale } from '#/lib/i18n/locale'
 import { getPageContent } from '#/lib/i18n/content'
 import { getHomepage } from '#/lib/homepage/homepage'
 import { localizedPaths } from '#/lib/i18n/routes'
+import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
 
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
@@ -72,7 +73,9 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <Badge
                 variant="outline"
-                className={getStatusClassName(heroPresentation.painting.status)}
+                className={getPaintingStatusClassName(
+                  heroPresentation.painting.status,
+                )}
               >
                 {heroPresentation.statusLabel}
               </Badge>
@@ -125,7 +128,7 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
                     <h3 className="text-lg font-semibold">{painting.title}</h3>
                     <Badge
                       variant="outline"
-                      className={getStatusClassName(painting.status)}
+                      className={getPaintingStatusClassName(painting.status)}
                     >
                       {presentation.statusLabel}
                     </Badge>
@@ -189,14 +192,4 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
       </section>
     </main>
   )
-}
-
-function getStatusClassName(status: 'available' | 'reserved' | 'sold') {
-  if (status === 'available') {
-    return 'border-available text-available'
-  }
-
-  return status === 'reserved'
-    ? 'border-reserved text-reserved'
-    : 'border-sold text-sold'
 }

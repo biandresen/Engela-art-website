@@ -1,5 +1,5 @@
 import type { Locale } from '#/lib/i18n/locale'
-import type { Painting } from '#/lib/paintings/types'
+import { presentPainting } from '#/lib/paintings/presentation'
 import { paintingCatalog } from '#/local-db/paintings'
 
 const seasonalHeroPaintingSlug = 'temporary-painting-04'
@@ -30,16 +30,6 @@ export function getHomepage(locale: Locale) {
             'Midlertidig kunstnerpresentasjon – godkjent biografi og prosessbeskrivelse mangler.',
           artistPreviewAction: 'Om Engela',
           artistPortraitAlt: 'Portrett av Engela',
-          statuses: {
-            available: 'Tilgjengelig',
-            reserved: 'Reservert',
-            sold: 'Solgt',
-          },
-          priceLabels: {
-            available: 'Pris',
-            reserved: 'Oppgitt pris',
-            sold: 'Historisk oppgitt pris',
-          },
         }
       : {
           heroLabel: 'Temporary seasonal selection',
@@ -56,47 +46,13 @@ export function getHomepage(locale: Locale) {
             'Temporary artist preview — approved biography and process details are pending.',
           artistPreviewAction: 'About Engela',
           artistPortraitAlt: 'Portrait of Engela',
-          statuses: {
-            available: 'Available',
-            reserved: 'Reserved',
-            sold: 'Sold',
-          },
-          priceLabels: {
-            available: 'Price',
-            reserved: 'Listed price',
-            sold: 'Historical listed price',
-          },
         }
 
   return {
-    heroPainting: presentPainting(heroPainting),
-    featuredPaintings: paintingCatalog.featured().map(presentPainting),
+    heroPainting: presentPainting(locale, heroPainting),
+    featuredPaintings: paintingCatalog
+      .featured()
+      .map((painting) => presentPainting(locale, painting)),
     content,
-  }
-
-  function presentPainting(painting: Painting) {
-    const mainImage = painting.images.find((image) => image.role === 'main')
-
-    if (!mainImage) {
-      throw new Error(
-        `Homepage painting requires a main image: ${painting.slug}`,
-      )
-    }
-
-    const formattedPrice = new Intl.NumberFormat(
-      locale === 'no' ? 'nb-NO' : 'en-US',
-      {
-        style: 'currency',
-        currency: 'NOK',
-        maximumFractionDigits: 0,
-      },
-    ).format(painting.listedPriceNok)
-
-    return {
-      painting,
-      mainImage,
-      statusLabel: content.statuses[painting.status],
-      priceLabel: `${content.priceLabels[painting.status]}: ${formattedPrice}`,
-    }
   }
 }
