@@ -3,6 +3,10 @@ import { getPageContent } from '#/lib/i18n/content'
 import { getHomepage } from '#/lib/homepage/homepage'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
+import {
+  TestimonialsSection,
+  getApprovedTestimonials,
+} from '#/lib/testimonials/testimonials'
 
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
@@ -20,6 +24,13 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
     content: homepageContent,
   } = getHomepage(locale)
   const paths = localizedPaths[locale]
+  const testimonials = getApprovedTestimonials({ limit: 2 })
+  const testimonialsHeading =
+    locale === 'no' ? 'Tilbakemeldinger' : 'Testimonials'
+  const testimonialsIntro =
+    locale === 'no'
+      ? 'Et kort utvalg av godkjente kundeuttalelser.'
+      : 'A concise selection of approved buyer feedback.'
 
   return (
     <main>
@@ -190,6 +201,13 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
           </div>
         </div>
       </section>
+
+      <TestimonialsSection
+        locale={locale}
+        entries={testimonials}
+        heading={testimonialsHeading}
+        intro={testimonialsIntro}
+      />
     </main>
   )
 }

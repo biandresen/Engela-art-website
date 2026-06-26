@@ -99,3 +99,25 @@ artist must approve or replace:
   the 48-hour response rule;
 - the sold-work explanation that similar-work inquiries do not promise exact
   reproduction or accepted commissions.
+
+## About and testimonial approval requirements
+
+Issue #12 uses the prepared portrait derivatives from `public/assets/portrait/`
+and deliberately avoids publishing an official biography, credentials,
+exhibition history, Google profile claims, ratings, or testimonials until they
+are supported by artist-approved source material.
+
+Before launch, the artist must approve or replace:
+
+- the Norwegian first-person biography, motivation, inspiration, process, and
+  background copy;
+- the English translation after the Norwegian source wording is approved;
+- the portrait crop, alternative text, and page placement;
+- any exhibition, credential, education, or professional-history statement;
+- every testimonial quote, display name, date, source label, source link when
+  applicable, and written publication consent record.
+
+The testimonials collection may stay empty at launch. When empty, the public
+site renders no testimonials heading, placeholder review, rating, or
+"coming soon" area. Adding the first testimonial is a content update through
+the shared testimonials module rather than a homepage or About-page rewrite.
