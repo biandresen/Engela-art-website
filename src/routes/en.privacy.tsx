@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { LocalizedPage } from '#/components/LocalizedPage'
+import { LocalizedLegalPage } from '#/components/LocalizedLegalPage'
 
 export const Route = createFileRoute('/en/privacy')({
-  component: () => <LocalizedPage locale="en" page="privacy" />,
+  component: () => <LocalizedLegalPage locale="en" page="privacy" />,
 })

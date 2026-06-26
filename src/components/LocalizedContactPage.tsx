@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 
+import { FaqSection } from '#/components/FaqSection'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
@@ -384,6 +385,8 @@ export function LocalizedContactPage({
               </a>
             </div>
           </section>
+
+          <FaqSection locale={locale} scope="contact" />
         </aside>
       </div>
     </main>
