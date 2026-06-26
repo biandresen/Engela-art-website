@@ -39,12 +39,79 @@ afterEach(() => {
 })
 
 describe('contact routes', () => {
-  it('renders the English inquiry form with safe painting context from the URL', async () => {
+  it('renders status-specific painting journeys through the unified contact form', async () => {
+    const cases = [
+      {
+        url: '/en/contact?type=painting&painting=temporary-painting-01',
+        title: 'Painting inquiry',
+        prefill:
+          'Hello Engela Art,\n\nI am interested in Temporary painting 01 (EA-2026-001). Please let me know whether it is available and what the next steps are.',
+      },
+      {
+        url: '/en/contact?type=interest-list&painting=temporary-painting-02',
+        title: 'Interest list',
+        prefill:
+          'Hello Engela Art,\n\nI would like to join the interest list for Temporary painting 02 (EA-2026-002). I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.',
+      },
+      {
+        url: '/en/contact?type=similar-work&painting=temporary-painting-03',
+        title: 'Similar work',
+        prefill:
+          'Hello Engela Art,\n\nI am interested in similar work with Temporary painting 03 (EA-2026-003) as a reference. I understand this does not request an exact reproduction or create an accepted commission.',
+      },
+    ] as const
+
+    for (const item of cases) {
+      cleanup()
+
+      const router = createRouter({
+        routeTree,
+        history: createMemoryHistory({
+          initialEntries: [item.url],
+        }),
+      })
+
+      await router.load()
+      render(<RouterProvider router={router} />)
+
+      const main = await screen.findByRole('main')
+
+      expect(
+        within(main).getByRole('heading', { level: 1, name: 'Contact' }),
+      ).toBeTruthy()
+      expect(main.textContent).toContain(
+        'Use the form for painting inquiries. You can also email kontakt@engelaart.no.',
+      )
+      expect(main.textContent).toContain(item.title)
+      expect(main.textContent).toContain('Temporary painting')
+      expect(
+        within(main).getByLabelText<HTMLTextAreaElement>('Message').value,
+      ).toBe(item.prefill)
+      expect(within(main).getByLabelText('Name').hasAttribute('required')).toBe(
+        true,
+      )
+      expect(
+        within(main).getByLabelText('Email').hasAttribute('required'),
+      ).toBe(true)
+      expect(within(main).getByLabelText('Phone (optional)')).toBeTruthy()
+      expect(within(main).queryByLabelText(/address/i)).toBeNull()
+      expect(main.textContent).toContain(
+        'Engela Art processes this information to answer your inquiry.',
+      )
+      expect(
+        within(main)
+          .getByRole('link', { name: 'privacy notice' })
+          .getAttribute('href'),
+      ).toBe('/en/privacy')
+    }
+  })
+
+  it('derives trusted inquiry category from the current painting status', async () => {
     const router = createRouter({
       routeTree,
       history: createMemoryHistory({
         initialEntries: [
-          '/en/contact?type=painting&painting=temporary-painting-01',
+          '/en/contact?type=painting&painting=temporary-painting-03',
         ],
       }),
     })
@@ -54,35 +121,10 @@ describe('contact routes', () => {
 
     const main = await screen.findByRole('main')
 
-    expect(
-      within(main).getByRole('heading', { level: 1, name: 'Contact' }),
-    ).toBeTruthy()
-    expect(main.textContent).toContain(
-      'Use the form for painting inquiries. You can also email kontakt@engelaart.no.',
-    )
-    expect(main.textContent).toContain('Painting inquiry')
-    expect(main.textContent).toContain('Temporary painting 01')
+    expect(main.textContent).toContain('Similar work')
     expect(
       within(main).getByLabelText<HTMLTextAreaElement>('Message').value,
-    ).toBe(
-      'Hello Engela Art,\n\nI am interested in Temporary painting 01 (EA-2026-001). Please let me know whether it is available and what the next steps are.',
-    )
-    expect(within(main).getByLabelText('Name').hasAttribute('required')).toBe(
-      true,
-    )
-    expect(within(main).getByLabelText('Email').hasAttribute('required')).toBe(
-      true,
-    )
-    expect(within(main).getByLabelText('Phone (optional)')).toBeTruthy()
-    expect(within(main).queryByLabelText(/address/i)).toBeNull()
-    expect(main.textContent).toContain(
-      'Engela Art processes this information to answer your inquiry.',
-    )
-    expect(
-      within(main)
-        .getByRole('link', { name: 'privacy notice' })
-        .getAttribute('href'),
-    ).toBe('/en/privacy')
+    ).toContain('does not request an exact reproduction')
   })
 
   it('falls back to a localized general inquiry for stale query context', async () => {

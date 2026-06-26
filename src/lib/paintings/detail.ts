@@ -1,4 +1,5 @@
 import type { Locale } from '#/lib/i18n/locale'
+import { getInquiryTypeForPaintingStatus } from '#/lib/inquiries/inquiry'
 
 import { getCareGuidance } from './care'
 import { presentPainting } from './presentation'
@@ -6,12 +7,7 @@ import type { Painting } from './types'
 
 export function getPaintingDetail(locale: Locale, painting: Painting) {
   const presentation = presentPainting(locale, painting)
-  const inquiryType =
-    painting.status === 'available'
-      ? 'painting'
-      : painting.status === 'reserved'
-        ? 'interest-list'
-        : 'similar-work'
+  const inquiryType = getInquiryTypeForPaintingStatus(painting.status)
   const actionLabel =
     locale === 'no'
       ? painting.status === 'available'

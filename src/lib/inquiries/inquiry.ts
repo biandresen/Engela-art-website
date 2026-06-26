@@ -3,6 +3,7 @@ import { z } from 'zod'
 import type { TransactionalEmailAdapter } from '#/lib/integrations/email'
 import { paintingCatalog } from '#/local-db/paintings'
 import type { Locale } from '#/lib/i18n/locale'
+import type { PaintingStatus } from '#/lib/paintings/types'
 
 export type InquiryType =
   | 'general'
@@ -245,9 +246,7 @@ export function resolveInquiryContext({
       ? (type as InquiryType)
       : 'general'
   const resolvedPainting = painting ? paintingCatalog.getBySlug(painting) : null
-  const needsPainting = ['painting', 'interest-list', 'similar-work'].includes(
-    requestedType,
-  )
+  const needsPainting = isPaintingInquiryType(requestedType)
 
   if (needsPainting && !resolvedPainting) {
     return {
@@ -281,13 +280,38 @@ export function resolveInquiryContext({
   }
 
   const paintingReference = `${resolvedPainting.title} (${resolvedPainting.paintingId})`
+  const inquiryType = getInquiryTypeForPaintingStatus(resolvedPainting.status)
 
   return {
-    inquiryType: requestedType,
+    inquiryType,
     paintingSlug: resolvedPainting.slug,
-    title: labels[locale].contextTitles[requestedType],
-    prefill: labels[locale].prefill(requestedType, paintingReference),
+    title: labels[locale].contextTitles[inquiryType],
+    prefill: labels[locale].prefill(inquiryType, paintingReference),
   }
+}
+
+function isPaintingInquiryType(
+  inquiryType: InquiryType,
+): inquiryType is 'painting' | 'interest-list' | 'similar-work' {
+  return (
+    inquiryType === 'painting' ||
+    inquiryType === 'interest-list' ||
+    inquiryType === 'similar-work'
+  )
+}
+
+export function getInquiryTypeForPaintingStatus(
+  status: PaintingStatus,
+): 'painting' | 'interest-list' | 'similar-work' {
+  if (status === 'available') {
+    return 'painting'
+  }
+
+  if (status === 'reserved') {
+    return 'interest-list'
+  }
+
+  return 'similar-work'
 }
 
 function mapFieldErrors(error: z.ZodError): InquiryFieldErrors {
@@ -370,10 +394,7 @@ function createBuyerAcknowledgement({
   const painting = context.paintingSlug
     ? paintingCatalog.getBySlug(context.paintingSlug)
     : undefined
-  const reservationText =
-    context.inquiryType === 'painting'
-      ? 'This does not reserve the painting.'
-      : 'This does not create a reservation, sale, or accepted commission.'
+  const reservationText = getAcknowledgementSafetyText(context.inquiryType)
 
   return {
     to: input.email,
@@ -398,6 +419,26 @@ function createBuyerAcknowledgement({
   }
 }
 
+function getAcknowledgementSafetyText(inquiryType: InquiryType): string {
+  if (inquiryType === 'painting') {
+    return 'This does not reserve the painting. The artist confirms availability before any reservation.'
+  }
+
+  if (inquiryType === 'interest-list') {
+    return 'This does not reserve or guarantee the painting. Interest-list order uses the server submission time.'
+  }
+
+  if (inquiryType === 'similar-work') {
+    return 'This does not request an exact reproduction or create an accepted commission.'
+  }
+
+  if (inquiryType === 'commission') {
+    return 'This does not create an accepted commission. Any commission requires artist review and a written proposal.'
+  }
+
+  return 'This does not create a reservation, sale, or accepted commission.'
+}
+
 const labels = {
   no: {
     generalTitle: 'Generell henvendelse',
@@ -414,10 +455,10 @@ const labels = {
     },
     prefill(type: InquiryType, paintingReference: string): string {
       if (type === 'interest-list') {
-        return `Hei Engela Art,\n\nJeg ønsker å stå på interesselisten for ${paintingReference}.`
+        return `Hei Engela Art,\n\nJeg ønsker å stå på interesselisten for ${paintingReference}. Jeg forstår at dette ikke reserverer eller garanterer maleriet, og at interessen behandles i rekkefølgen forespørslene mottas med 48 timers svarfrist hvis jeg blir kontaktet.`
       }
       if (type === 'similar-work') {
-        return `Hei Engela Art,\n\nJeg er interessert i lignende arbeid med utgangspunkt i ${paintingReference}.`
+        return `Hei Engela Art,\n\nJeg er interessert i lignende arbeid med utgangspunkt i ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent bestillingsoppdrag.`
       }
 
       return `Hei Engela Art,\n\nJeg er interessert i ${paintingReference}. Gi meg gjerne beskjed om maleriet er tilgjengelig og hva neste steg er.`
@@ -438,10 +479,10 @@ const labels = {
     },
     prefill(type: InquiryType, paintingReference: string): string {
       if (type === 'interest-list') {
-        return `Hello Engela Art,\n\nI would like to join the interest list for ${paintingReference}.`
+        return `Hello Engela Art,\n\nI would like to join the interest list for ${paintingReference}. I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.`
       }
       if (type === 'similar-work') {
-        return `Hello Engela Art,\n\nI am interested in similar work with ${paintingReference} as a reference.`
+        return `Hello Engela Art,\n\nI am interested in similar work with ${paintingReference} as a reference. I understand this does not request an exact reproduction or create an accepted commission.`
       }
 
       return `Hello Engela Art,\n\nI am interested in ${paintingReference}. Please let me know whether it is available and what the next steps are.`

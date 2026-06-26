@@ -83,6 +83,69 @@ describe('inquiry submission seam', () => {
     expect(deps.email.messages[0]?.subject).toBe('Engela Art general inquiry')
   })
 
+  it('derives status-specific categories and subjects from trusted painting data', async () => {
+    const cases = [
+      {
+        painting: 'temporary-painting-01',
+        requestedType: 'similar-work',
+        inquiryType: 'painting',
+        subject: 'Engela Art painting inquiry: Temporary painting 01',
+        acknowledgement:
+          'This does not reserve the painting. The artist confirms availability before any reservation.',
+      },
+      {
+        painting: 'temporary-painting-02',
+        requestedType: 'painting',
+        inquiryType: 'interest-list',
+        subject: 'Engela Art interest-list inquiry: Temporary painting 02',
+        acknowledgement:
+          'This does not reserve or guarantee the painting. Interest-list order uses the server submission time.',
+      },
+      {
+        painting: 'temporary-painting-03',
+        requestedType: 'painting',
+        inquiryType: 'similar-work',
+        subject: 'Engela Art similar-work inquiry: Temporary painting 03',
+        acknowledgement:
+          'This does not request an exact reproduction or create an accepted commission.',
+      },
+    ] as const
+
+    for (const item of cases) {
+      const deps = dependencies()
+
+      const result = await submitInquiry(
+        {
+          ...validInput,
+          type: item.requestedType,
+          painting: item.painting,
+          message: 'Visitor-edited message text.',
+          clientToken: `trusted-${item.painting}`,
+        },
+        deps,
+      )
+
+      expect(result).toMatchObject({
+        status: 'success',
+        inquiryType: item.inquiryType,
+        paintingSlug: item.painting,
+      })
+      expect(deps.email.messages[0]).toMatchObject({
+        subject: item.subject,
+      })
+      expect(deps.email.messages[0]?.text).toContain(
+        `Inquiry type: ${item.inquiryType}`,
+      )
+      expect(deps.email.messages[0]?.text).toContain(
+        'Submitted at: 2026-06-26T10:00:04.000Z',
+      )
+      expect(deps.email.messages[0]?.text).toContain(
+        'Visitor-edited message text.',
+      )
+      expect(deps.email.messages[1]?.text).toContain(item.acknowledgement)
+    }
+  })
+
   it('rejects validation errors and abuse controls without sending email', async () => {
     const deps = dependencies()
 

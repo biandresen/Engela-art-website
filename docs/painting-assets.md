@@ -82,3 +82,20 @@ replace:
 The detail pages preserve the temporary metadata label and catalog notes.
 Changing or removing those markers requires the same artist approval as the
 underlying fields.
+
+## Painting-status inquiry approval requirements
+
+Issue #10 connects the temporary catalog statuses to public inquiry journeys:
+available paintings use painting inquiries, reserved paintings use interest-list
+inquiries, and sold paintings use similar-work inquiries. Before launch, the
+artist must approve or replace:
+
+- every temporary painting status used to choose the inquiry journey;
+- the Norwegian action labels, editable prefill text, success/acknowledgement
+  guidance, and mailbox category wording for painting, interest-list, and
+  similar-work inquiries;
+- the English translations after the Norwegian source wording is approved;
+- the reserved-work explanation for submission ordering, lack of guarantee, and
+  the 48-hour response rule;
+- the sold-work explanation that similar-work inquiries do not promise exact
+  reproduction or accepted commissions.
