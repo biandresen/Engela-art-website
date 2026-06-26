@@ -52,6 +52,9 @@ describe('painting detail routes', () => {
     expect(main.textContent).toContain(
       'Temporary medium text. Materials require artist approval.',
     )
+    expect(main.textContent).toContain(
+      'Temporary technique text. Technique requires artist approval.',
+    )
     expect(main.textContent).toContain('40 × 60 × 2 cm')
     expect(main.textContent).toContain('2026')
     expect(main.textContent).toContain('Available')
@@ -98,6 +101,7 @@ describe('painting detail routes', () => {
     const main = await screen.findByRole('main')
 
     expect(main.textContent).toContain('Midlertidig mediumtekst.')
+    expect(main.textContent).toContain('Midlertidig teknikktekst.')
     expect(main.textContent).toContain('Reservert')
     expect(main.textContent).toContain('Oppgitt pris: 2 000 kr')
     expect(main.textContent).toContain('Selges uten ramme.')

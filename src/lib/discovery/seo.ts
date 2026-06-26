@@ -66,13 +66,13 @@ const localizedDescriptions: Record<
     home: () =>
       'Originale malerier fra Engela Art. Utforsk tilgjengelige arbeider, kunstnerhistorien og hvordan du kan sende en trygg forespørsel.',
     paintings: () =>
-      'Utforsk originale malerier fra Engela Art med status, mål, medium og oppgitt pris i NOK.',
+      'Utforsk originale malerier fra Engela Art med status, mål, medium, teknikk og oppgitt pris i NOK.',
     painting: (painting) =>
       painting
-        ? `${painting.title} fra Engela Art. Se status, mål, medium, pris og hvordan du kan sende en forespørsel.`
+        ? `${painting.title} fra Engela Art. Se status, mål, medium, teknikk, pris og hvordan du kan sende en forespørsel.`
         : getPageContent('no', 'painting').intro,
     commissions: () =>
-      'Les hvordan Engela Art vurderer bestillingsverk inspirert av eksisterende arbeider, med startpriser, tidslinjer og foresporsel.',
+      'Les hvordan Engela Art vurderer bestillingsverk inspirert av eksisterende arbeider, med startpriser, tidslinjer og forespørsel.',
     about: () =>
       'Bli kjent med Engela og prosessen bak de originale maleriene fra Engela Art.',
     contact: () =>
@@ -86,10 +86,10 @@ const localizedDescriptions: Record<
     home: () =>
       'Original paintings by Engela Art. Explore available work, the artist story, and how to send a clear inquiry.',
     paintings: () =>
-      'Explore original paintings from Engela Art with status, dimensions, medium, and listed NOK prices.',
+      'Explore original paintings from Engela Art with status, dimensions, medium, technique, and listed NOK prices.',
     painting: (painting) =>
       painting
-        ? `${painting.title} by Engela Art. View status, dimensions, medium, price, and how to send an inquiry.`
+        ? `${painting.title} by Engela Art. View status, dimensions, medium, technique, price, and how to send an inquiry.`
         : getPageContent('en', 'painting').intro,
     commissions: () =>
       'Learn how Engela Art reviews inspired-by commission inquiries, including starting prices, timelines, and the inquiry process.',
@@ -331,6 +331,13 @@ function buildVisualArtwork(
     identifier: painting.paintingId,
     artMedium: painting.medium[locale],
     description: painting.visualSummary[locale],
+    additionalProperty: [
+      {
+        '@type': 'PropertyValue',
+        name: locale === 'no' ? 'Teknikk' : 'Technique',
+        value: painting.technique[locale],
+      },
+    ],
     dateCreated: String(painting.year),
     width: {
       '@type': 'QuantitativeValue',

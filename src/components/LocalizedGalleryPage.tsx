@@ -175,6 +175,9 @@ export function LocalizedGalleryPage({
                     {painting.medium[locale]}
                   </p>
                   <p className="mt-2 text-sm text-muted-foreground">
+                    {painting.technique[locale]}
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">
                     {painting.year} · {painting.widthCm} × {painting.heightCm} ×{' '}
                     {painting.depthCm} cm
                   </p>

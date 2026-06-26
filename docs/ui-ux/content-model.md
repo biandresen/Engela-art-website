@@ -38,6 +38,7 @@ Each painting should have:
 - Title
 - One stable language-neutral slug shared by both languages
 - Bilingual descriptive medium
+- Bilingual technique
 - Width, height, and depth in centimetres
 - Year
 - Price in NOK
@@ -59,7 +60,9 @@ Medium is approved descriptive text in Norwegian and English rather than a stric
 
 Name notable materials when practical, for example “Akryl, pastell og strukturpasta på lerret.” Use “mixed media on canvas” when a precise list would be unwieldy, but do not use it to conceal information material to care, appearance, or buyer expectations. Do not filter by medium in v1.
 
-Care guidance uses explicit approved keys rather than parsing medium text. Initial reusable profiles:
+Technique is approved descriptive text in Norwegian and English that explains how the artist made the work. Use it for process and mark-making such as layering, brushwork, palette-knife work, pouring, glazing, scraping, or texture-building. Do not use technique to repeat the material list; keep material facts in medium so care guidance and buyer expectations remain clear.
+
+Care guidance uses explicit approved keys rather than parsing medium or technique text. Initial reusable profiles:
 
 - `acrylic`
 - `textured-surface`

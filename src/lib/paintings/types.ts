@@ -51,6 +51,7 @@ export type PaintingRecord = {
   title: string
   slug: string
   medium: LocalizedText
+  technique: LocalizedText
   visualSummary: LocalizedText
   artistNote?: LocalizedText
   widthCm: number

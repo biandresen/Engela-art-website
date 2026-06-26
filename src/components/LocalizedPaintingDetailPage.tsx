@@ -113,6 +113,10 @@ export function LocalizedPaintingDetailPage({
               value={painting.medium[locale]}
             />
             <MetadataRow
+              label={detail.content.technique}
+              value={painting.technique[locale]}
+            />
+            <MetadataRow
               label={detail.content.dimensions}
               value={`${painting.widthCm} × ${painting.heightCm} × ${painting.depthCm} cm`}
             />

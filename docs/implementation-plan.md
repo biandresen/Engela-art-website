@@ -78,6 +78,7 @@ Required fields:
 - title
 - slug
 - bilingual medium
+- bilingual technique
 - bilingual visual summary
 - optional bilingual artist note
 - numeric width, height, and depth
@@ -167,7 +168,7 @@ Build the gallery page with:
 
 - Responsive painting grid
 - Painting cards
-- Image, title, medium, width × height × depth
+- Image, title, medium, technique, width × height × depth
 - Status label
 - Public or historical NOK price
 - Sold/reserved visual treatment

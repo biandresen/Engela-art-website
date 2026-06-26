@@ -62,6 +62,14 @@ _Avoid_: Checkout, order confirmation
 The public NOK amount shown for a painting and retained as historical pricing context after sale. It is distinct from any confidential negotiated transaction total.
 _Avoid_: Sale price, invoice total
 
+**Medium**:
+The bilingual description of the painting's physical materials and support, such as acrylic, pastel, texture paste, or canvas.
+_Avoid_: Technique, care profile
+
+**Technique**:
+The bilingual description of how the artist made the painting, such as brushwork, layering, palette-knife work, pouring, glazing, or other process and mark-making choices.
+_Avoid_: Medium, care profile
+
 **Care profile**:
 The approved set of handling and display guidance applicable to a painting's materials and surface. It is selected explicitly rather than inferred from descriptive medium text.
 _Avoid_: Medium, generated care advice

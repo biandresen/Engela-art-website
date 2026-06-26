@@ -43,14 +43,14 @@ Required content:
 - Painting cards
 - Artwork image
 - Title
-- Medium or dimensions
+- Medium, technique, or dimensions
 - Status
 - Public or historical NOK price
 - Status filters for available, reserved, and sold work
 - Orientation filters for landscape, portrait, and square work
 - Sorting by year, total area, and price
 
-Every card shows title, status, medium or dimensions, and NOK price. Sold cards label the amount as historical context, and reserved cards must not imply immediate availability.
+Every card shows title, status, medium, technique, dimensions, and NOK price. Sold cards label the amount as historical context, and reserved cards must not imply immediate availability.
 
 Use a regular responsive grid with consistent card widths and stable image areas. Preserve varied painting orientations with `object-contain`; do not use masonry layout. Visual order must match DOM, keyboard, and selected sort order.
 
@@ -94,7 +94,7 @@ Respect device safe areas and add sufficient page padding so the action never co
 
 Detail pages do not include automated related-painting recommendations in v1. Provide a clear “View all paintings” action for visitors arriving from shared or search links. When gallery query state is available, also provide a “Back to paintings” action that restores the visitor's filters and sorting.
 
-The care card renders shared bilingual baseline guidance plus the painting's explicitly selected material/surface profiles and any exceptional note. It must not invent care advice from free-text medium content.
+The care card renders shared bilingual baseline guidance plus the painting's explicitly selected material/surface profiles and any exceptional note. It must not invent care advice from free-text medium or technique content.
 
 ### Commissions
 
