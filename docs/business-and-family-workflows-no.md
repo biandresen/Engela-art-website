@@ -8,6 +8,10 @@ Nettstedet hjelper kjøpere med å finne malerier og sende formelle forespørsle
 
 Nettstedet erstatter ikke menneskelig kommunikasjon. Det støtter den.
 
+Praktiske sjekklister for oppsett, registerkolonner, forslagstekster, frakt,
+anmeldelser og ekthetssertifikat ligger i
+`docs/manual-sales-operating-system.md`.
+
 ## Forretningsmodell
 
 Engela Art selger:
