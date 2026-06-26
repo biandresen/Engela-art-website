@@ -1,8 +1,17 @@
 import { Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 
 import { LocalizedHomePage } from '#/components/LocalizedHomePage'
+import { buildPageSeo, buildSeoHead } from '#/lib/discovery/seo'
 
 export const Route = createFileRoute('/en')({
+  head: () =>
+    buildSeoHead(
+      buildPageSeo({
+        locale: 'en',
+        page: 'home',
+        path: '/en',
+      }),
+    ),
   component: EnglishRoute,
 })
 

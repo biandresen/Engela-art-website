@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as NoRouteImport } from './routes/no'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,11 @@ import { Route as ApiLanguageRouteImport } from './routes/api.language'
 import { Route as NoMalerierSlugRouteImport } from './routes/no.malerier_.$slug'
 import { Route as EnPaintingsSlugRouteImport } from './routes/en.paintings_.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NoRoute = NoRouteImport.update({
   id: '/no',
   path: '/no',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/en': typeof EnRouteWithChildren
   '/no': typeof NoRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/language': typeof ApiLanguageRoute
   '/en/about': typeof EnAboutRoute
   '/en/commissions': typeof EnCommissionsRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/en': typeof EnRouteWithChildren
   '/no': typeof NoRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/language': typeof ApiLanguageRoute
   '/en/about': typeof EnAboutRoute
   '/en/commissions': typeof EnCommissionsRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/en': typeof EnRouteWithChildren
   '/no': typeof NoRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/language': typeof ApiLanguageRoute
   '/en/about': typeof EnAboutRoute
   '/en/commissions': typeof EnCommissionsRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/'
     | '/en'
     | '/no'
+    | '/sitemap.xml'
     | '/api/language'
     | '/en/about'
     | '/en/commissions'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/'
     | '/en'
     | '/no'
+    | '/sitemap.xml'
     | '/api/language'
     | '/en/about'
     | '/en/commissions'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/'
     | '/en'
     | '/no'
+    | '/sitemap.xml'
     | '/api/language'
     | '/en/about'
     | '/en/commissions'
@@ -247,11 +259,19 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EnRoute: typeof EnRouteWithChildren
   NoRoute: typeof NoRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiLanguageRoute: typeof ApiLanguageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/no': {
       id: '/no'
       path: '/no'
@@ -429,6 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EnRoute: EnRouteWithChildren,
   NoRoute: NoRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiLanguageRoute: ApiLanguageRoute,
 }
 export const routeTree = rootRouteImport
