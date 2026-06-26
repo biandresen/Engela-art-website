@@ -149,31 +149,40 @@ Image quality requirements:
 
 Decide what the artist should receive in each inquiry email.
 
-Recommended fields:
+Current issue #9 implementation sends these fields through the transactional
+email interface:
 
 - Buyer name
 - Buyer email
 - Optional phone
 - Message
 - Painting title, if relevant
+- Painting ID, if relevant
 - Painting slug, if relevant
-- Page URL, if available
 - Submission timestamp
+
+Artist approval is still required before launch for the final Norwegian source
+wording, the developer-reviewed English translation, and the exact email subject
+phrasing for general, painting, interest-list, similar-work, and commission
+inquiries.
 
 ## Buyer Confirmation Content
 
-Decide whether buyers should receive an automatic confirmation email.
+Issue #9 sends an automatic buyer acknowledgement after the artist notification
+is accepted. The acknowledgement repeats the submitted message, includes the
+painting reference when relevant, states that no reservation or agreement exists,
+mentions the two-business-day response target, and gives spam/fallback guidance.
 
-V1 recommendation:
+Before launch, the artist must approve or replace:
 
-- Show an on-site success message first.
-- Add buyer confirmation email later if needed.
-
-Suggested success message:
-
-```txt
-Thank you for your inquiry. We have received your message and will get back to you as soon as possible.
-```
+- Contact-page intro copy in Norwegian and English.
+- Editable general, painting, interest-list, similar-work, and commission
+  prefill text.
+- Success, delayed-confirmation, validation-error, delivery-error, and
+  abuse-protection messages.
+- Buyer acknowledgement email wording.
+- Artist notification subject wording.
+- Privacy-processing notice and privacy-page link text.
 
 ## Privacy and Legal Copy
 
