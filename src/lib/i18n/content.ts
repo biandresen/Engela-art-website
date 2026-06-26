@@ -114,13 +114,49 @@ export function getPageContent(
 export function getFooterLabels(locale: Locale) {
   return locale === 'no'
     ? {
+        navigation: 'Bunnnavigasjon',
+        navigationHeading: 'Utforsk',
+        legalAndContact: 'Juridiske lenker og kontakt',
+        legalAndContactHeading: 'Praktisk',
+        follow: 'Følg Engela Art',
+        brandSummary:
+          'Originale malerier, bestillingsverk og kunst direkte fra Engela Art.',
+        home: 'Hjem',
+        paintings: 'Malerier',
+        commissions: 'Bestillingsverk',
+        about: 'Om',
+        privacy: 'Personvern',
+        sales: 'Salg og retur',
+        email: 'Send e-post til Engela Art',
+        emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art på Instagram',
         facebook: 'Engela Art på Facebook',
         contact: 'Kontakt',
+        copyrightOwner: 'Art by Engela Art.',
+        copyrightWarning:
+          'Alt innhold og alle kunstverk er beskyttet av opphavsrett og må ikke brukes eller kopieres uten skriftlig tillatelse fra Engela Art.',
       }
     : {
+        navigation: 'Footer navigation',
+        navigationHeading: 'Explore',
+        legalAndContact: 'Legal and contact links',
+        legalAndContactHeading: 'Practical',
+        follow: 'Follow Engela Art',
+        brandSummary:
+          'Original paintings, commissions, and artwork directly from Engela Art.',
+        home: 'Home',
+        paintings: 'Paintings',
+        commissions: 'Commissions',
+        about: 'About',
+        privacy: 'Privacy',
+        sales: 'Sales and returns',
+        email: 'Email Engela Art',
+        emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art on Instagram',
         facebook: 'Engela Art on Facebook',
         contact: 'Contact',
+        copyrightOwner: 'Art by Engela Art.',
+        copyrightWarning:
+          'All content and artworks are protected by copyright and may not be used or copied without written permission from Engela Art.',
       }
 }
