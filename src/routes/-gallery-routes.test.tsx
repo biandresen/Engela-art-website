@@ -299,6 +299,7 @@ describe('gallery routes', () => {
     expect(cards).toHaveLength(2)
     expect(firstCard.textContent).toContain('Solgt')
     expect(firstCard.textContent).toContain('Midlertidig mediumtekst')
+    expect(firstCard.textContent).toContain('Midlertidig teknikktekst')
     expect(firstCard.textContent).toContain('50 × 50 × 2 cm')
     expect(firstCard.textContent).toContain('Historisk oppgitt pris: 3 000 kr')
     expect(firstCard.textContent).toContain('2026')

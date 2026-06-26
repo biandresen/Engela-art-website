@@ -37,9 +37,9 @@ and await artist approval.
 ## Temporary catalog metadata
 
 All six records use `metadataApproval: "temporary"`. Their painting IDs, titles,
-dimensions, years, prices, statuses, medium text, care profiles, summaries, and
-alt text are implementation placeholders, not artist-approved facts and not
-inferences from filenames or image appearance.
+dimensions, years, prices, statuses, medium text, technique text, care profiles,
+summaries, and alt text are implementation placeholders, not artist-approved
+facts and not inferences from filenames or image appearance.
 
 Before launch, the artist must approve or replace every temporary field. Change
 `metadataApproval` to `"artist-approved"` only after that review; the marker is a
@@ -57,8 +57,8 @@ seasonal hero and uses the catalog's temporary featured order for paintings
 - all temporary status and listed-price values;
 - the Norwegian and English homepage introduction;
 - the concise artist biography and process preview;
-- every temporary painting title, medium, dimension, year, description, and
-  alternative text already listed above.
+- every temporary painting title, medium, technique, dimension, year,
+  description, and alternative text already listed above.
 
 The runtime homepage deliberately labels unavailable content as temporary. Do
 not remove those labels until the corresponding artist-owned facts and
@@ -71,8 +71,8 @@ English painting-detail route. Before launch, the artist must approve or
 replace:
 
 - each main image, room-context visualization, alternative text, and caption;
-- every title, painting ID, medium, dimension, year, status, listed price,
-  visual summary, and optional artist note;
+- every title, painting ID, medium, technique, dimension, year, status, listed
+  price, visual summary, and optional artist note;
 - each selected care profile and exceptional care note;
 - the unframed, pickup, shipping, coverage, international-delivery,
   reservation, interest-list, and similar-work guidance;

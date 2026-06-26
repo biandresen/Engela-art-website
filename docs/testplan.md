@@ -20,13 +20,15 @@ Test that:
 - Every image has meaningful alt text.
 - Every image path points to an existing file.
 - Every painting has positive numeric width, height, and depth measurements.
-- Every available painting has medium and a public price in NOK.
+- Every available painting has medium, technique, and a public price in NOK.
 - Prices are positive whole-kroner integers and format correctly for Norwegian and English.
 - Every painting has approved Norwegian and English medium text.
+- Every painting has approved Norwegian and English technique text.
 - Every painting has a valid public creation year and no required exact creation date.
 - Medium text accurately names notable materials or uses mixed-media wording appropriately.
+- Technique text accurately describes the method, process, or mark-making without replacing material information.
 - Every painting selects valid care-profile keys.
-- Care guidance is composed from approved bilingual profiles and optional reviewed notes, not inferred from medium text.
+- Care guidance is composed from approved bilingual profiles and optional reviewed notes, not inferred from medium or technique text.
 - Every painting has a bilingual visual summary.
 - Artist notes are optional but bilingual when present.
 - Sold paintings display their historical price with clear sold status and year context.
@@ -335,7 +337,7 @@ Before v1 release, manually confirm:
 - A buyer can understand who the artist is.
 - A buyer can browse available work.
 - A buyer can tell whether a painting is available, reserved, or sold.
-- A buyer can see title, medium, dimensions, and price or inquiry guidance.
+- A buyer can see title, medium, technique, dimensions, and price or inquiry guidance.
 - A buyer can see that shipping is excluded and that pickup in Nannestad or shipping is arranged by email.
 - International copy states that delivery availability and total cost are confirmed case by case.
 - Shipping copy states that dispatched paintings use tracked delivery and appropriate available coverage.

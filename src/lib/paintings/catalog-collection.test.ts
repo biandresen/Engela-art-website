@@ -15,6 +15,8 @@ describe('complete painting collection', () => {
     for (const painting of paintings) {
       expect(painting.metadataApproval).toBe('temporary')
       expect(painting.title).toMatch(/^Temporary painting 0[1-6]$/)
+      expect(painting.technique.no).toContain('Midlertidig teknikktekst')
+      expect(painting.technique.en).toContain('Temporary technique text')
       expect(painting.images.map((image) => image.role)).toEqual([
         'main',
         'room-context',

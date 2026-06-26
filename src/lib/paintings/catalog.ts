@@ -59,6 +59,7 @@ const paintingRecordSchema = z.object({
     .trim()
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use a stable URL-safe slug'),
   medium: localizedTextSchema,
+  technique: localizedTextSchema,
   visualSummary: localizedTextSchema,
   artistNote: localizedTextSchema.optional(),
   widthCm: z.number().positive(),

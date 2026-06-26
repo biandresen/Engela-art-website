@@ -75,6 +75,14 @@ describe('SEO discovery metadata', () => {
       name: 'Temporary painting 01',
       identifier: 'EA-2026-001',
       artMedium: 'Temporary medium text. Materials require artist approval.',
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: 'Technique',
+          value:
+            'Temporary technique text. Technique requires artist approval.',
+        },
+      ],
       offers: {
         '@type': 'Offer',
         priceCurrency: 'NOK',

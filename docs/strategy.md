@@ -42,7 +42,7 @@ Buyer lands on home page
   -> sees artist identity and artwork style
   -> browses paintings
   -> opens a painting detail page
-  -> checks title, medium, dimensions, status, and price
+  -> checks title, medium, technique, dimensions, status, and price
   -> sends inquiry
   -> artist follows up manually
 ```
@@ -234,7 +234,7 @@ Every sold original includes:
 - A signed physical certificate packed with or handed over alongside the painting
 - A matching PDF emailed after full payment and before or at dispatch/pickup
 
-Each certificate is bilingual in Norwegian and English within one document. It contains Engela Art and artist identity, certificate number, painting ID, official title, year, medium, width × height × depth, a reference image, artist signature, and sale date. The invoice remains the financial record; the certificate identifies the original artwork.
+Each certificate is bilingual in Norwegian and English within one document. It contains Engela Art and artist identity, certificate number, painting ID, official title, year, medium, technique, width × height × depth, a reference image, artist signature, and sale date. The invoice remains the financial record; the certificate identifies the original artwork.
 
 V1 creates certificates manually from one controlled bilingual template. Website certificate generation and public verification are future enhancements, not launch scope.
 
@@ -542,7 +542,7 @@ Do not launch publicly until the site has:
 - At least six fully documented paintings
 - At least three manually curated featured paintings
 - Accurate status, numeric dimensions, year, price, and images for every included painting
-- Official painting title plus complete Norwegian and English summaries, medium text, optional artist notes, and image alt text for every included painting
+- Official painting title plus complete Norwegian and English summaries, medium text, technique text, optional artist notes, and image alt text for every included painting
 - Final artist biography and introductory copy in both languages
 - Working contact email plus Instagram and Facebook links
 - Confirmed ENK identity details or a documented registration completion step before sales

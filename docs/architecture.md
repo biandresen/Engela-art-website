@@ -130,6 +130,7 @@ type Painting = {
   title: string
   slug: string
   medium: LocalizedText
+  technique: LocalizedText
   visualSummary: LocalizedText
   artistNote?: LocalizedText
   widthCm: number
@@ -155,7 +156,7 @@ type Painting = {
 }
 ```
 
-Orientation and total face area are derived from numeric width and height. Painting titles and slugs remain identical across languages, while descriptive content and image text are bilingual. Runtime validation checks identifiers, dimensions, price, translated fields, image roles, care profiles, and featured ordering before routes render.
+Orientation and total face area are derived from numeric width and height. Painting titles and slugs remain identical across languages, while descriptive content, medium, technique, and image text are bilingual. Runtime validation checks identifiers, dimensions, price, translated fields, image roles, care profiles, and featured ordering before routes render.
 
 ### Artwork Image Pipeline
 

@@ -8,6 +8,10 @@ The website helps buyers discover paintings and send formal inquiries. The artis
 
 The website does not replace human communication. It supports it.
 
+For the practical setup checklists, register columns, proposal text, shipping
+steps, review request, and certificate template, use
+`docs/manual-sales-operating-system.md`.
+
 ## Business Model
 
 Engela Art sells:

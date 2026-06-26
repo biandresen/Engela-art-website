@@ -10,6 +10,11 @@ const temporaryMedium: LocalizedText = {
   en: 'Temporary medium text. Materials require artist approval.',
 }
 
+const temporaryTechnique: LocalizedText = {
+  no: 'Midlertidig teknikktekst. Utførelsen må godkjennes av kunstneren.',
+  en: 'Temporary technique text. Technique requires artist approval.',
+}
+
 const temporaryCareNote: LocalizedText = {
   no: 'Midlertidig pleieprofil. Endelig veiledning avventer materialbekreftelse.',
   en: 'Temporary care profile. Final guidance awaits material confirmation.',
@@ -110,6 +115,7 @@ function createTemporaryPainting({
     title: `Temporary painting ${paddedSequence}`,
     slug,
     medium: temporaryMedium,
+    technique: temporaryTechnique,
     visualSummary: {
       no: `Midlertidig katalogtekst for maleri ${paddedSequence}. Faktabeskrivelse avventer kunstnerens godkjenning.`,
       en: `Temporary catalog copy for painting ${paddedSequence}. Factual description awaits artist approval.`,

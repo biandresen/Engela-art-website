@@ -26,6 +26,10 @@ describe('painting catalog', () => {
   it('retains responsive image variants with intrinsic dimensions', () => {
     const catalog = createPaintingCatalog([createPaintingRecord()])
 
+    expect(catalog.all()[0]?.technique).toEqual({
+      no: 'Midlertidig teknikktekst – avventer kunstnergodkjenning.',
+      en: 'Temporary technique text — awaiting artist approval.',
+    })
     expect(catalog.all()[0]?.images[0]).toMatchObject({
       width: 640,
       height: 960,
@@ -53,6 +57,7 @@ describe('painting catalog', () => {
       paintingId: 'EA-2025-001',
       slug: 'duplicate-entry',
       medium: { no: '', en: '' },
+      technique: { no: '', en: '' },
       widthCm: 0,
       listedPriceNok: 10.5,
       images: [
@@ -102,6 +107,7 @@ describe('painting catalog', () => {
         expect.arrayContaining([
           expect.stringContaining('year segment must match'),
           expect.stringContaining('medium.no'),
+          expect.stringContaining('technique.no'),
           expect.stringContaining('widthCm'),
           expect.stringContaining('listedPriceNok'),
           expect.stringContaining('main image'),
@@ -229,6 +235,10 @@ function createPaintingRecord(
     medium: {
       no: 'Midlertidig mediumtekst – avventer kunstnergodkjenning.',
       en: 'Temporary medium text — awaiting artist approval.',
+    },
+    technique: {
+      no: 'Midlertidig teknikktekst – avventer kunstnergodkjenning.',
+      en: 'Temporary technique text — awaiting artist approval.',
     },
     visualSummary: {
       no: 'Midlertidig bildetekst – avventer kunstnergodkjenning.',
