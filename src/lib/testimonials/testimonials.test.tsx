@@ -3,8 +3,13 @@
 import { cleanup, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { TestimonialsSection } from './testimonials'
-import type { Testimonial } from './testimonials'
+import {
+  CustomerPhotosSection,
+  TestimonialsSection,
+  getApprovedCustomerPhotos,
+  getApprovedTestimonials,
+} from './testimonials'
+import type { CustomerPhoto, Testimonial } from './testimonials'
 
 afterEach(cleanup)
 
@@ -28,6 +33,47 @@ const approvedTestimonial: Testimonial = {
   },
 }
 
+const pendingTestimonial: Testimonial = {
+  ...approvedTestimonial,
+  displayName: 'Unapproved Buyer',
+  publicationConsent: {
+    status: 'pending',
+    documentedAt: '2026-06-02',
+  },
+}
+
+const approvedCustomerPhoto: CustomerPhoto = {
+  image: {
+    src: '/assets/customer-stories/example-room.jpg',
+    width: 1200,
+    height: 900,
+    alt: {
+      no: 'Maleriet Temporary painting 01 hjemme hos en kunde',
+      en: 'Temporary painting 01 in a customer home',
+    },
+  },
+  caption: {
+    no: 'Godkjent kundeinteriør med maleriet på veggen.',
+    en: 'Approved customer interior with the painting on the wall.',
+  },
+  paintingReference: {
+    slug: 'temporary-painting-01',
+    title: 'Temporary painting 01',
+  },
+  publicationConsent: {
+    status: 'written',
+    documentedAt: '2026-06-03',
+  },
+}
+
+const pendingCustomerPhoto: CustomerPhoto = {
+  ...approvedCustomerPhoto,
+  publicationConsent: {
+    status: 'pending',
+    documentedAt: '2026-06-03',
+  },
+}
+
 describe('testimonials section', () => {
   it('renders nothing publicly when there are no approved entries', () => {
     const { container } = render(
@@ -41,6 +87,19 @@ describe('testimonials section', () => {
     expect(container.innerHTML).toBe('')
     expect(screen.queryByText('Collector words')).toBeNull()
     expect(screen.queryByText(/coming soon/i)).toBeNull()
+  })
+
+  it('suppresses entries without written publication permission', () => {
+    render(
+      <TestimonialsSection
+        locale="en"
+        entries={[pendingTestimonial]}
+        heading="Collector words"
+      />,
+    )
+
+    expect(screen.queryByText('Collector words')).toBeNull()
+    expect(screen.queryByText('Unapproved Buyer')).toBeNull()
   })
 
   it('renders approved entries with attribution, permission-aware source, and display limit', () => {
@@ -64,5 +123,91 @@ describe('testimonials section', () => {
     expect(region.textContent).toContain('A. Buyer')
     expect(region.textContent).toContain('Approved email testimonial')
     expect(region.textContent).toContain('Selected approved feedback.')
+  })
+
+  it('can link to a configured Google profile without rendering ratings or structured review data', () => {
+    render(
+      <TestimonialsSection
+        locale="en"
+        entries={[approvedTestimonial]}
+        heading="Collector words"
+        googleProfileUrl="https://example.com/google-profile"
+        googleProfileLabel="Read Google reviews"
+      />,
+    )
+
+    const region = screen.getByRole('region', { name: 'Collector words' })
+    const link = within(region).getByRole('link', {
+      name: 'Read Google reviews',
+    })
+
+    expect(link.getAttribute('href')).toBe('https://example.com/google-profile')
+    expect(region.textContent).not.toMatch(/rating|stars/i)
+    expect(document.querySelector('script[type="application/ld+json"]')).toBe(
+      null,
+    )
+  })
+})
+
+describe('testimonial data sources', () => {
+  it('default production collections are empty instead of seeded with dummy content', () => {
+    expect(getApprovedTestimonials()).toEqual([])
+    expect(getApprovedCustomerPhotos()).toEqual([])
+  })
+})
+
+describe('customer photos section', () => {
+  it('renders nothing when there are no permissioned customer photos', () => {
+    const { container } = render(
+      <CustomerPhotosSection
+        locale="en"
+        entries={[]}
+        heading="Customer stories"
+      />,
+    )
+
+    expect(container.innerHTML).toBe('')
+    expect(screen.queryByText('Customer stories')).toBeNull()
+  })
+
+  it('suppresses customer photos without written permission', () => {
+    render(
+      <CustomerPhotosSection
+        locale="en"
+        entries={[pendingCustomerPhoto]}
+        heading="Customer stories"
+      />,
+    )
+
+    expect(screen.queryByText('Customer stories')).toBeNull()
+    expect(screen.queryByText('Temporary painting 01')).toBeNull()
+  })
+
+  it('renders approved customer photos with lazy-loaded image, caption, and painting reference', () => {
+    render(
+      <CustomerPhotosSection
+        locale="en"
+        entries={[approvedCustomerPhoto]}
+        heading="Customer stories"
+        intro="Permissioned homes after completed sales."
+      />,
+    )
+
+    const region = screen.getByRole('region', { name: 'Customer stories' })
+    const image = within(region).getByRole('img', {
+      name: 'Temporary painting 01 in a customer home',
+    })
+
+    expect(image.getAttribute('loading')).toBe('lazy')
+    expect(image.getAttribute('src')).toBe(
+      '/assets/customer-stories/example-room.jpg',
+    )
+    expect(region.textContent).toContain('Temporary painting 01')
+    expect(region.textContent).toContain(
+      'Approved customer interior with the painting on the wall.',
+    )
+    expect(region.textContent).toContain(
+      'Permissioned homes after completed sales.',
+    )
   })
 })

@@ -115,9 +115,12 @@ Before launch, the artist must approve or replace:
 - the portrait crop, alternative text, and page placement;
 - any exhibition, credential, education, or professional-history statement;
 - every testimonial quote, display name, date, source label, source link when
-  applicable, and written publication consent record.
+  applicable, and written publication consent record;
+- every customer-home photo, caption, painting reference, image alternative
+  text, and written publication consent record.
 
-The testimonials collection may stay empty at launch. When empty, the public
-site renders no testimonials heading, placeholder review, rating, or
-"coming soon" area. Adding the first testimonial is a content update through
-the shared testimonials module rather than a homepage or About-page rewrite.
+The testimonials and customer-home photo collections may stay empty at launch.
+When empty, the public site renders no social-proof heading, placeholder review,
+rating, fake customer photo, or "coming soon" area. Adding the first testimonial
+or customer-home photo is a content update through the shared testimonials module
+rather than a homepage or About-page rewrite.

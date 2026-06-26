@@ -27,8 +27,10 @@ Optional trust content after real sales:
 - Review date
 - Original Google review link when applicable
 - Written permission when republishing a review or email testimonial
+- Approved customer-home photo with image dimensions and alternative text
+- Customer-photo caption, painting reference, and written publication permission
 
-The testimonials data source can be empty at launch. When empty, the testimonials module renders nothing; the site must not show placeholder reviews, an empty heading, or “reviews coming soon.”
+The testimonials and customer-photo data sources can be empty at launch. When empty, the testimonials module renders nothing; the site must not show placeholder reviews, fake customer photos, an empty heading, or “reviews coming soon.”
 
 ## Painting Content
 

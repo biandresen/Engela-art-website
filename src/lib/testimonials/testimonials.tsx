@@ -24,15 +24,37 @@ export type Testimonial = {
   }
 }
 
+export type CustomerPhoto = {
+  image: {
+    src: string
+    width: number
+    height: number
+    alt: LocalizedText
+  }
+  caption: LocalizedText
+  paintingReference: {
+    slug: string
+    title: string
+  }
+  publicationConsent: {
+    status: 'written' | 'pending'
+    documentedAt: string
+  }
+}
+
 type TestimonialsSectionProps = {
   locale: Locale
   entries: ReadonlyArray<Testimonial>
   heading: string
   intro?: string
   limit?: number
+  googleProfileUrl?: string
+  googleProfileLabel?: string
 }
 
 export const approvedTestimonials: ReadonlyArray<Testimonial> = []
+
+export const approvedCustomerPhotos: ReadonlyArray<CustomerPhoto> = []
 
 export function getApprovedTestimonials({
   limit,
@@ -40,6 +62,16 @@ export function getApprovedTestimonials({
   limit?: number
 } = {}) {
   const entries = approvedTestimonials.filter(isPublishableTestimonial)
+
+  return typeof limit === 'number' ? entries.slice(0, limit) : entries
+}
+
+export function getApprovedCustomerPhotos({
+  limit,
+}: {
+  limit?: number
+} = {}) {
+  const entries = approvedCustomerPhotos.filter(isPublishableCustomerPhoto)
 
   return typeof limit === 'number' ? entries.slice(0, limit) : entries
 }
@@ -63,12 +95,35 @@ export function isPublishableTestimonial(
   return hasQuote && hasAttribution && hasDate && hasPermission && hasSource
 }
 
+export function isPublishableCustomerPhoto(
+  entry: CustomerPhoto,
+): entry is CustomerPhoto {
+  const hasImage = Boolean(
+    entry.image.src.trim() &&
+    entry.image.alt.no.trim() &&
+    entry.image.alt.en.trim() &&
+    entry.image.width > 0 &&
+    entry.image.height > 0,
+  )
+  const hasCaption = Boolean(entry.caption.no.trim() && entry.caption.en.trim())
+  const hasPaintingReference = Boolean(
+    entry.paintingReference.slug.trim() && entry.paintingReference.title.trim(),
+  )
+  const hasPermission =
+    entry.publicationConsent.status === 'written' &&
+    /^\d{4}-\d{2}-\d{2}$/.test(entry.publicationConsent.documentedAt)
+
+  return hasImage && hasCaption && hasPaintingReference && hasPermission
+}
+
 export function TestimonialsSection({
   locale,
   entries,
   heading,
   intro,
   limit,
+  googleProfileUrl,
+  googleProfileLabel,
 }: TestimonialsSectionProps) {
   const visibleEntries = entries.filter(isPublishableTestimonial)
   const limitedEntries =
@@ -91,6 +146,19 @@ export function TestimonialsSection({
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             {intro}
           </p>
+        ) : null}
+        {googleProfileUrl ? (
+          <a
+            href={googleProfileUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex w-fit rounded-sm text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+          >
+            {googleProfileLabel ??
+              (locale === 'no'
+                ? 'Se Google-profilen'
+                : 'View the Google profile')}
+          </a>
         ) : null}
       </div>
 
@@ -125,6 +193,73 @@ export function TestimonialsSection({
               </p>
             </footer>
           </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+type CustomerPhotosSectionProps = {
+  locale: Locale
+  entries: ReadonlyArray<CustomerPhoto>
+  heading: string
+  intro?: string
+  limit?: number
+}
+
+export function CustomerPhotosSection({
+  locale,
+  entries,
+  heading,
+  intro,
+  limit,
+}: CustomerPhotosSectionProps) {
+  const visibleEntries = entries.filter(isPublishableCustomerPhoto)
+  const limitedEntries =
+    typeof limit === 'number' ? visibleEntries.slice(0, limit) : visibleEntries
+
+  if (limitedEntries.length === 0) {
+    return null
+  }
+
+  return (
+    <section
+      aria-label={heading}
+      className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12"
+    >
+      <div className="max-w-2xl">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          {heading}
+        </h2>
+        {intro ? (
+          <p className="mt-4 text-lg leading-8 text-muted-foreground">
+            {intro}
+          </p>
+        ) : null}
+      </div>
+
+      <div className="mt-10 grid gap-8 md:grid-cols-2">
+        {limitedEntries.map((entry) => (
+          <figure
+            key={`${entry.paintingReference.slug}-${entry.image.src}`}
+            className="border-t border-border pt-5"
+          >
+            <img
+              src={entry.image.src}
+              width={entry.image.width}
+              height={entry.image.height}
+              alt={entry.image.alt[locale]}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full bg-muted object-cover"
+            />
+            <figcaption className="mt-4 text-sm leading-6 text-muted-foreground">
+              <span className="block text-base font-semibold text-foreground">
+                {entry.paintingReference.title}
+              </span>
+              {entry.caption[locale]}
+            </figcaption>
+          </figure>
         ))}
       </div>
     </section>

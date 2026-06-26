@@ -26,6 +26,7 @@ export const env = createEnv({
     VITE_APP_TITLE: z.string().min(1).optional(),
     VITE_INSTAGRAM_URL: z.string().url().optional(),
     VITE_FACEBOOK_URL: z.string().url().optional(),
+    VITE_GOOGLE_BUSINESS_PROFILE_URL: z.string().url().optional(),
   },
 
   /**

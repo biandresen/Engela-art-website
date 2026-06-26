@@ -4,8 +4,56 @@ import { cleanup, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { LocalizedHomePage } from './LocalizedHomePage'
+import type {
+  CustomerPhoto,
+  Testimonial,
+} from '#/lib/testimonials/testimonials'
 
 afterEach(cleanup)
+
+const approvedTestimonial: Testimonial = {
+  quote: {
+    no: 'En trygg og personlig kjøpsopplevelse.',
+    en: 'A thoughtful and personal buying experience.',
+  },
+  displayName: 'A. Buyer',
+  date: '2026-06-01',
+  source: {
+    type: 'email',
+    label: {
+      no: 'Godkjent e-postuttalelse',
+      en: 'Approved email testimonial',
+    },
+  },
+  publicationConsent: {
+    status: 'written',
+    documentedAt: '2026-06-02',
+  },
+}
+
+const approvedCustomerPhoto: CustomerPhoto = {
+  image: {
+    src: '/assets/customer-stories/example-room.jpg',
+    width: 1200,
+    height: 900,
+    alt: {
+      no: 'Maleriet Temporary painting 01 hjemme hos en kunde',
+      en: 'Temporary painting 01 in a customer home',
+    },
+  },
+  caption: {
+    no: 'Godkjent kundebilde med maleriet i rommet.',
+    en: 'Approved customer photo with the painting in the room.',
+  },
+  paintingReference: {
+    slug: 'temporary-painting-01',
+    title: 'Temporary painting 01',
+  },
+  publicationConsent: {
+    status: 'written',
+    documentedAt: '2026-06-03',
+  },
+}
 
 describe('localized home page', () => {
   it('renders the configured seasonal painting in the Norwegian hero', () => {
@@ -155,5 +203,60 @@ describe('localized home page', () => {
         .getByRole('link', { name: 'About Engela' })
         .getAttribute('href'),
     ).toBe('/en/about')
+  })
+
+  it('does not render social-proof placeholders when production data is empty', () => {
+    render(<LocalizedHomePage locale="en" />)
+
+    expect(screen.queryByRole('region', { name: 'Testimonials' })).toBeNull()
+    expect(screen.queryByRole('region', { name: 'Customer homes' })).toBeNull()
+    expect(screen.queryByText(/coming soon/i)).toBeNull()
+    expect(document.querySelector('script[type="application/ld+json"]')).toBe(
+      null,
+    )
+  })
+
+  it('renders approved testimonials and customer photos near the lower home page when local data exists', () => {
+    render(
+      <LocalizedHomePage
+        locale="en"
+        testimonialEntries={[approvedTestimonial]}
+        customerPhotoEntries={[approvedCustomerPhoto]}
+        googleProfileUrl="https://example.com/google-profile"
+      />,
+    )
+
+    const artistPreview = screen.getByRole('region', {
+      name: 'About the artist',
+    })
+    const testimonials = screen.getByRole('region', {
+      name: 'Testimonials',
+    })
+    const customerPhotos = screen.getByRole('region', {
+      name: 'Customer homes',
+    })
+
+    expect(testimonials.textContent).toContain(
+      'A thoughtful and personal buying experience.',
+    )
+    expect(
+      within(testimonials)
+        .getByRole('link', { name: 'View Engela Art on Google' })
+        .getAttribute('href'),
+    ).toBe('https://example.com/google-profile')
+    expect(
+      within(customerPhotos)
+        .getByRole('img', { name: 'Temporary painting 01 in a customer home' })
+        .getAttribute('loading'),
+    ).toBe('lazy')
+    expect(customerPhotos.textContent).toContain('Temporary painting 01')
+    expect(
+      artistPreview.compareDocumentPosition(testimonials) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy()
+    expect(
+      testimonials.compareDocumentPosition(customerPhotos) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy()
   })
 })

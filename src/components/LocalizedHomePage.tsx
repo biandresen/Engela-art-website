@@ -1,11 +1,18 @@
 import type { Locale } from '#/lib/i18n/locale'
+import { env } from '#/env'
 import { getPageContent } from '#/lib/i18n/content'
 import { getHomepage } from '#/lib/homepage/homepage'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
 import {
+  CustomerPhotosSection,
   TestimonialsSection,
+  getApprovedCustomerPhotos,
   getApprovedTestimonials,
+} from '#/lib/testimonials/testimonials'
+import type {
+  CustomerPhoto,
+  Testimonial,
 } from '#/lib/testimonials/testimonials'
 
 import { Button } from './ui/button'
@@ -14,9 +21,17 @@ import { ArtworkImage } from './ArtworkImage'
 
 type LocalizedHomePageProps = {
   locale: Locale
+  testimonialEntries?: ReadonlyArray<Testimonial>
+  customerPhotoEntries?: ReadonlyArray<CustomerPhoto>
+  googleProfileUrl?: string
 }
 
-export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
+export function LocalizedHomePage({
+  locale,
+  testimonialEntries,
+  customerPhotoEntries,
+  googleProfileUrl,
+}: LocalizedHomePageProps) {
   const content = getPageContent(locale, 'home')
   const {
     heroPainting: heroPresentation,
@@ -24,13 +39,23 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
     content: homepageContent,
   } = getHomepage(locale)
   const paths = localizedPaths[locale]
-  const testimonials = getApprovedTestimonials({ limit: 2 })
+  const testimonials =
+    testimonialEntries ?? getApprovedTestimonials({ limit: 2 })
+  const customerPhotos =
+    customerPhotoEntries ?? getApprovedCustomerPhotos({ limit: 2 })
   const testimonialsHeading =
     locale === 'no' ? 'Tilbakemeldinger' : 'Testimonials'
   const testimonialsIntro =
     locale === 'no'
       ? 'Et kort utvalg av godkjente kundeuttalelser.'
       : 'A concise selection of approved buyer feedback.'
+  const googleProfileLabel =
+    locale === 'no' ? 'Se Engela Art på Google' : 'View Engela Art on Google'
+  const customerPhotosHeading = locale === 'no' ? 'Kundehjem' : 'Customer homes'
+  const customerPhotosIntro =
+    locale === 'no'
+      ? 'Godkjente bilder kan vise hvordan maleriene lever videre hjemme hos kunder.'
+      : 'Approved photos can show how paintings live on in customer homes.'
 
   return (
     <main>
@@ -207,6 +232,17 @@ export function LocalizedHomePage({ locale }: LocalizedHomePageProps) {
         entries={testimonials}
         heading={testimonialsHeading}
         intro={testimonialsIntro}
+        googleProfileUrl={
+          googleProfileUrl ?? env.VITE_GOOGLE_BUSINESS_PROFILE_URL
+        }
+        googleProfileLabel={googleProfileLabel}
+      />
+
+      <CustomerPhotosSection
+        locale={locale}
+        entries={customerPhotos}
+        heading={customerPhotosHeading}
+        intro={customerPhotosIntro}
       />
     </main>
   )

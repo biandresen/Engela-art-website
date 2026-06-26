@@ -463,6 +463,8 @@ Website testimonial rule:
   permission privately.
 - Do not imply a Google rating or Google profile before it is verified and
   policy-compliant.
+- Do not publish customer-home photos without written permission, an approved
+  caption, a painting reference, and approved image alternative text.
 
 ## Certificate of Authenticity Template
 
