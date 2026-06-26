@@ -197,7 +197,7 @@ export function LocalizedHomePage({
             <p className="mt-5 text-lg leading-8 text-muted-foreground">
               {homepageContent.artistPreview}
             </p>
-            <Button asChild variant="outline" size="lg" className="mt-8">
+            <Button asChild variant="secondary" size="lg" className="mt-8">
               <a href={paths.about}>{homepageContent.artistPreviewAction}</a>
             </Button>
           </div>

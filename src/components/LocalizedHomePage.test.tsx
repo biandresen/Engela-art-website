@@ -119,6 +119,12 @@ describe('localized home page', () => {
     const cards = within(featured).getAllByRole('article')
 
     expect(
+      within(featured).getByRole('heading', {
+        level: 2,
+        name: 'Selected works',
+      }),
+    ).toBeTruthy()
+    expect(
       cards.map(
         (card) => within(card).getByRole('heading', { level: 3 }).textContent,
       ),
@@ -155,6 +161,9 @@ describe('localized home page', () => {
       screen.getByRole('region', { name: 'Utvalgte malerier' }),
     ).getAllByRole('article')
 
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Utvalgte verk' }),
+    ).toBeTruthy()
     expect(cards[0]?.textContent).toContain('Tilgjengelig')
     expect(cards[0]?.textContent).toContain('Pris: 1 000 kr')
     expect(cards[1]?.textContent).toContain('Reservert')
@@ -203,6 +212,11 @@ describe('localized home page', () => {
         .getByRole('link', { name: 'About Engela' })
         .getAttribute('href'),
     ).toBe('/en/about')
+    expect(
+      within(artistPreview)
+        .getByRole('link', { name: 'About Engela' })
+        .getAttribute('data-variant'),
+    ).toBe('secondary')
   })
 
   it('renders dummy testimonials but no customer-photo placeholders', () => {
