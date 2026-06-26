@@ -21,7 +21,7 @@ vi.mock('@tanstack/react-router-devtools', () => ({
 afterEach(cleanup)
 
 describe('about routes', () => {
-  it('renders the English trust journey with approved portrait derivatives and no placeholder testimonials', async () => {
+  it('renders the English trust journey with approved portrait derivatives and dummy testimonial preview content', async () => {
     const router = createRouter({
       routeTree,
       history: createMemoryHistory({
@@ -61,7 +61,10 @@ describe('about routes', () => {
     expect(portrait.getAttribute('src')).toBe('/assets/portrait/engela-960.jpg')
     expect(portrait.getAttribute('width')).toBe('960')
     expect(portrait.getAttribute('height')).toBe('1200')
-    expect(screen.queryByRole('region', { name: /testimonials/i })).toBeNull()
+    const testimonials = screen.getByRole('region', { name: /testimonials/i })
+
+    expect(within(testimonials).getAllByRole('article')).toHaveLength(3)
+    expect(testimonials.textContent).toContain('[DUMMY]')
     expect(main.textContent).not.toMatch(/coming soon/i)
     expect(main.textContent).not.toMatch(/google rating/i)
   })

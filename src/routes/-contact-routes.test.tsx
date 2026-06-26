@@ -39,6 +39,48 @@ afterEach(() => {
 })
 
 describe('contact routes', () => {
+  it('shows English response-time and confirmation guidance before submission', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/contact'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+
+    expect(main.textContent).toContain(
+      'You can expect a personal response within two business days.',
+    )
+    expect(main.textContent).toContain(
+      'After sending, an automatic confirmation email is sent to the email address you enter.',
+    )
+  })
+
+  it('shows Norwegian response-time and confirmation guidance before submission', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/no/kontakt'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+
+    expect(main.textContent).toContain(
+      'Du kan forvente personlig svar innen to virkedager.',
+    )
+    expect(main.textContent).toContain(
+      'Etter sending sendes en automatisk bekreftelse til e-postadressen du oppgir.',
+    )
+  })
+
   it('renders status-specific painting journeys through the unified contact form', async () => {
     const cases = [
       {
@@ -228,4 +270,140 @@ describe('contact routes', () => {
     expect(message.value).toBe('Hello Engela Art,\n\n')
     await waitFor(() => expect(submit.hasAttribute('disabled')).toBe(true))
   })
+
+  it('shows normal success copy with confirmation, spam, and no-agreement guidance', async () => {
+    submitInquiryServerMock.mockResolvedValueOnce({
+      status: 'success',
+      acknowledgement: 'sent',
+      inquiryType: 'general',
+    })
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/contact'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+    await submitValidInquiry(main)
+
+    const status = await screen.findByRole('status')
+
+    expect(status.textContent).toContain('Your inquiry has been received.')
+    expect(status.textContent).toContain(
+      'This does not create a reservation or agreement.',
+    )
+    expect(status.textContent).toContain(
+      'The confirmation email should arrive shortly.',
+    )
+    expect(status.textContent).toContain('Check spam or junk if it is missing.')
+    expect(status.textContent).toContain(
+      'If the confirmation never arrives, email kontakt@engelaart.no.',
+    )
+    expect(status.textContent).not.toContain('Try again')
+  })
+
+  it('keeps delayed acknowledgement distinct from normal success', async () => {
+    submitInquiryServerMock.mockResolvedValueOnce({
+      status: 'success',
+      acknowledgement: 'delayed',
+      inquiryType: 'general',
+    })
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/contact'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+    await submitValidInquiry(main)
+
+    const status = await screen.findByRole('status')
+
+    expect(status.textContent).toContain('Your inquiry has been received.')
+    expect(status.textContent).toContain(
+      'The automatic confirmation email may be delayed and may not arrive immediately.',
+    )
+    expect(status.textContent).toContain(
+      'This does not create a reservation or agreement.',
+    )
+    expect(status.textContent).not.toContain(
+      'The confirmation email should arrive shortly.',
+    )
+  })
+
+  it('shows Norwegian delivery failure fallback copy without provider details', async () => {
+    submitInquiryServerMock.mockResolvedValueOnce({
+      status: 'delivery-error',
+      reason: 'artist-notification-failed',
+    })
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/no/kontakt'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+    const name = within(main).getByLabelText<HTMLInputElement>('Navn')
+    const email = within(main).getByLabelText<HTMLInputElement>('E-post')
+    const message = within(main).getByLabelText<HTMLTextAreaElement>('Melding')
+
+    await submitValidInquiry(main, {
+      nameLabel: 'Navn',
+      emailLabel: 'E-post',
+      messageLabel: 'Melding',
+      submitLabel: 'Send henvendelse',
+    })
+
+    const alert = await screen.findByRole('alert')
+
+    expect(alert.textContent).toContain(
+      'Henvendelsen kunne ikke sendes akkurat nå.',
+    )
+    expect(alert.textContent).toContain('Prøv igjen')
+    expect(alert.textContent).toContain('kontakt@engelaart.no')
+    expect(alert.textContent).not.toContain('artist-notification-failed')
+    expect(name.value).toBe('Ada Buyer')
+    expect(email.value).toBe('ada@example.com')
+    expect(message.value).toBe('Please keep this draft.')
+  })
 })
+
+async function submitValidInquiry(
+  main: HTMLElement,
+  labels: {
+    nameLabel: string
+    emailLabel: string
+    messageLabel: string
+    submitLabel: string
+  } = {
+    nameLabel: 'Name',
+    emailLabel: 'Email',
+    messageLabel: 'Message',
+    submitLabel: 'Send inquiry',
+  },
+) {
+  const name = within(main).getByLabelText<HTMLInputElement>(labels.nameLabel)
+  const email = within(main).getByLabelText<HTMLInputElement>(labels.emailLabel)
+  const message = within(main).getByLabelText<HTMLTextAreaElement>(
+    labels.messageLabel,
+  )
+  const submit = within(main).getByRole('button', { name: labels.submitLabel })
+
+  await waitFor(() => expect(submit.hasAttribute('disabled')).toBe(false))
+  fireEvent.change(name, { target: { value: 'Ada Buyer' } })
+  fireEvent.change(email, { target: { value: 'ada@example.com' } })
+  fireEvent.change(message, { target: { value: 'Please keep this draft.' } })
+  fireEvent.click(submit)
+}

@@ -335,6 +335,11 @@ export function LocalizedContactPage({
             </div>
 
             <div className="space-y-4 border-t border-border pt-6">
+              <div className="space-y-2 text-sm leading-6 text-muted-foreground">
+                <p>{copy.responseTime}</p>
+                <p>{copy.confirmationEmail}</p>
+              </div>
+
               <p className="text-sm leading-6 text-muted-foreground">
                 {copy.privacyBefore}{' '}
                 <a
@@ -524,14 +529,17 @@ const contactCopy = {
       'Engela Art behandler opplysningene for å svare på henvendelsen din. Les',
     privacyLink: 'personvernerklæringen',
     privacyAfter: '.',
+    responseTime: 'Du kan forvente personlig svar innen to virkedager.',
+    confirmationEmail:
+      'Etter sending sendes en automatisk bekreftelse til e-postadressen du oppgir.',
     fallbackTitle: 'E-post som alternativ',
     fallbackBody:
       'Hvis skjemaet ikke virker, kan du sende samme informasjon direkte på e-post.',
     socialTitle: 'Sosiale medier',
     success:
-      'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar innen to virkedager. Sjekk søppelpost hvis bekreftelsen ikke kommer.',
+      'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
     successDelayed:
-      'Henvendelsen er mottatt, men den automatiske bekreftelsen kan være forsinket. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar innen to virkedager.',
+      'Henvendelsen er mottatt. Den automatiske bekreftelsen på e-post kan være forsinket og kommer kanskje ikke med en gang. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar innen to virkedager. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
     validationError: 'Sjekk feltene som er markert og prøv igjen.',
     deliveryError:
       'Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen, eller send e-post til kontakt@engelaart.no.',
@@ -565,14 +573,18 @@ const contactCopy = {
       'Engela Art processes this information to answer your inquiry. Read the',
     privacyLink: 'privacy notice',
     privacyAfter: '.',
+    responseTime:
+      'You can expect a personal response within two business days.',
+    confirmationEmail:
+      'After sending, an automatic confirmation email is sent to the email address you enter.',
     fallbackTitle: 'Email fallback',
     fallbackBody:
       'If the form does not work, send the same information directly by email.',
     socialTitle: 'Social media',
     success:
-      'Your inquiry has been received. This does not create a reservation or agreement. You can expect a personal response within two business days. Check spam if the acknowledgement does not arrive.',
+      'Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email kontakt@engelaart.no.',
     successDelayed:
-      'Your inquiry has been received, but the automatic acknowledgement may be delayed. This does not create a reservation or agreement. You can expect a personal response within two business days.',
+      'Your inquiry has been received. The automatic confirmation email may be delayed and may not arrive immediately. This does not create a reservation or agreement. You can expect a personal response within two business days. If the confirmation never arrives, email kontakt@engelaart.no.',
     validationError: 'Check the marked fields and try again.',
     deliveryError:
       'The inquiry could not be sent right now. Try again, or email kontakt@engelaart.no.',
