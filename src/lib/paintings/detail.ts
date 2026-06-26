@@ -73,6 +73,11 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
       locale === 'no'
         ? {
             imagesLabel: 'Bilder av maleriet',
+            thumbnailsLabel: 'Miniatyrbilder',
+            thumbnail: (index: number) => `Vis bilde ${index}`,
+            selectedThumbnail: (index: number) => `Valgt bilde ${index}`,
+            openSelectedImage: (index: number) =>
+              `Åpne valgt bilde ${index} i bildeviser`,
             paintingId: 'Maleri-ID',
             medium: 'Medium',
             technique: 'Teknikk',
@@ -90,6 +95,11 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
           }
         : {
             imagesLabel: 'Painting images',
+            thumbnailsLabel: 'Image thumbnails',
+            thumbnail: (index: number) => `Show image ${index}`,
+            selectedThumbnail: (index: number) => `Selected image ${index}`,
+            openSelectedImage: (index: number) =>
+              `Open selected image ${index} in image viewer`,
             paintingId: 'Painting ID',
             medium: 'Medium',
             technique: 'Technique',

@@ -26,8 +26,10 @@ export function LocalizedPaintingDetailPage({
   gallerySearch,
 }: LocalizedPaintingDetailPageProps) {
   const detail = getPaintingDetail(locale, painting)
-  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [viewerImageIndex, setViewerImageIndex] = useState<number | null>(null)
   const imageOpenerRef = useRef<HTMLElement | null>(null)
+  const selectedImage = detail.images[selectedImageIndex]
   const paths = localizedPaths[locale]
   const searchString = getGallerySearchString(gallerySearch)
   const hasGalleryState =
@@ -69,34 +71,65 @@ export function LocalizedPaintingDetailPage({
     <main className="mx-auto max-w-7xl px-4 py-12 pb-44 sm:px-8 lg:px-12">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)]">
         <section aria-label={detail.content.imagesLabel}>
-          <div className="space-y-8">
-            {detail.images.map((image, index) => (
-              <figure key={`${image.role}-${index}`}>
-                <button
-                  type="button"
-                  aria-label={`${detail.content.imagesLabel}: ${index + 1}`}
-                  onClick={(event) => {
-                    imageOpenerRef.current = event.currentTarget
-                    setActiveImageIndex(index)
-                  }}
-                  className="block w-full rounded-sm bg-muted p-4 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <ArtworkImage
-                    image={image}
-                    locale={locale}
-                    sizes="(min-width: 1024px) 60vw, 100vw"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    fetchPriority={index === 0 ? 'high' : 'auto'}
-                    className="mx-auto max-h-[48rem] w-full object-contain"
-                  />
-                </button>
-                {image.caption ? (
-                  <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
-                    {image.caption[locale]}
-                  </figcaption>
-                ) : null}
-              </figure>
-            ))}
+          <div className="grid gap-4 md:grid-cols-[5rem_minmax(0,1fr)]">
+            <div
+              className="order-2 flex gap-3 overflow-x-auto md:order-1 md:flex-col md:overflow-visible"
+              aria-label={detail.content.thumbnailsLabel}
+            >
+              {detail.images.map((image, index) => {
+                const selected = index === selectedImageIndex
+                const thumbnailLabel = selected
+                  ? detail.content.selectedThumbnail(index + 1)
+                  : detail.content.thumbnail(index + 1)
+
+                return (
+                  <button
+                    key={`${image.role}-${index}`}
+                    type="button"
+                    aria-current={selected ? 'true' : undefined}
+                    aria-label={`${thumbnailLabel}: ${image.alt[locale]}`}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className="flex aspect-square w-20 shrink-0 items-center justify-center rounded-md border border-border bg-muted p-1 transition-colors hover:border-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-current:border-foreground aria-current:ring-2 aria-current:ring-ring/40 md:w-full"
+                  >
+                    <ArtworkImage
+                      image={image}
+                      locale={locale}
+                      sizes="5rem"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      fetchPriority={index === 0 ? 'high' : 'auto'}
+                      className="max-h-full w-full object-contain"
+                      alt=""
+                    />
+                  </button>
+                )
+              })}
+            </div>
+
+            <figure className="order-1 md:order-2">
+              <button
+                type="button"
+                aria-label={`${detail.content.openSelectedImage(selectedImageIndex + 1)}: ${selectedImage.alt[locale]}`}
+                onClick={(event) => {
+                  imageOpenerRef.current = event.currentTarget
+                  setViewerImageIndex(selectedImageIndex)
+                }}
+                className="block w-full rounded-sm bg-muted p-4 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              >
+                <ArtworkImage
+                  image={selectedImage}
+                  locale={locale}
+                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="mx-auto max-h-[48rem] w-full object-contain"
+                />
+              </button>
+              {selectedImage.caption ? (
+                <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {selectedImage.caption[locale]}
+                </figcaption>
+              ) : null}
+            </figure>
           </div>
         </section>
 
@@ -251,14 +284,14 @@ export function LocalizedPaintingDetailPage({
         </Button>
       </div>
 
-      {activeImageIndex !== null ? (
+      {viewerImageIndex !== null ? (
         <PaintingImageViewer
           locale={locale}
           images={detail.images}
-          activeIndex={activeImageIndex}
-          onActiveIndexChange={setActiveImageIndex}
+          activeIndex={viewerImageIndex}
+          onActiveIndexChange={setViewerImageIndex}
           onClose={() => {
-            setActiveImageIndex(null)
+            setViewerImageIndex(null)
             imageOpenerRef.current?.focus()
           }}
         />

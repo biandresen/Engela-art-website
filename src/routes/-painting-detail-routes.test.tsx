@@ -66,10 +66,7 @@ describe('painting detail routes', () => {
     const imageGallery = within(main).getByRole('region', {
       name: 'Painting images',
     })
-    expect(within(imageGallery).getAllByRole('button')).toHaveLength(2)
-    expect(imageGallery.textContent).toContain(
-      'Temporary visualization using placeholder dimensions.',
-    )
+    expect(within(imageGallery).getAllByRole('button')).toHaveLength(3)
     const mainImage = within(imageGallery).getByRole('img', {
       name: /Temporary main image for painting 01/,
     })
@@ -84,6 +81,56 @@ describe('painting detail routes', () => {
     ).toContain('/assets/paintings/temporary-painting-01/main-480.avif 480w')
     expect(imageGallery.innerHTML).not.toMatch(
       /blue-crow\.png|broken-woods\.png|purple-cotton\.png|rough-sea\.png|space\.png|winter-landscape\.png/,
+    )
+  })
+
+  it('shows one selected detail image and updates it from accessible thumbnails', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-01'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const imageGallery = within(await screen.findByRole('main')).getByRole(
+      'region',
+      {
+        name: 'Painting images',
+      },
+    )
+    const selectedImageButton = within(imageGallery).getByRole('button', {
+      name: /Open selected image 1 in image viewer/,
+    })
+    const selectedImage = within(selectedImageButton).getByRole('img', {
+      name: /Temporary main image for painting 01/,
+    })
+    const firstThumbnail = within(imageGallery).getByRole('button', {
+      name: /Selected image 1/,
+    })
+    const secondThumbnail = within(imageGallery).getByRole('button', {
+      name: /Show image 2/,
+    })
+
+    expect(selectedImage.getAttribute('src')).toContain(
+      '/assets/paintings/temporary-painting-01/main-960.jpg',
+    )
+    expect(firstThumbnail.getAttribute('aria-current')).toBe('true')
+    expect(secondThumbnail.getAttribute('aria-current')).toBeNull()
+
+    fireEvent.click(secondThumbnail)
+
+    expect(
+      within(selectedImageButton).getByRole('img', {
+        name: /Temporary room visualization for painting 01/,
+      }),
+    ).toBeTruthy()
+    expect(firstThumbnail.getAttribute('aria-current')).toBeNull()
+    expect(secondThumbnail.getAttribute('aria-current')).toBe('true')
+    expect(imageGallery.textContent).toContain(
+      'Temporary visualization using placeholder dimensions.',
     )
   })
 
@@ -322,7 +369,7 @@ describe('painting detail routes', () => {
     render(<RouterProvider router={router} />)
 
     const openButton = await screen.findByRole('button', {
-      name: 'Painting images: 1',
+      name: /Open selected image 1 in image viewer/,
     })
 
     fireEvent.click(openButton)
@@ -358,6 +405,64 @@ describe('painting detail routes', () => {
       expect(screen.queryByRole('dialog', { name: 'Image viewer' })).toBeNull()
       expect(document.activeElement).toBe(openButton)
     })
+  })
+
+  it('supports inspect zoom controls in the fullscreen image viewer', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-01'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    fireEvent.click(
+      await screen.findByRole('button', {
+        name: /Open selected image 1 in image viewer/,
+      }),
+    )
+
+    const viewer = screen.getByRole('dialog', { name: 'Image viewer' })
+    const inspectButton = within(viewer).getByRole('button', {
+      name: 'Turn inspect mode on',
+    })
+
+    expect(inspectButton.getAttribute('aria-pressed')).toBe('false')
+    expect(viewer.getAttribute('data-inspect-mode')).toBe('false')
+
+    fireEvent.click(inspectButton)
+
+    expect(
+      within(viewer)
+        .getByRole('button', {
+          name: 'Turn inspect mode off',
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('true')
+    expect(viewer.getAttribute('data-inspect-mode')).toBe('true')
+    expect(viewer.textContent).toContain('Inspect mode')
+
+    fireEvent.keyDown(viewer, { key: '-' })
+
+    expect(
+      within(viewer)
+        .getByRole('button', {
+          name: 'Turn inspect mode on',
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('false')
+
+    fireEvent.keyDown(viewer, { key: '+' })
+
+    expect(
+      within(viewer)
+        .getByRole('button', {
+          name: 'Turn inspect mode off',
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('true')
   })
 
   it('renders localized not-found journeys for invalid painting slugs', async () => {

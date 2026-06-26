@@ -8,6 +8,7 @@ type ArtworkImageProps = {
   loading?: 'eager' | 'lazy'
   fetchPriority?: 'high' | 'low' | 'auto'
   className?: string
+  alt?: string
 }
 
 export function ArtworkImage({
@@ -17,6 +18,7 @@ export function ArtworkImage({
   loading = 'lazy',
   fetchPriority = 'auto',
   className,
+  alt,
 }: ArtworkImageProps) {
   const largestVariant = image.variants.at(-1)
 
@@ -40,7 +42,7 @@ export function ArtworkImage({
         width={image.width}
         height={image.height}
         sizes={sizes}
-        alt={image.alt[locale]}
+        alt={alt ?? image.alt[locale]}
         loading={loading}
         fetchPriority={fetchPriority}
         decoding="async"
