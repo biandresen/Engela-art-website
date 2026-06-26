@@ -63,3 +63,22 @@ seasonal hero and uses the catalog's temporary featured order for paintings
 The runtime homepage deliberately labels unavailable content as temporary. Do
 not remove those labels until the corresponding artist-owned facts and
 developer-reviewed translations are approved.
+
+## Painting-detail approval requirements
+
+Issue #8 displays the same temporary catalog facts on every Norwegian and
+English painting-detail route. Before launch, the artist must approve or
+replace:
+
+- each main image, room-context visualization, alternative text, and caption;
+- every title, painting ID, medium, dimension, year, status, listed price,
+  visual summary, and optional artist note;
+- each selected care profile and exceptional care note;
+- the unframed, pickup, shipping, coverage, international-delivery,
+  reservation, interest-list, and similar-work guidance;
+- the Norwegian text and the factual basis for the developer-reviewed English
+  translation.
+
+The detail pages preserve the temporary metadata label and catalog notes.
+Changing or removing those markers requires the same artist approval as the
+underlying fields.

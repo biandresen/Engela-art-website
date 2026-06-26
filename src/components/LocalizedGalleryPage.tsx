@@ -1,5 +1,9 @@
 import type { Locale } from '#/lib/i18n/locale'
-import { galleryDefaults, getGallery } from '#/lib/gallery/gallery'
+import {
+  galleryDefaults,
+  getGallery,
+  getGallerySearchString,
+} from '#/lib/gallery/gallery'
 import type { GallerySearch } from '#/lib/gallery/gallery'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
@@ -21,6 +25,7 @@ export function LocalizedGalleryPage({
 }: LocalizedGalleryPageProps) {
   const { paintings, content } = getGallery(locale, search)
   const paths = localizedPaths[locale]
+  const gallerySearch = getGallerySearchString(search)
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12">
@@ -143,7 +148,7 @@ export function LocalizedGalleryPage({
               return (
                 <article key={painting.paintingId}>
                   <a
-                    href={`${paths.paintings}/${painting.slug}`}
+                    href={`${paths.paintings}/${painting.slug}${gallerySearch}`}
                     className="group block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
                   >
                     <div className="flex aspect-[4/5] items-center justify-center bg-muted p-4">

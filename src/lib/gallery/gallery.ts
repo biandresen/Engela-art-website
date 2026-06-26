@@ -119,6 +119,24 @@ export function getGallery(locale: Locale, search: GallerySearch) {
   }
 }
 
+export function getGallerySearchString(search: GallerySearch): string {
+  const parameters = new URLSearchParams()
+
+  if (search.status !== galleryDefaults.status) {
+    parameters.set('status', search.status)
+  }
+  if (search.orientation !== galleryDefaults.orientation) {
+    parameters.set('orientation', search.orientation)
+  }
+  if (search.sort !== galleryDefaults.sort) {
+    parameters.set('sort', search.sort)
+  }
+
+  const query = parameters.toString()
+
+  return query ? `?${query}` : ''
+}
+
 function includes<const T extends ReadonlyArray<string>>(
   values: T,
   value: unknown,

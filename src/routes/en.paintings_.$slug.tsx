@@ -1,9 +1,18 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  notFound,
+  stripSearchParams,
+} from '@tanstack/react-router'
 
-import { LocalizedPage } from '#/components/LocalizedPage'
+import { LocalizedPaintingDetailPage } from '#/components/LocalizedPaintingDetailPage'
+import { galleryDefaults, validateGallerySearch } from '#/lib/gallery/gallery'
 import { paintingCatalog } from '#/local-db/paintings'
 
 export const Route = createFileRoute('/en/paintings_/$slug')({
+  validateSearch: validateGallerySearch,
+  search: {
+    middlewares: [stripSearchParams(galleryDefaults)],
+  },
   loader: ({ params }) => {
     const painting = paintingCatalog.getBySlug(params.slug)
 
@@ -20,6 +29,10 @@ function PaintingPage() {
   const painting = Route.useLoaderData()
 
   return (
-    <LocalizedPage locale="en" page="painting" paintingTitle={painting.title} />
+    <LocalizedPaintingDetailPage
+      locale="en"
+      painting={painting}
+      gallerySearch={Route.useSearch()}
+    />
   )
 }
