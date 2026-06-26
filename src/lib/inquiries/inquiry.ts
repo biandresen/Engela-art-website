@@ -19,6 +19,9 @@ export type InquirySubmissionInput = {
   name: string
   email: string
   phone?: string
+  desiredDimensions?: string
+  budget?: string
+  customBudget?: string
   message: string
   website?: string
   loadedAt: string
@@ -28,7 +31,16 @@ export type InquirySubmissionInput = {
 }
 
 export type InquiryFieldErrors = Partial<
-  Record<'name' | 'email' | 'phone' | 'message', string>
+  Record<
+    | 'name'
+    | 'email'
+    | 'phone'
+    | 'desiredDimensions'
+    | 'budget'
+    | 'customBudget'
+    | 'message',
+    string
+  >
 >
 
 export type InquirySubmissionResult =
@@ -64,6 +76,7 @@ export type ResolvedInquiryContext = {
   title: string
   prefill: string
   fallbackNotice?: string
+  referenceNotice?: string
 }
 
 export type InquiryRateLimiter = ReturnType<typeof createInquiryRateLimiter>
@@ -80,17 +93,50 @@ const validInquiryTypes = new Set<InquiryType>([
   'commission',
 ])
 
-const submissionSchema = z.object({
-  locale: z.enum(['no', 'en']),
-  name: z.string().trim().min(1).max(120),
-  email: z.string().trim().email().max(254),
-  phone: z.string().trim().max(40).optional(),
-  message: z.string().trim().min(1).max(4000),
-  clientToken: z.string().trim().min(1).max(200),
-  clientKey: z.string().trim().min(1).max(200),
-  loadedAt: z.string().datetime(),
-  submittedAt: z.string().datetime().optional(),
-})
+const validCommissionBudgets = new Set([
+  '',
+  'under-5000',
+  '5000-10000',
+  '10000-20000',
+  'over-20000',
+  'unsure',
+  'custom',
+])
+
+const submissionSchema = z
+  .object({
+    locale: z.enum(['no', 'en']),
+    name: z.string().trim().min(1).max(120),
+    email: z.string().trim().email().max(254),
+    phone: z.string().trim().max(40).optional(),
+    desiredDimensions: z.string().trim().max(120).optional(),
+    budget: z.string().trim().max(40).optional(),
+    customBudget: z.string().trim().max(120).optional(),
+    message: z.string().trim().min(1).max(4000),
+    clientToken: z.string().trim().min(1).max(200),
+    clientKey: z.string().trim().min(1).max(200),
+    loadedAt: z.string().datetime(),
+    submittedAt: z.string().datetime().optional(),
+  })
+  .superRefine((data, context) => {
+    const budget = data.budget ?? ''
+
+    if (!validCommissionBudgets.has(budget)) {
+      context.addIssue({
+        code: 'custom',
+        path: ['budget'],
+        message: 'Invalid budget option',
+      })
+    }
+
+    if (budget === 'custom' && !/\d/.test(data.customBudget ?? '')) {
+      context.addIssue({
+        code: 'custom',
+        path: ['customBudget'],
+        message: 'Enter a custom budget range with a number',
+      })
+    }
+  })
 
 export function createInquiryRateLimiter() {
   const submissionsByClient = new Map<string, Array<number>>()
@@ -257,17 +303,29 @@ export function resolveInquiryContext({
     }
   }
 
-  if (requestedType === 'general' || requestedType === 'commission') {
+  if (requestedType === 'general') {
     return {
-      inquiryType: requestedType === 'commission' ? 'commission' : 'general',
-      title:
-        requestedType === 'commission'
-          ? labels[locale].commissionTitle
-          : labels[locale].generalTitle,
-      prefill:
-        requestedType === 'commission'
-          ? labels[locale].commissionPrefill
-          : labels[locale].generalPrefill,
+      inquiryType: 'general',
+      title: labels[locale].generalTitle,
+      prefill: labels[locale].generalPrefill,
+    }
+  }
+
+  if (requestedType === 'commission') {
+    const paintingReference = resolvedPainting
+      ? `${resolvedPainting.title} (${resolvedPainting.paintingId})`
+      : undefined
+
+    return {
+      inquiryType: 'commission',
+      paintingSlug: resolvedPainting?.slug,
+      title: labels[locale].commissionTitle,
+      prefill: paintingReference
+        ? labels[locale].commissionReferencePrefill(paintingReference)
+        : labels[locale].commissionPrefill,
+      referenceNotice: paintingReference
+        ? labels[locale].commissionReferenceNotice
+        : undefined,
     }
   }
 
@@ -323,6 +381,9 @@ function mapFieldErrors(error: z.ZodError): InquiryFieldErrors {
       field === 'name' ||
       field === 'email' ||
       field === 'phone' ||
+      field === 'desiredDimensions' ||
+      field === 'budget' ||
+      field === 'customBudget' ||
       field === 'message'
     ) {
       fieldErrors[field] = issue.message
@@ -359,6 +420,15 @@ function createArtistNotification({
         `Status: ${painting.status}`,
       ]
     : []
+  const commissionLines =
+    context.inquiryType === 'commission'
+      ? [
+          input.desiredDimensions
+            ? `Desired dimensions: ${input.desiredDimensions}`
+            : 'Desired dimensions: not provided',
+          `Budget: ${formatCommissionBudget(input.budget, input.customBudget)}`,
+        ]
+      : []
 
   return {
     to: receiverEmail,
@@ -370,6 +440,7 @@ function createArtistNotification({
       `Language: ${input.locale}`,
       `Submitted at: ${submittedAt}`,
       ...paintingLines,
+      ...commissionLines,
       `Name: ${input.name}`,
       `Email: ${input.email}`,
       input.phone ? `Phone: ${input.phone}` : 'Phone: not provided',
@@ -378,6 +449,18 @@ function createArtistNotification({
       input.message,
     ].join('\n'),
   }
+}
+
+function formatCommissionBudget(budget?: string, customBudget?: string) {
+  if (budget === 'custom') {
+    return customBudget?.trim() || 'custom range not provided'
+  }
+
+  if (budget && budget in commissionBudgetLabels) {
+    return commissionBudgetLabels[budget as keyof typeof commissionBudgetLabels]
+  }
+
+  return commissionBudgetLabels['']
 }
 
 function createBuyerAcknowledgement({
@@ -448,6 +531,11 @@ const labels = {
     generalPrefill: 'Hei Engela Art,\n\n',
     commissionPrefill:
       'Hei Engela Art,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av Engelas uttrykk.',
+    commissionReferenceNotice:
+      'Et referansemaleri hjelper med retningen, men dette er fortsatt en ny forespørsel om bestillingsverk.',
+    commissionReferencePrefill(paintingReference: string): string {
+      return `Hei Engela Art,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent oppdrag.`
+    },
     contextTitles: {
       painting: 'Forespørsel om maleri',
       'interest-list': 'Interesseliste',
@@ -472,6 +560,11 @@ const labels = {
     generalPrefill: 'Hello Engela Art,\n\n',
     commissionPrefill:
       "Hello Engela Art,\n\nI would like to ask about a possible commission inspired by Engela's work.",
+    commissionReferenceNotice:
+      'A reference painting helps describe direction, but this is still a new commission inquiry.',
+    commissionReferencePrefill(paintingReference: string): string {
+      return `Hello Engela Art,\n\nI would like to ask about a possible commission inspired by ${paintingReference}. I understand this does not request an exact reproduction or create an accepted project.`
+    },
     contextTitles: {
       painting: 'Painting inquiry',
       'interest-list': 'Interest list',
@@ -489,3 +582,12 @@ const labels = {
     },
   },
 } as const
+
+const commissionBudgetLabels = {
+  '': 'not provided',
+  'under-5000': 'Under NOK 5,000',
+  '5000-10000': 'NOK 5,000-10,000',
+  '10000-20000': 'NOK 10,000-20,000',
+  'over-20000': 'Over NOK 20,000',
+  unsure: 'Not sure yet',
+} as const satisfies Record<string, string>

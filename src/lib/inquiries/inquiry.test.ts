@@ -146,6 +146,87 @@ describe('inquiry submission seam', () => {
     }
   })
 
+  it('categorizes commission inquiries separately with optional dimensions, budget, and trusted reference context', async () => {
+    const deps = dependencies()
+
+    const result = await submitInquiry(
+      {
+        ...validInput,
+        type: 'commission',
+        painting: 'temporary-painting-03',
+        desiredDimensions: 'About 50 x 70 cm',
+        budget: 'custom',
+        customBudget: 'NOK 12,000-15,000',
+        message: 'I want a new work with a related mood, not a copy.',
+        clientToken: 'commission-token',
+      },
+      deps,
+    )
+
+    expect(result).toEqual({
+      status: 'success',
+      acknowledgement: 'sent',
+      inquiryType: 'commission',
+      paintingSlug: 'temporary-painting-03',
+    })
+    expect(deps.email.messages[0]).toMatchObject({
+      subject: 'Engela Art commission inquiry: Temporary painting 03',
+    })
+    expect(deps.email.messages[0]?.text).toContain('Inquiry type: commission')
+    expect(deps.email.messages[0]?.text).toContain(
+      'Desired dimensions: About 50 x 70 cm',
+    )
+    expect(deps.email.messages[0]?.text).toContain('Budget: NOK 12,000-15,000')
+    expect(deps.email.messages[0]?.text).toContain(
+      'I want a new work with a related mood, not a copy.',
+    )
+    expect(deps.email.messages[1]?.text).toContain(
+      'This does not create an accepted commission. Any commission requires artist review and a written proposal.',
+    )
+  })
+
+  it('validates custom commission budget text without requiring commission details', async () => {
+    const deps = dependencies()
+
+    const invalidCustomBudget = await submitInquiry(
+      {
+        ...validInput,
+        type: 'commission',
+        desiredDimensions: '',
+        budget: 'custom',
+        customBudget: 'later',
+        clientToken: 'commission-invalid-budget',
+      },
+      deps,
+    )
+
+    expect(invalidCustomBudget.status).toBe('validation-error')
+    if (invalidCustomBudget.status !== 'validation-error') {
+      throw new Error('Expected validation errors')
+    }
+    expect(invalidCustomBudget.fieldErrors).toMatchObject({
+      customBudget: expect.any(String),
+    })
+    expect(deps.email.messages).toHaveLength(0)
+
+    const validWithoutDetails = await submitInquiry(
+      {
+        ...validInput,
+        type: 'commission',
+        desiredDimensions: '',
+        budget: '',
+        customBudget: '',
+        clientToken: 'commission-without-details',
+      },
+      deps,
+    )
+
+    expect(validWithoutDetails).toMatchObject({
+      status: 'success',
+      inquiryType: 'commission',
+    })
+  })
+
   it('rejects validation errors and abuse controls without sending email', async () => {
     const deps = dependencies()
 

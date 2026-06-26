@@ -171,6 +171,17 @@ export function LocalizedPaintingDetailPage({
           <p className="mt-3 max-w-prose text-sm leading-6 text-muted-foreground">
             {detail.statusNotice}
           </p>
+          <div className="mt-6 border-t border-border pt-5">
+            <a
+              href={detail.commissionAction.href}
+              className="text-sm font-semibold underline underline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {detail.commissionAction.label}
+            </a>
+            <p className="mt-2 max-w-prose text-sm leading-6 text-muted-foreground">
+              {detail.commissionAction.notice}
+            </p>
+          </div>
         </div>
       </div>
 

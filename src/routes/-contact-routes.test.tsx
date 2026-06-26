@@ -149,6 +149,37 @@ describe('contact routes', () => {
     ).toBe('Hei Engela Art,\n\n')
   })
 
+  it('renders commission inquiry fields and preserves trusted reference context', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: [
+          '/en/contact?type=commission&painting=temporary-painting-03',
+        ],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+
+    expect(main.textContent).toContain('Commission inquiry')
+    expect(main.textContent).toContain('Temporary painting 03')
+    expect(main.textContent).toContain(
+      'A reference painting helps describe direction, but this is still a new commission inquiry.',
+    )
+    expect(
+      within(main).getByLabelText<HTMLTextAreaElement>('Message').value,
+    ).toContain(
+      'possible commission inspired by Temporary painting 03 (EA-2026-003)',
+    )
+    expect(
+      within(main).getByLabelText('Desired dimensions (optional)'),
+    ).toBeTruthy()
+    expect(within(main).getByLabelText('Budget (optional)')).toBeTruthy()
+  })
+
   it('preserves values after delivery failure and clears them after success', async () => {
     submitInquiryServerMock
       .mockResolvedValueOnce({

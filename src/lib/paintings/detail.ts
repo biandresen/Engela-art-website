@@ -32,6 +32,18 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
         : painting.status === 'reserved'
           ? 'Joining the interest list does not reserve or guarantee the painting. Interest follows inquiry submission order; if contacted, you have 48 hours to respond.'
           : 'A similar-work inquiry does not promise an exact copy or create a commission.'
+  const commissionAction =
+    locale === 'no'
+      ? {
+          label: 'Snakk om bestillingsverk inspirert av dette',
+          notice:
+            'Bestillingsverk vurderes separat og lover ikke nøyaktige reproduksjoner.',
+        }
+      : {
+          label: 'Discuss a commission inspired by this work',
+          notice:
+            'Commission inquiries are reviewed separately and do not promise exact reproductions.',
+        }
 
   return {
     ...presentation,
@@ -42,6 +54,15 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
       href: `/${locale}/${locale === 'no' ? 'kontakt' : 'contact'}?${new URLSearchParams(
         {
           type: inquiryType,
+          painting: painting.slug,
+        },
+      )}`,
+    },
+    commissionAction: {
+      ...commissionAction,
+      href: `/${locale}/${locale === 'no' ? 'kontakt' : 'contact'}?${new URLSearchParams(
+        {
+          type: 'commission',
           painting: painting.slug,
         },
       )}`,

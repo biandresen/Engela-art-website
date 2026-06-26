@@ -29,6 +29,9 @@ type FormValues = {
   name: string
   email: string
   phone: string
+  desiredDimensions: string
+  budget: string
+  customBudget: string
   message: string
   website: string
 }
@@ -37,6 +40,9 @@ const initialValues: FormValues = {
   name: '',
   email: '',
   phone: '',
+  desiredDimensions: '',
+  budget: '',
+  customBudget: '',
   message: '',
   website: '',
 }
@@ -94,6 +100,9 @@ export function LocalizedContactPage({
         name: values.name,
         email: values.email,
         phone: values.phone,
+        desiredDimensions: values.desiredDimensions,
+        budget: values.budget,
+        customBudget: values.customBudget,
         message: values.message,
         website: values.website,
         loadedAt,
@@ -131,6 +140,11 @@ export function LocalizedContactPage({
             {context.fallbackNotice ? (
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 {context.fallbackNotice}
+              </p>
+            ) : null}
+            {context.referenceNotice ? (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                {context.referenceNotice}
               </p>
             ) : null}
           </div>
@@ -181,6 +195,99 @@ export function LocalizedContactPage({
                 }
               />
             </FormField>
+
+            {context.inquiryType === 'commission' ? (
+              <div className="grid gap-6 sm:grid-cols-2">
+                <FormField
+                  id="desiredDimensions"
+                  label={copy.desiredDimensions}
+                  error={fieldErrors.desiredDimensions}
+                >
+                  <Input
+                    id="desiredDimensions"
+                    name="desiredDimensions"
+                    value={values.desiredDimensions}
+                    aria-invalid={
+                      fieldErrors.desiredDimensions ? true : undefined
+                    }
+                    aria-describedby={
+                      fieldErrors.desiredDimensions
+                        ? 'desiredDimensions-error'
+                        : undefined
+                    }
+                    onChange={(event) =>
+                      setValues({
+                        ...values,
+                        desiredDimensions: event.target.value,
+                      })
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  id="budget"
+                  label={copy.budget}
+                  error={fieldErrors.budget}
+                >
+                  <select
+                    id="budget"
+                    name="budget"
+                    value={values.budget}
+                    aria-invalid={fieldErrors.budget ? true : undefined}
+                    aria-describedby={
+                      fieldErrors.budget ? 'budget-error' : undefined
+                    }
+                    className="h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm"
+                    onChange={(event) =>
+                      setValues({
+                        ...values,
+                        budget: event.target.value,
+                        customBudget:
+                          event.target.value === 'custom'
+                            ? values.customBudget
+                            : '',
+                      })
+                    }
+                  >
+                    {copy.budgetOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </FormField>
+
+                {values.budget === 'custom' ? (
+                  <div className="sm:col-span-2">
+                    <FormField
+                      id="customBudget"
+                      label={copy.customBudget}
+                      error={fieldErrors.customBudget}
+                    >
+                      <Input
+                        id="customBudget"
+                        name="customBudget"
+                        value={values.customBudget}
+                        aria-invalid={
+                          fieldErrors.customBudget ? true : undefined
+                        }
+                        aria-describedby={
+                          fieldErrors.customBudget
+                            ? 'customBudget-error'
+                            : undefined
+                        }
+                        onChange={(event) =>
+                          setValues({
+                            ...values,
+                            customBudget: event.target.value,
+                          })
+                        }
+                      />
+                    </FormField>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
 
             <FormField
               id="message"
@@ -364,6 +471,18 @@ const contactCopy = {
     name: 'Navn',
     email: 'E-post',
     phone: 'Telefon (valgfritt)',
+    desiredDimensions: 'Ønskede mål (valgfritt)',
+    budget: 'Budsjett (valgfritt)',
+    customBudget: 'Eget budsjettområde',
+    budgetOptions: [
+      { value: '', label: 'Velg budsjett hvis du ønsker' },
+      { value: 'under-5000', label: 'Under 5 000 kr' },
+      { value: '5000-10000', label: '5 000-10 000 kr' },
+      { value: '10000-20000', label: '10 000-20 000 kr' },
+      { value: 'over-20000', label: 'Over 20 000 kr' },
+      { value: 'unsure', label: 'Ikke sikker ennå' },
+      { value: 'custom', label: 'Eget område' },
+    ],
     message: 'Melding',
     website: 'Nettside',
     submit: 'Send henvendelse',
@@ -393,6 +512,18 @@ const contactCopy = {
     name: 'Name',
     email: 'Email',
     phone: 'Phone (optional)',
+    desiredDimensions: 'Desired dimensions (optional)',
+    budget: 'Budget (optional)',
+    customBudget: 'Custom budget range',
+    budgetOptions: [
+      { value: '', label: 'Choose a budget if useful' },
+      { value: 'under-5000', label: 'Under NOK 5,000' },
+      { value: '5000-10000', label: 'NOK 5,000-10,000' },
+      { value: '10000-20000', label: 'NOK 10,000-20,000' },
+      { value: 'over-20000', label: 'Over NOK 20,000' },
+      { value: 'unsure', label: 'Not sure yet' },
+      { value: 'custom', label: 'Custom range' },
+    ],
     message: 'Message',
     website: 'Website',
     submit: 'Send inquiry',

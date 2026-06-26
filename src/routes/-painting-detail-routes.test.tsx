@@ -194,6 +194,30 @@ describe('painting detail routes', () => {
     }
   })
 
+  it('can start a commission inquiry with the current painting as reference context', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-03'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+    const commissionLink = within(main).getByRole('link', {
+      name: 'Discuss a commission inspired by this work',
+    })
+
+    expect(commissionLink.getAttribute('href')).toBe(
+      '/en/contact?type=commission&painting=temporary-painting-03',
+    )
+    expect(main.textContent).toContain(
+      'Commission inquiries are reviewed separately and do not promise exact reproductions.',
+    )
+  })
+
   it('composes care guidance from selected profiles and the exceptional note', async () => {
     const router = createRouter({
       routeTree,
