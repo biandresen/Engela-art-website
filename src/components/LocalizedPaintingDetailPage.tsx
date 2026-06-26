@@ -42,6 +42,10 @@ export function LocalizedPaintingDetailPage({
       : hasGalleryState
         ? 'Back to paintings'
         : 'View all paintings'
+  const actionNavigationLabel =
+    locale === 'no' ? 'Malerihandlinger' : 'Painting actions'
+  const stickyActionLabel =
+    locale === 'no' ? 'Mobil henvendelseshandling' : 'Mobile inquiry action'
 
   useEffect(() => {
     captureAnalyticsEvent({
@@ -62,7 +66,7 @@ export function LocalizedPaintingDetailPage({
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 pb-32 sm:px-8 lg:px-12">
+    <main className="mx-auto max-w-7xl px-4 py-12 pb-44 sm:px-8 lg:px-12">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)]">
         <section aria-label={detail.content.imagesLabel}>
           <div className="space-y-8">
@@ -115,12 +119,21 @@ export function LocalizedPaintingDetailPage({
           <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
             {detail.content.temporaryMetadata}
           </p>
-          <a
-            href={`${paths.paintings}${searchString}`}
-            className="mt-6 inline-flex min-h-11 items-center rounded-md border border-border px-4 text-sm font-semibold hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          <nav
+            aria-label={actionNavigationLabel}
+            className="mt-6 flex flex-wrap items-center gap-3"
           >
-            {galleryActionLabel}
-          </a>
+            <Button asChild variant="outline" size="lg">
+              <a href={`${paths.paintings}${searchString}`}>
+                {galleryActionLabel}
+              </a>
+            </Button>
+            <Button asChild size="lg">
+              <a href={detail.action.href} onClick={handleInquiryStart}>
+                {detail.action.label}
+              </a>
+            </Button>
+          </nav>
 
           <dl className="mt-8 divide-y divide-border border-y border-border">
             <MetadataRow
@@ -217,7 +230,20 @@ export function LocalizedPaintingDetailPage({
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/95 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+      <div
+        aria-label={stickyActionLabel}
+        className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/95 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden"
+        role="region"
+      >
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <Badge
+            variant="outline"
+            className={getPaintingStatusClassName(painting.status)}
+          >
+            {detail.statusLabel}
+          </Badge>
+          <p className="text-sm font-semibold">{detail.priceLabel}</p>
+        </div>
         <Button asChild size="lg" className="w-full">
           <a href={detail.action.href} onClick={handleInquiryStart}>
             {detail.action.label}

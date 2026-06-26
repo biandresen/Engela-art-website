@@ -109,7 +109,7 @@ describe('painting detail routes', () => {
       within(main).getAllByRole('link', {
         name: 'Bli med på interesselisten',
       }),
-    ).toHaveLength(2)
+    ).toHaveLength(3)
   })
 
   it('resolves every catalog painting to the same identity in both languages', async () => {
@@ -147,12 +147,14 @@ describe('painting detail routes', () => {
         slug: 'temporary-painting-01',
         action: 'Inquire about this painting',
         href: '/en/contact?type=painting&painting=temporary-painting-01',
+        stickyPrice: 'Price: NOK 1,000',
         notice: 'Sending an inquiry does not reserve the painting.',
       },
       {
         slug: 'temporary-painting-02',
         action: 'Join the interest list',
         href: '/en/contact?type=interest-list&painting=temporary-painting-02',
+        stickyPrice: 'Listed price: NOK 2,000',
         notice:
           'Joining the interest list does not reserve or guarantee the painting.',
       },
@@ -160,6 +162,7 @@ describe('painting detail routes', () => {
         slug: 'temporary-painting-03',
         action: 'Ask about similar work',
         href: '/en/contact?type=similar-work&painting=temporary-painting-03',
+        stickyPrice: 'Historical listed price: NOK 3,000',
         notice:
           'A similar-work inquiry does not promise an exact copy or create a commission.',
       },
@@ -182,19 +185,34 @@ describe('painting detail routes', () => {
       const actions = within(main).getAllByRole('link', {
         name: item.action,
       })
+      const topActions = within(main).getByRole('navigation', {
+        name: 'Painting actions',
+      })
+      const stickyActions = within(main).getByRole('region', {
+        name: 'Mobile inquiry action',
+      })
 
-      expect(actions).toHaveLength(2)
-      expect(actions[0]?.getAttribute('href')).toBe(item.href)
+      expect(actions).toHaveLength(3)
+      expect(
+        within(topActions)
+          .getByRole('link', { name: item.action })
+          .getAttribute('href'),
+      ).toBe(item.href)
+      expect(actions[1]?.getAttribute('href')).toBe(item.href)
       expect(main.textContent).toContain('Sold unframed.')
       expect(main.textContent).toContain('Listed price excludes shipping.')
       expect(main.textContent).toContain(
         'Availability is confirmed by the artist before a reservation is created.',
       )
       expect(main.textContent).toContain(item.notice)
-      expect(actions[1]?.parentElement?.className).toContain(
-        'safe-area-inset-bottom',
-      )
-      expect(actions[1]?.parentElement?.className).toContain('md:hidden')
+      expect(stickyActions.textContent).toContain(item.stickyPrice)
+      expect(
+        within(stickyActions)
+          .getByRole('link', { name: item.action })
+          .getAttribute('href'),
+      ).toBe(item.href)
+      expect(stickyActions.className).toContain('safe-area-inset-bottom')
+      expect(stickyActions.className).toContain('md:hidden')
     }
   })
 
