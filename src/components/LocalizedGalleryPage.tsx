@@ -7,11 +7,9 @@ import {
 import type { GallerySearch } from '#/lib/gallery/gallery'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
-import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
 
-import { ArtworkImage } from './ArtworkImage'
-import { Badge } from './ui/badge'
 import { Button } from './ui/button'
+import { PaintingCard } from './PaintingCard'
 
 type LocalizedGalleryPageProps = {
   locale: Locale
@@ -160,48 +158,16 @@ export function LocalizedGalleryPage({
               const painting = presentation.painting
 
               return (
-                <article key={painting.paintingId}>
-                  <a
-                    href={`${paths.paintings}/${painting.slug}${gallerySearch}`}
-                    className="group block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                  >
-                    <div className="flex aspect-[4/5] items-center justify-center bg-muted p-4">
-                      <ArtworkImage
-                        image={presentation.mainImage}
-                        locale={locale}
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="max-h-full w-full object-contain transition-opacity group-hover:opacity-90"
-                      />
-                    </div>
-                    <div className="mt-5 flex items-start justify-between gap-4">
-                      <h2 className="text-lg font-semibold">
-                        {painting.title}
-                      </h2>
-                      <Badge
-                        variant="outline"
-                        className={getPaintingStatusClassName(painting.status)}
-                      >
-                        {presentation.statusLabel}
-                      </Badge>
-                    </div>
-                  </a>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    {painting.medium[locale]}
-                  </p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {painting.technique[locale]}
-                  </p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {painting.year} · {painting.widthCm} × {painting.heightCm} ×{' '}
-                    {painting.depthCm} cm
-                  </p>
-                  <p className="mt-2 text-sm font-semibold">
-                    {presentation.priceLabel}
-                  </p>
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    {content.temporaryMetadata}
-                  </p>
-                </article>
+                <PaintingCard
+                  key={painting.paintingId}
+                  presentation={presentation}
+                  locale={locale}
+                  href={`${paths.paintings}/${painting.slug}${gallerySearch}`}
+                  headingLevel={2}
+                  imageSizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  metadataNotice={content.temporaryMetadata}
+                  showFullMetadata
+                />
               )
             })}
           </div>

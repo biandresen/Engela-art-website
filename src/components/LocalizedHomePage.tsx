@@ -18,6 +18,7 @@ import type {
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { ArtworkImage } from './ArtworkImage'
+import { PaintingCard } from './PaintingCard'
 
 type LocalizedHomePageProps = {
   locale: Locale
@@ -144,39 +145,15 @@ export function LocalizedHomePage({
             const painting = presentation.painting
 
             return (
-              <article
+              <PaintingCard
                 key={painting.paintingId}
-                className="flex flex-col border-t border-border pt-4"
-              >
-                <a
-                  href={`${paths.paintings}/${painting.slug}`}
-                  className="group rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <div className="flex aspect-[4/5] items-center justify-center bg-muted p-4">
-                    <ArtworkImage
-                      image={presentation.mainImage}
-                      locale={locale}
-                      sizes="(min-width: 768px) 33vw, 100vw"
-                      className="max-h-full w-full object-contain transition-opacity group-hover:opacity-90"
-                    />
-                  </div>
-                  <div className="mt-5 flex items-start justify-between gap-4">
-                    <h3 className="text-lg font-semibold">{painting.title}</h3>
-                    <Badge
-                      variant="outline"
-                      className={getPaintingStatusClassName(painting.status)}
-                    >
-                      {presentation.statusLabel}
-                    </Badge>
-                  </div>
-                </a>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {presentation.priceLabel}
-                </p>
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {homepageContent.temporaryMetadata}
-                </p>
-              </article>
+                presentation={presentation}
+                locale={locale}
+                href={`${paths.paintings}/${painting.slug}`}
+                headingLevel={3}
+                imageSizes="(min-width: 768px) 33vw, 100vw"
+                metadataNotice={homepageContent.temporaryMetadata}
+              />
             )
           })}
         </div>

@@ -1,6 +1,6 @@
 import type { Locale } from '#/lib/i18n/locale'
 
-import type { Painting } from './types'
+import type { Painting, PaintingImage } from './types'
 
 const labels = {
   no: {
@@ -31,6 +31,9 @@ const labels = {
 
 export function presentPainting(locale: Locale, painting: Painting) {
   const mainImage = painting.images.find((image) => image.role === 'main')
+  const roomContextImage = painting.images.find(
+    (image) => image.role === 'room-context',
+  )
 
   if (!mainImage) {
     throw new Error(`Painting requires a main image: ${painting.slug}`)
@@ -48,9 +51,18 @@ export function presentPainting(locale: Locale, painting: Painting) {
   return {
     painting,
     mainImage,
+    roomContextImage,
     statusLabel: labels[locale].statuses[painting.status],
     priceLabel: `${labels[locale].prices[painting.status]}: ${formattedPrice}`,
   }
+}
+
+export type PaintingPresentation = {
+  painting: Painting
+  mainImage: PaintingImage
+  roomContextImage?: PaintingImage
+  statusLabel: string
+  priceLabel: string
 }
 
 export function getPaintingStatusClassName(status: Painting['status']): string {
