@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { Locale } from '#/lib/i18n/locale'
 import { getGallerySearchString, galleryDefaults } from '#/lib/gallery/gallery'
 import type { GallerySearch } from '#/lib/gallery/gallery'
 import { localizedPaths } from '#/lib/i18n/routes'
+import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
 import { getPaintingDetail } from '#/lib/paintings/detail'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
 import type { Painting } from '#/lib/paintings/types'
@@ -41,6 +42,24 @@ export function LocalizedPaintingDetailPage({
       : hasGalleryState
         ? 'Back to paintings'
         : 'View all paintings'
+
+  useEffect(() => {
+    captureAnalyticsEvent({
+      name: 'painting_viewed',
+      paintingId: painting.paintingId,
+      paintingSlug: painting.slug,
+      status: painting.status,
+      language: locale,
+    })
+  }, [locale, painting.paintingId, painting.slug, painting.status])
+
+  function handleInquiryStart() {
+    captureAnalyticsEvent({
+      name: 'inquiry_started',
+      inquiryType: detail.action.inquiryType,
+      language: locale,
+    })
+  }
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 pb-32 sm:px-8 lg:px-12">
@@ -166,7 +185,9 @@ export function LocalizedPaintingDetailPage({
           </section>
 
           <Button asChild size="lg" className="mt-8">
-            <a href={detail.action.href}>{detail.action.label}</a>
+            <a href={detail.action.href} onClick={handleInquiryStart}>
+              {detail.action.label}
+            </a>
           </Button>
           <p className="mt-3 max-w-prose text-sm leading-6 text-muted-foreground">
             {detail.statusNotice}
@@ -174,6 +195,13 @@ export function LocalizedPaintingDetailPage({
           <div className="mt-6 border-t border-border pt-5">
             <a
               href={detail.commissionAction.href}
+              onClick={() =>
+                captureAnalyticsEvent({
+                  name: 'inquiry_started',
+                  inquiryType: 'commission',
+                  language: locale,
+                })
+              }
               className="text-sm font-semibold underline underline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               {detail.commissionAction.label}
@@ -187,7 +215,9 @@ export function LocalizedPaintingDetailPage({
 
       <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/95 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
         <Button asChild size="lg" className="w-full">
-          <a href={detail.action.href}>{detail.action.label}</a>
+          <a href={detail.action.href} onClick={handleInquiryStart}>
+            {detail.action.label}
+          </a>
         </Button>
       </div>
 

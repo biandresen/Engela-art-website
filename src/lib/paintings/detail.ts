@@ -51,6 +51,7 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
     care: getCareGuidance(locale, painting),
     action: {
       label: actionLabel,
+      inquiryType,
       href: `/${locale}/${locale === 'no' ? 'kontakt' : 'contact'}?${new URLSearchParams(
         {
           type: inquiryType,

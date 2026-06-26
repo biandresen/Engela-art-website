@@ -34,6 +34,9 @@ Only the production deployment receives production email, analytics, monitoring,
 and domain configuration. Configure secrets in the Netlify UI and scope them to
 the production deploy context. Do not place secret values in `netlify.toml`.
 
+See `docs/analytics-and-monitoring.md` for the production analytics and
+monitoring operating rules, including the three-month aggregate funnel review.
+
 The application resolves integrations defensively:
 
 - `production` context plus `INTEGRATIONS_MODE=production` enables production

@@ -7,7 +7,11 @@ import {
   NoopTransactionalEmailAdapter,
   ResendTransactionalEmailAdapter,
 } from '#/lib/integrations/email'
-import { resolveIntegrationMode } from '#/lib/integrations/runtime'
+import {
+  createErrorMonitoringAdapter,
+  resolveIntegrationMode,
+} from '#/lib/integrations/runtime'
+import { createConfiguredAnalyticsAdapter } from '#/lib/integrations/server'
 
 import { createInquiryRateLimiter, submitInquiry } from './inquiry'
 import type { InquirySubmissionInput } from './inquiry'
@@ -39,13 +43,60 @@ export const submitInquiryServer = createServerFn({ method: 'POST' })
       clientKey: getClientKey(),
     }
 
-    return submitInquiry(input, {
-      email: createEmailAdapter(),
-      rateLimiter,
-      now: () => new Date(),
-      receiverEmail: env.INQUIRY_RECEIVER_EMAIL ?? 'kontakt@engelaart.no',
-      senderEmail: env.INQUIRY_SENDER_EMAIL ?? 'noreply@engelaart.no',
-    })
+    const analytics = createConfiguredAnalyticsAdapter()
+    const monitoring = createConfiguredMonitoringAdapter()
+
+    try {
+      const result = await submitInquiry(input, {
+        email: createEmailAdapter(),
+        rateLimiter,
+        now: () => new Date(),
+        receiverEmail: env.INQUIRY_RECEIVER_EMAIL ?? 'kontakt@engelaart.no',
+        senderEmail: env.INQUIRY_SENDER_EMAIL ?? 'noreply@engelaart.no',
+      })
+
+      if (result.status === 'success') {
+        void analytics
+          .capture({
+            name: 'inquiry_submitted',
+            inquiryType: result.inquiryType,
+            language: data.locale,
+          })
+          .catch(() => undefined)
+      }
+
+      if (result.status === 'delivery-error') {
+        void monitoring
+          .captureException({
+            error: new Error(result.reason),
+            area: 'inquiry',
+            operation: 'send-artist-notification',
+            inquiry: {
+              locale: data.locale,
+              type: data.type,
+              painting: data.painting,
+            },
+          })
+          .catch(() => undefined)
+      }
+
+      return result
+    } catch (error) {
+      void monitoring
+        .captureException({
+          error,
+          area: 'server',
+          operation: 'submit-inquiry',
+          inquiry: {
+            locale: data.locale,
+            type: data.type,
+            painting: data.painting,
+          },
+        })
+        .catch(() => undefined)
+
+      throw error
+    }
   })
 
 function createEmailAdapter() {
@@ -67,4 +118,12 @@ function getClientKey() {
     getRequestHeader('x-real-ip') ||
     'unknown-client'
   )
+}
+
+function createConfiguredMonitoringAdapter() {
+  return createErrorMonitoringAdapter({
+    deployContext: env.CONTEXT ?? 'dev',
+    requestedMode: env.INTEGRATIONS_MODE,
+    sentryDsn: env.SENTRY_DSN,
+  })
 }

@@ -6,6 +6,7 @@ import {
   getLocaleFromPathname,
   localizedPaths,
 } from '#/lib/i18n/routes'
+import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
 
 import { MobileNavigation } from './MobileNavigation'
 
@@ -80,6 +81,13 @@ export default function Header() {
             href={languageHref}
             hrefLang={targetLocale}
             lang={targetLocale}
+            onClick={() =>
+              captureAnalyticsEvent({
+                name: 'language_selected',
+                from: locale,
+                to: targetLocale,
+              })
+            }
             className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             {labels.switchLanguage}

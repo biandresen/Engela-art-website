@@ -17,6 +17,7 @@ import type {
 } from '#/lib/inquiries/inquiry'
 import { submitInquiryServer } from '#/lib/inquiries/server'
 import { env } from '#/env'
+import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
 
 type LocalizedContactPageProps = {
   locale: Locale
@@ -78,6 +79,14 @@ export function LocalizedContactPage({
     setLoadedAt(new Date().toISOString())
     setClientToken(createClientToken())
   }, [])
+
+  useEffect(() => {
+    captureAnalyticsEvent({
+      name: 'inquiry_started',
+      inquiryType: context.inquiryType,
+      language: locale,
+    })
+  }, [context.inquiryType, locale])
 
   useEffect(() => {
     setValues((current) => ({
@@ -356,6 +365,13 @@ export function LocalizedContactPage({
             <p className="mt-3">{copy.fallbackBody}</p>
             <a
               href="mailto:kontakt@engelaart.no"
+              onClick={() =>
+                captureAnalyticsEvent({
+                  name: 'outbound_link_clicked',
+                  language: locale,
+                  destination: 'email',
+                })
+              }
               className="mt-2 inline-block underline underline-offset-4 hover:text-foreground"
             >
               kontakt@engelaart.no
@@ -371,6 +387,13 @@ export function LocalizedContactPage({
                 href={env.VITE_INSTAGRAM_URL ?? 'https://www.instagram.com/'}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() =>
+                  captureAnalyticsEvent({
+                    name: 'outbound_link_clicked',
+                    language: locale,
+                    destination: 'instagram',
+                  })
+                }
                 className="underline underline-offset-4 hover:text-foreground"
               >
                 Instagram
@@ -379,6 +402,13 @@ export function LocalizedContactPage({
                 href={env.VITE_FACEBOOK_URL ?? 'https://www.facebook.com/'}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() =>
+                  captureAnalyticsEvent({
+                    name: 'outbound_link_clicked',
+                    language: locale,
+                    destination: 'facebook',
+                  })
+                }
                 className="underline underline-offset-4 hover:text-foreground"
               >
                 Facebook

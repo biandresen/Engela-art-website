@@ -4,6 +4,7 @@ import { useRouterState } from '@tanstack/react-router'
 import { env } from '#/env'
 import { getFooterLabels } from '#/lib/i18n/content'
 import { getLocaleFromPathname, localizedPaths } from '#/lib/i18n/routes'
+import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
 
 export default function Footer() {
   const pathname = useRouterState({
@@ -40,6 +41,13 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             aria-label={labels.instagram}
+            onClick={() =>
+              captureAnalyticsEvent({
+                name: 'outbound_link_clicked',
+                language: locale,
+                destination: 'instagram',
+              })
+            }
             className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-footer-foreground"
           >
             <Instagram aria-hidden="true" />
@@ -49,6 +57,13 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             aria-label={labels.facebook}
+            onClick={() =>
+              captureAnalyticsEvent({
+                name: 'outbound_link_clicked',
+                language: locale,
+                destination: 'facebook',
+              })
+            }
             className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-footer-foreground"
           >
             <Facebook aria-hidden="true" />

@@ -1,13 +1,21 @@
 import { describe, expect, it } from 'vitest'
 
-import { NoopAnalyticsAdapter, RecordingAnalyticsAdapter } from './analytics'
+import {
+  NoopAnalyticsAdapter,
+  PostHogAnalyticsAdapter,
+  RecordingAnalyticsAdapter,
+  buildPostHogBrowserConfig,
+  sanitizeAnalyticsEvent,
+} from './analytics'
 import {
   NoopTransactionalEmailAdapter,
   RecordingTransactionalEmailAdapter,
 } from './email'
 import {
+  SentryErrorMonitoringAdapter,
   NoopErrorMonitoringAdapter,
   RecordingErrorMonitoringAdapter,
+  scrubMonitoringPayload,
 } from './monitoring'
 import { resolveIntegrationMode } from './runtime'
 
@@ -82,6 +90,80 @@ describe('analytics adapters', () => {
 
     expect(adapter.events).toEqual([event])
   })
+
+  it('keeps only the approved analytics vocabulary and safe properties', () => {
+    const unsafeEvent = {
+      name: 'inquiry_submitted',
+      inquiryType: 'painting',
+      language: 'en',
+      email: 'buyer@example.com',
+      message: 'I want to buy this painting.',
+      customBudget: 'My private budget is NOK 8,500.',
+    }
+
+    expect(sanitizeAnalyticsEvent(unsafeEvent)).toEqual(event)
+  })
+
+  it('rejects unknown analytics events before they reach a provider', () => {
+    expect(
+      sanitizeAnalyticsEvent({
+        name: 'form_field_changed',
+        field: 'email',
+        value: 'buyer@example.com',
+      }),
+    ).toBeNull()
+  })
+
+  it('configures PostHog for EU cookieless aggregate capture', () => {
+    expect(buildPostHogBrowserConfig('project-key')).toEqual({
+      apiKey: 'project-key',
+      apiHost: 'https://eu.i.posthog.com',
+      autocapture: false,
+      capturePageview: false,
+      capturePageleave: false,
+      disableSessionRecording: true,
+      persistence: 'memory',
+      personProfiles: 'never',
+      advancedDisableSurveys: true,
+    })
+  })
+
+  it('sends sanitized allowlisted events to PostHog without persistent identity', async () => {
+    const requests: Array<{ url: string; body: unknown }> = []
+    const adapter = new PostHogAnalyticsAdapter({
+      apiKey: 'project-key',
+      host: 'https://eu.i.posthog.com',
+      fetch: async (url, init) => {
+        requests.push({
+          url: String(url),
+          body: JSON.parse(String(init?.body)),
+        })
+
+        return new Response('{}', { status: 200 })
+      },
+    })
+
+    await adapter.capture({
+      ...event,
+      email: 'buyer@example.com',
+    } as never)
+
+    expect(requests).toEqual([
+      {
+        url: 'https://eu.i.posthog.com/capture/',
+        body: {
+          api_key: 'project-key',
+          event: 'inquiry_submitted',
+          distinct_id: 'anonymous-aggregate',
+          properties: {
+            inquiryType: 'painting',
+            language: 'en',
+            $process_person_profile: false,
+          },
+        },
+      },
+    ])
+  })
 })
 
 describe('error monitoring adapters', () => {
@@ -102,6 +184,73 @@ describe('error monitoring adapters', () => {
 
     adapter.captureException(report)
 
-    expect(adapter.reports).toEqual([report])
+    expect(adapter.reports).toEqual([
+      {
+        error: {
+          name: 'Error',
+          message: 'Unexpected failure',
+        },
+        area: 'server',
+        operation: 'render-page',
+      },
+    ])
+  })
+
+  it('scrubs form values, direct identifiers, cookies, auth, and inquiry query values', () => {
+    expect(
+      scrubMonitoringPayload({
+        error: new Error('Failed for buyer@example.com'),
+        area: 'server',
+        operation: 'submit-inquiry',
+        form: {
+          name: 'Buyer Name',
+          email: 'buyer@example.com',
+          phone: '+47 400 00 000',
+          message: 'Private inquiry text',
+          customBudget: 'NOK 8,500',
+        },
+        request: {
+          url: 'https://engelaart.no/en/contact?type=painting&painting=sommer',
+          headers: {
+            cookie: 'language=en',
+            authorization: 'Bearer secret',
+            accept: 'text/html',
+          },
+        },
+      }),
+    ).toEqual({
+      error: {
+        name: 'Error',
+        message: 'Failed for [redacted-email]',
+      },
+      area: 'server',
+      operation: 'submit-inquiry',
+      form: {
+        name: '[redacted]',
+        email: '[redacted]',
+        phone: '[redacted]',
+        message: '[redacted]',
+        customBudget: '[redacted]',
+      },
+      request: {
+        url: 'https://engelaart.no/en/contact',
+        headers: {
+          cookie: '[redacted]',
+          authorization: '[redacted]',
+          accept: 'text/html',
+        },
+      },
+    })
+  })
+
+  it('isolates Sentry provider failures from application flow', async () => {
+    const adapter = new SentryErrorMonitoringAdapter({
+      dsn: 'https://public@example.com/123',
+      fetch: async () => new Response('rejected', { status: 500 }),
+    })
+
+    await expect(adapter.captureException(report)).resolves.toEqual({
+      status: 'failed',
+    })
   })
 })

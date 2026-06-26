@@ -6,6 +6,7 @@ import {
 } from '#/lib/gallery/gallery'
 import type { GallerySearch } from '#/lib/gallery/gallery'
 import { localizedPaths } from '#/lib/i18n/routes'
+import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
 
 import { ArtworkImage } from './ArtworkImage'
@@ -26,6 +27,17 @@ export function LocalizedGalleryPage({
   const { paintings, content } = getGallery(locale, search)
   const paths = localizedPaths[locale]
   const gallerySearch = getGallerySearchString(search)
+
+  function handleSearchChange(nextSearch: GallerySearch) {
+    captureAnalyticsEvent({
+      name: 'gallery_controls_changed',
+      language: locale,
+      status: nextSearch.status,
+      orientation: nextSearch.orientation,
+      sort: nextSearch.sort,
+    })
+    onSearchChange(nextSearch)
+  }
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12">
@@ -58,7 +70,7 @@ export function LocalizedGalleryPage({
                     name="status"
                     value={status}
                     checked={search.status === status}
-                    onChange={() => onSearchChange({ ...search, status })}
+                    onChange={() => handleSearchChange({ ...search, status })}
                     className="mr-2"
                   />
                   {content.statusOptions[status]}
@@ -84,7 +96,9 @@ export function LocalizedGalleryPage({
                     name="orientation"
                     value={orientation}
                     checked={search.orientation === orientation}
-                    onChange={() => onSearchChange({ ...search, orientation })}
+                    onChange={() =>
+                      handleSearchChange({ ...search, orientation })
+                    }
                     className="mr-2"
                   />
                   {content.orientationOptions[orientation]}
@@ -102,7 +116,7 @@ export function LocalizedGalleryPage({
             id="gallery-sort"
             value={search.sort}
             onChange={(event) =>
-              onSearchChange({
+              handleSearchChange({
                 ...search,
                 sort: event.target.value as GallerySearch['sort'],
               })
@@ -135,7 +149,7 @@ export function LocalizedGalleryPage({
               type="button"
               variant="outline"
               className="mt-6"
-              onClick={() => onSearchChange(galleryDefaults)}
+              onClick={() => handleSearchChange(galleryDefaults)}
             >
               {content.clearFilters}
             </Button>
