@@ -205,10 +205,13 @@ describe('localized home page', () => {
     ).toBe('/en/about')
   })
 
-  it('does not render social-proof placeholders when production data is empty', () => {
+  it('renders dummy testimonials but no customer-photo placeholders', () => {
     render(<LocalizedHomePage locale="en" />)
 
-    expect(screen.queryByRole('region', { name: 'Testimonials' })).toBeNull()
+    const testimonials = screen.getByRole('region', { name: 'Testimonials' })
+
+    expect(within(testimonials).getAllByRole('article')).toHaveLength(3)
+    expect(testimonials.textContent).toContain('[DUMMY]')
     expect(screen.queryByRole('region', { name: 'Customer homes' })).toBeNull()
     expect(screen.queryByText(/coming soon/i)).toBeNull()
     expect(document.querySelector('script[type="application/ld+json"]')).toBe(

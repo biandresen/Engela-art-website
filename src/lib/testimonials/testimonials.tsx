@@ -52,7 +52,65 @@ type TestimonialsSectionProps = {
   googleProfileLabel?: string
 }
 
-export const approvedTestimonials: ReadonlyArray<Testimonial> = []
+export const approvedTestimonials: ReadonlyArray<Testimonial> = [
+  {
+    quote: {
+      no: '[DUMMY] Maleriet ga rommet en helt ny varme, og dialogen føltes personlig fra første melding.',
+      en: '[DUMMY] The painting brought a new warmth to the room, and the conversation felt personal from the first message.',
+    },
+    displayName: 'Dummy Kunde 1',
+    date: '2026-06-01',
+    source: {
+      type: 'email',
+      label: {
+        no: 'Dummy e-postuttalelse',
+        en: 'Dummy email testimonial',
+      },
+    },
+    publicationConsent: {
+      status: 'written',
+      documentedAt: '2026-06-01',
+    },
+  },
+  {
+    quote: {
+      no: '[DUMMY] Vi fikk god hjelp til å forstå størrelse, uttrykk og hvordan maleriet ville passe hjemme hos oss.',
+      en: '[DUMMY] We got thoughtful help understanding the size, mood, and how the painting would fit in our home.',
+    },
+    displayName: 'Dummy Kunde 2',
+    date: '2026-06-02',
+    source: {
+      type: 'email',
+      label: {
+        no: 'Dummy e-postuttalelse',
+        en: 'Dummy email testimonial',
+      },
+    },
+    publicationConsent: {
+      status: 'written',
+      documentedAt: '2026-06-02',
+    },
+  },
+  {
+    quote: {
+      no: '[DUMMY] Det føltes trygt å kjøpe originalkunst når prosessen var så rolig, tydelig og menneskelig.',
+      en: '[DUMMY] Buying original art felt safe because the process was calm, clear, and human.',
+    },
+    displayName: 'Dummy Kunde 3',
+    date: '2026-06-03',
+    source: {
+      type: 'email',
+      label: {
+        no: 'Dummy e-postuttalelse',
+        en: 'Dummy email testimonial',
+      },
+    },
+    publicationConsent: {
+      status: 'written',
+      documentedAt: '2026-06-03',
+    },
+  },
+]
 
 export const approvedCustomerPhotos: ReadonlyArray<CustomerPhoto> = []
 

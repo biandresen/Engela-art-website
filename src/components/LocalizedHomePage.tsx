@@ -40,7 +40,7 @@ export function LocalizedHomePage({
   } = getHomepage(locale)
   const paths = localizedPaths[locale]
   const testimonials =
-    testimonialEntries ?? getApprovedTestimonials({ limit: 2 })
+    testimonialEntries ?? getApprovedTestimonials({ limit: 3 })
   const customerPhotos =
     customerPhotoEntries ?? getApprovedCustomerPhotos({ limit: 2 })
   const testimonialsHeading =

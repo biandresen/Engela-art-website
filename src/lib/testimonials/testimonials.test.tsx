@@ -150,8 +150,21 @@ describe('testimonials section', () => {
 })
 
 describe('testimonial data sources', () => {
-  it('default production collections are empty instead of seeded with dummy content', () => {
-    expect(getApprovedTestimonials()).toEqual([])
+  it('exposes three clearly marked dummy testimonials for temporary visual review', () => {
+    const testimonials = getApprovedTestimonials()
+
+    expect(testimonials).toHaveLength(3)
+    expect(testimonials.map((entry) => entry.displayName)).toEqual([
+      'Dummy Kunde 1',
+      'Dummy Kunde 2',
+      'Dummy Kunde 3',
+    ])
+    expect(
+      testimonials.every((entry) => entry.quote.en.includes('[DUMMY]')),
+    ).toBe(true)
+  })
+
+  it('keeps customer-photo production content empty until permissioned photos exist', () => {
     expect(getApprovedCustomerPhotos()).toEqual([])
   })
 })
