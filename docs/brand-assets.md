@@ -15,6 +15,7 @@ The script:
 - removes the baked checkerboard only from source pixels connected to the image
   boundary;
 - creates transparent dark-on-light and light-on-dark logo variants;
+- creates the footer logo-with-name WebP derivative from the approved source;
 - creates favicon, manifest, avatar, and Open Graph derivatives;
 - creates responsive AVIF/WebP portrait crops and a JPEG fallback;
 - creates light and dark variants from the simplified watermark master.

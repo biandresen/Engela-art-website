@@ -45,6 +45,7 @@ describe('footer', () => {
     render(<Footer />)
 
     const footer = screen.getByRole('contentinfo')
+    const brandImage = within(footer).getByRole('img', { name: 'Engela Art' })
     const navigation = within(footer).getByRole('navigation', {
       name: 'Footer navigation',
     })
@@ -52,6 +53,9 @@ describe('footer', () => {
       name: 'Legal and contact links',
     })
 
+    expect(brandImage.getAttribute('src')).toBe(
+      '/assets/brand/footer-image.webp',
+    )
     expect(
       within(navigation)
         .getByRole('link', { name: 'Home' })

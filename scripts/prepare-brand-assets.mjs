@@ -52,6 +52,14 @@ await sharp(resolve(brandOutput, 'logo-footer-light.png'))
   .webp({ quality: 88, alphaQuality: 100, effort: 5 })
   .toFile(resolve(brandOutput, 'logo-footer-light.webp'))
 
+await sharp(resolve(root, 'assets/brand-source/footer-image.png'))
+  .resize(720, 240, {
+    fit: 'contain',
+    background: { r: 0, g: 0, b: 0, alpha: 0 },
+  })
+  .webp({ quality: 88, alphaQuality: 100, effort: 5 })
+  .toFile(resolve(brandOutput, 'footer-image.webp'))
+
 await createAppIdentityAssets()
 await createSocialAssets()
 await createWatermarks()

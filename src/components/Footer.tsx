@@ -33,20 +33,14 @@ export default function Footer() {
     <footer className="mt-16 border-t border-primary/35 bg-footer text-footer-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 text-sm sm:px-8 lg:grid-cols-[1.25fr_1fr_1fr] lg:px-12">
         <div className="max-w-sm">
-          <picture>
-            <source
-              srcSet="/assets/brand/logo-footer-light.webp"
-              type="image/webp"
-            />
-            <img
-              src="/assets/brand/logo-footer-light.png"
-              width="720"
-              height="202"
-              alt="Engela Art"
-              className="h-auto w-56"
-              loading="lazy"
-            />
-          </picture>
+          <img
+            src="/assets/brand/footer-image.webp"
+            width="720"
+            height="240"
+            alt="Engela Art"
+            className="h-auto w-56"
+            loading="lazy"
+          />
           <p className="mt-4 leading-6 text-footer-foreground/80">
             {labels.brandSummary}
           </p>

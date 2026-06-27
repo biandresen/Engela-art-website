@@ -8,6 +8,7 @@ const root = process.cwd()
 const expectedAssets = [
   'public/assets/brand/logo-header-dark.png',
   'public/assets/brand/logo-footer-light.png',
+  'public/assets/brand/footer-image.webp',
   'public/assets/brand/mark-compact.png',
   'public/assets/brand/social-avatar.png',
   'public/assets/brand/og-default.jpg',
@@ -46,6 +47,7 @@ describe('Engela Art brand asset contract', () => {
   it('provides correctly sized social, app, and portrait assets', async () => {
     await expectDimensions('public/assets/brand/social-avatar.png', 512, 512)
     await expectDimensions('public/assets/brand/og-default.jpg', 1200, 630)
+    await expectDimensions('public/assets/brand/footer-image.webp', 720, 240)
     await expectDimensions('public/assets/brand/icon-192.png', 192, 192)
     await expectDimensions('public/assets/brand/icon-512.png', 512, 512)
     await expectDimensions('public/assets/portrait/engela-480.webp', 480, 600)
@@ -66,9 +68,16 @@ describe('Engela Art brand asset contract', () => {
     const openGraphImage = await stat(
       resolve(root, 'public/assets/brand/og-default.jpg'),
     )
+    const sourceFooterImage = await stat(
+      resolve(root, 'assets/brand-source/footer-image.png'),
+    )
+    const footerImage = await stat(
+      resolve(root, 'public/assets/brand/footer-image.webp'),
+    )
 
     expect(responsivePortrait.size).toBeLessThan(sourcePortrait.size / 2)
     expect(openGraphImage.size).toBeLessThan(sourceBanner.size / 2)
+    expect(footerImage.size).toBeLessThan(sourceFooterImage.size / 2)
   })
 
   it('references existing manifest icons and no checkerboard source assets', async () => {
