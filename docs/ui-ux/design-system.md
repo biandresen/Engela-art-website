@@ -55,8 +55,9 @@ Accent:           #A65332
 Accent hover:     #7E3D26
 Soft peach:       #E8C2AA
 Muted blue-green: #557A78
-Available:        #5F6F52
-Sold:             #8A5547
+Available:        #4F6842
+Reserved:         #7A5A16
+Sold:             #8F3F37
 ```
 
 Why:
@@ -65,6 +66,7 @@ Why:
 - Deep brown-charcoal text is softer and more aligned with the work than pure black.
 - Terracotta provides a distinctive action color while remaining quieter than the paintings.
 - Blue-green offers controlled contrast for occasional secondary details.
+- Availability flags use green, yellow ochre, and muted red with stronger borders and subtle fills so status is easier to scan without overwhelming the artwork.
 - The palette remains restrained enough to support highly colorful and varied artwork.
 
 ### Tailwind Token Names

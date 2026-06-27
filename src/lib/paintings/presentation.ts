@@ -67,10 +67,10 @@ export type PaintingPresentation = {
 
 export function getPaintingStatusClassName(status: Painting['status']): string {
   if (status === 'available') {
-    return 'border-available text-available'
+    return 'border-2 border-available bg-available/10 text-available'
   }
 
   return status === 'reserved'
-    ? 'border-reserved text-reserved'
-    : 'border-sold text-sold'
+    ? 'border-2 border-reserved bg-reserved/14 text-reserved'
+    : 'border-2 border-sold bg-sold/10 text-sold'
 }

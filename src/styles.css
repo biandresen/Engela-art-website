@@ -53,9 +53,9 @@ code {
   --accent-foreground: #fffdfc;
   --destructive: #8a5547;
   --destructive-foreground: #fffdfc;
-  --available: #5f6f52;
-  --reserved: #557a78;
-  --sold: #8a5547;
+  --available: #4f6842;
+  --reserved: #7a5a16;
+  --sold: #8f3f37;
   --footer: #3a241d;
   --footer-foreground: #fff7e8;
   --card: var(--surface);
