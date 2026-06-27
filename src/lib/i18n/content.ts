@@ -56,12 +56,12 @@ const pageContent: Record<
       intro: 'Ta kontakt med Engela Art.',
     },
     privacy: {
-      title: 'Personvern',
+      title: 'Personvernerklæring',
       intro: 'Informasjon om hvordan Engela Art behandler personopplysninger.',
     },
     sales: {
-      title: 'Salg og retur',
-      intro: 'Informasjon om salg, levering og retur.',
+      title: 'Salg, vilkår og retur',
+      intro: 'Informasjon om vilkår, betaling, levering og retur.',
     },
   },
   en: {
@@ -94,8 +94,8 @@ const pageContent: Record<
       intro: 'How Engela Art processes personal information.',
     },
     sales: {
-      title: 'Sales and returns',
-      intro: 'Information about sales, delivery, and returns.',
+      title: 'Sales, terms, and returns',
+      intro: 'Information about terms, payment, delivery, and returns.',
     },
   },
 }
@@ -125,8 +125,8 @@ export function getFooterLabels(locale: Locale) {
         paintings: 'Malerier',
         commissions: 'Bestillingsverk',
         about: 'Om',
-        privacy: 'Personvern',
-        sales: 'Salg og retur',
+        privacy: 'Personvernerklæring',
+        sales: 'Salg, vilkår og retur',
         email: 'Send e-post til Engela Art',
         emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art på Instagram',
@@ -149,7 +149,7 @@ export function getFooterLabels(locale: Locale) {
         commissions: 'Commissions',
         about: 'About',
         privacy: 'Privacy',
-        sales: 'Sales and returns',
+        sales: 'Sales, terms, and returns',
         email: 'Email Engela Art',
         emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art on Instagram',

@@ -78,9 +78,9 @@ const localizedDescriptions: Record<
     contact: () =>
       'Ta kontakt med Engela Art om malerier, interesseliste, lignende arbeider eller bestillingsverk.',
     privacy: () =>
-      'Les hvordan Engela Art behandler opplysninger fra kontaktskjema, e-post, analyse og nettstedets funksjonelle språkkapsel.',
+      'Les personvernerklæringen for Engela Art om behandlingsansvar, kontaktskjema, e-post, analyse, feilovervåking, lagring, rettigheter og språkkapsel.',
     sales: () =>
-      'Les praktisk informasjon om priser, betaling, henting, frakt, angrerett, reklamasjon og retur hos Engela Art.',
+      'Les vilkår og praktisk informasjon om NOK-priser, faktura, betaling, henting i Nannestad, sporbar frakt, angrerett, reklamasjon og retur hos Engela Art.',
   },
   en: {
     home: () =>
@@ -98,9 +98,9 @@ const localizedDescriptions: Record<
     contact: () =>
       'Get in touch with Engela Art about paintings, interest lists, similar work, or commissions.',
     privacy: () =>
-      'How Engela Art processes inquiry, email, analytics, and strictly functional language-cookie data.',
+      'Read the Engela Art privacy notice covering controller details, inquiry email, analytics, monitoring, retention, rights, and the language cookie.',
     sales: () =>
-      'Practical information about prices, payment, pickup, shipping, withdrawal rights, complaints, and returns at Engela Art.',
+      'Terms and practical information about NOK prices, invoice payment, Nannestad pickup, tracked shipping, withdrawal rights, complaints, and returns at Engela Art.',
   },
 }
 

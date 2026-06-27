@@ -83,7 +83,7 @@ describe('footer', () => {
     ).toBe('/en/privacy')
     expect(
       within(legal)
-        .getByRole('link', { name: 'Sales and returns' })
+        .getByRole('link', { name: 'Sales, terms, and returns' })
         .getAttribute('href'),
     ).toBe('/en/sales-and-returns')
     expect(
@@ -147,12 +147,12 @@ describe('footer', () => {
 
     expect(
       within(legal)
-        .getByRole('link', { name: 'Personvern' })
+        .getByRole('link', { name: 'Personvernerklæring' })
         .getAttribute('href'),
     ).toBe('/no/personvern')
     expect(
       within(legal)
-        .getByRole('link', { name: 'Salg og retur' })
+        .getByRole('link', { name: 'Salg, vilkår og retur' })
         .getAttribute('href'),
     ).toBe('/no/salg-og-retur')
     expect(

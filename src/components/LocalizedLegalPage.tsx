@@ -72,17 +72,17 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
   no: {
     privacy: {
       eyebrow: 'Engela Art',
-      title: 'Personvern',
+      title: 'Personvernerklæring',
       intro:
         'Denne siden forklarer hvordan Engela Art behandler opplysninger når du bruker nettstedet, sender henvendelser eller fullfører et manuelt salg utenfor nettstedet.',
       reviewNotice:
         'Juridisk sluttgjennomgang kreves før produksjonsgodkjenning. Teksten er praktisk publiseringsutkast, ikke endelig juridisk eller regnskapsmessig rådgivning.',
       sections: [
         {
-          title: 'Virksomhet og kontakt',
+          title: 'Behandlingsansvarlig og kontakt',
           body: [
-            'Engela Art er det offentlige kunstnernavnet for virksomheten. Endelige ENK-detaljer og organisasjonsnummer må bekreftes før produksjonslansering.',
-            'Personvernspørsmål og henvendelser sendes til kontakt@engelaart.no. Nøyaktig privat bostedsadresse publiseres ikke på nettstedet.',
+            'Engela Art er behandlingsansvarlig for personopplysninger som samles inn gjennom nettstedet og den etterfølgende kjøpsdialogen. Endelige ENK-detaljer og organisasjonsnummer må bekreftes før produksjonslansering.',
+            'Personvernspørsmål og henvendelser sendes via kontaktsiden eller til kontakt@engelaart.no. Nøyaktig privat bostedsadresse og personlig e-postadresse publiseres ikke på nettstedet.',
           ],
         },
         {
@@ -96,7 +96,8 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
           title: 'Formål og grunnlag',
           body: [
             'Opplysningene brukes til å svare på henvendelser, avklare tilgjengelighet, håndtere interesselister, diskutere bestillingsverk og følge opp manuelle salg.',
-            'Etter et fullført salg kan nødvendige opplysninger brukes til faktura, bokføring, levering, reklamasjon, retur, dokumentasjon og rettskrav. Markedsføring eller nyhetsbrev er ikke del av v1.',
+            'Grunnlaget er normalt at behandlingen er nødvendig for å svare på forespørselen din, forberede eller følge opp en avtale, oppfylle lovpålagte plikter, eller ivareta en berettiget interesse i sikker drift, dokumentasjon og kravshåndtering.',
+            'Etter et fullført salg kan nødvendige opplysninger brukes til faktura, bokføring, levering, reklamasjon, retur, dokumentasjon og rettskrav.',
           ],
         },
         {
@@ -112,47 +113,65 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
           body: [
             'Mislykkede eller uaktuelle henvendelser slettes eller anonymiseres normalt 12 måneder etter siste kontakt. Interesseoppføringer slettes når maleriet er solgt eller når videre oppfølging ikke lenger er nødvendig.',
             'Fullførte salgsoppføringer, regnskapsgrunnlag og relevant salgsdokumentasjon kan beholdes i fem år når det trengs for bokføring, reklamasjonshåndtering eller rettskrav. Aktive klager eller tvister beholdes til saken er avsluttet.',
-            'Du kan be om innsyn, retting, sletting, begrensning eller protest der reglene gir slike rettigheter. Kontakt Engela Art på kontakt@engelaart.no.',
+            'Du kan be om innsyn, retting, sletting, begrensning, dataportabilitet eller protest der reglene gir slike rettigheter. Du kan også klage til Datatilsynet. Kontakt Engela Art via kontaktsiden eller på kontakt@engelaart.no.',
           ],
         },
       ],
     },
     sales: {
       eyebrow: 'Engela Art',
-      title: 'Salg og retur',
+      title: 'Salg, vilkår og retur',
       intro:
-        'Denne siden forklarer hvordan kjøp, betaling, levering, retur og dokumentasjon håndteres når et originalt maleri selges manuelt etter dialog.',
+        'Denne siden samler vilkår, betaling, levering, retur og praktisk kjøpsinformasjon for originale malerier som selges manuelt etter dialog.',
       reviewNotice:
         'Juridisk sluttgjennomgang kreves før produksjonsgodkjenning. Salgs-, angrerett-, reklamasjons- og regnskapsordlyd må godkjennes profesjonelt før lansering.',
       sections: [
         {
-          title: 'Pris, ramme og avtale',
+          title: 'Struktur og selgeridentitet',
           body: [
-            'Alle v1-malerier selges uten ramme. Prisen inkluderer ikke frakt, toll, importkostnader eller særskilt emballasje med mindre dette er skriftlig avtalt.',
-            'Nettsidens vilkår er informasjonsbasert veiledning. Den bindende aksepten skjer i transaksjonsspesifikk skriftlig e-post, faktura eller kommisjonsforslag når endelig maleri, pris, levering og omfang er kjent.',
+            'Engela Art bruker to offentlige informasjonssider i v1: Personvernerklæring og Salg, vilkår og retur. Det opprettes ikke egne sider for vilkår eller betaling og levering før salgsmodellen trenger mer detaljerte skiller.',
+            'Selger er Engela Art. Endelige ENK-detaljer og organisasjonsnummer må bekreftes før produksjonslansering. Privat bostedsadresse deles ikke offentlig; nødvendig hentested deles privat etter avtale.',
           ],
         },
         {
-          title: 'Henting, Sporbar frakt og marked',
+          title: 'Originale malerier, priser og avtale',
           body: [
-            'Henting i Nannestad etter avtale er mulig. Nøyaktig hentested deles privat først etter at kjøper og tidspunkt er bekreftet.',
-            'Norge er standardmarkedet ved lansering. Innenlands frakt avtales enkeltvis, og alle sendte malerier bruker sporbar frakt med passende tilgjengelig dekning.',
-            'Internasjonalt salg vurderes fra sak til sak. Mottakerland, transportør, sporing, dekning, tollpapirer, importkostnader, leveringstid og totalpris må avklares før reservasjon eller faktura.',
+            'Nettstedet viser originale fysiske malerier fra Engela Art.',
+            'Alle tilgjengelige malerier viser pris i NOK. Prisen inkluderer ikke frakt, toll, importkostnader eller særskilt emballasje med mindre dette er skriftlig avtalt. Alle v1-malerier selges uten ramme.',
+            'Det finnes ingen handlekurv eller nettbasert checkout. Kjøp skjer først etter skriftlig dialog der maleri, tilgjengelighet, pris, betaling, levering og eventuelle forbehold er bekreftet.',
+            'Nettsidens vilkår er informasjonsbasert veiledning. Bindende aksept skjer i transaksjonsspesifikk skriftlig e-post, faktura eller kommisjonsforslag når endelig maleri, pris, levering og omfang er kjent.',
           ],
         },
         {
           title: 'Betaling',
           body: [
-            'Etter at tilgjengelighet, tilstand og levering er bekreftet skriftlig, sender Engela Art faktura. Betaling kan normalt gjøres med Bankoverføring, Vipps Business eller PayPal Business.',
-            'Betaling må være mottatt før sending eller overlevering med mindre Engela Art uttrykkelig avtaler noe annet skriftlig.',
+            'Etter at tilgjengelighet, tilstand og levering er bekreftet skriftlig, sender Engela Art faktura eller annen manuell betalingsavtale. Betaling kan normalt gjøres med bankoverføring, Vipps Business eller PayPal Business.',
+            'Betaling må være mottatt før sending eller overlevering med mindre Engela Art uttrykkelig avtaler noe annet skriftlig. Ingen betalingskort eller betalingsopplysninger samles inn på nettstedet.',
+          ],
+        },
+        {
+          title: 'Henting, sporbar frakt og marked',
+          body: [
+            'Henting i Nannestad etter avtale er mulig. Nøyaktig hentested deles privat først etter at kjøper og tidspunkt er bekreftet.',
+            'Norge er standardmarkedet ved lansering. Innenlands frakt avtales enkeltvis, kjøper får beskjed om fraktkostnad før betaling, og alle sendte malerier bruker sporbar frakt med passende tilgjengelig dekning.',
+            'Transportør velges etter maleriets størrelse, verdi, destinasjon, tilgjengelig sporing og praktisk forsikring eller dekning. Leveringstid er estimat, ikke garanti.',
+            'Internasjonalt salg vurderes fra sak til sak. Mottakerland, transportør, sporing, dekning, tollpapirer, importkostnader, leveringstid og totalpris må avklares før reservasjon eller faktura.',
           ],
         },
         {
           title: 'Angrerett, reklamasjon og retur',
           body: [
             'Engela Art følger lovpålagte regler for angrerett, reklamasjon og refusjon der de gjelder. Endelig ordlyd må kontrolleres mot faktisk virksomhetsform og salgssituasjon før lansering.',
-            'Kontakt Engela Art på kontakt@engelaart.no før retur. Maleriet må pakkes trygt, og kjøper betaler normalt returfrakt ved angrerett med mindre loven eller den konkrete avtalen sier noe annet.',
-            'Ved feil, transportskade eller vesentlig avvik fra beskrivelsen håndteres løsning, frakt og refusjon etter faktum, avtale og ufravikelige regler.',
+            'Kontakt Engela Art via kontaktsiden eller på kontakt@engelaart.no før retur. Vent på returavklaring før du sender maleriet tilbake, slik at pakking, adresse, frist, dokumentasjon og eventuell fraktmåte kan avklares.',
+            'Maleriet må pakkes trygt, og kjøper betaler normalt returfrakt ved angrerett med mindre loven eller den konkrete avtalen sier noe annet. Ved feil, transportskade eller vesentlig avvik fra beskrivelsen håndteres løsning, frakt og refusjon etter faktum, avtale og ufravikelige regler.',
+          ],
+        },
+        {
+          title: 'Opphavsrett, ansvar og endringer',
+          body: [
+            'Kjøp av et originalt maleri overfører eierskap til den fysiske gjenstanden, ikke opphavsretten til motivet, fotografier eller annet innhold. Kommersiell bruk, reproduksjon og påstand om egen opphavsrett krever skriftlig tillatelse.',
+            'Farger, skjermvisning og rombilder kan avvike noe fra fysisk maleri. Ingenting på nettstedet begrenser ufravikelige forbrukerrettigheter.',
+            'Engela Art kan oppdatere denne informasjonen når virksomhetsdetaljer, leverandører, salgsprosess eller juridisk gjennomgang endres. Den konkrete avtalen som ble skriftlig bekreftet for et kjøp, styrer det kjøpet.',
           ],
         },
         {
@@ -177,10 +196,10 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
         'Final legal review required before production approval. This is practical publication draft copy, not final legal or accounting advice.',
       sections: [
         {
-          title: 'Business identity and contact',
+          title: 'Controller and contact',
           body: [
-            'Engela Art is the public artist brand for the business. Final ENK details and organization number must be confirmed before production launch.',
-            'Privacy questions and inquiries can be sent to kontakt@engelaart.no. The exact private residential address is not published on the website.',
+            'Engela Art is the controller for personal data collected through the website and the following purchase conversation. Final ENK details and organization number must be confirmed before production launch.',
+            'Privacy questions and inquiries can be sent through the Contact page or to kontakt@engelaart.no. The exact private residential address and personal email address are not published on the website.',
           ],
         },
         {
@@ -194,7 +213,8 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
           title: 'Purposes and legal bases',
           body: [
             'Information is used to answer inquiries, confirm availability, manage interest-list conversations, discuss commission inquiries, and follow up manual sales.',
-            'After a completed sale, necessary information may be used for invoicing, bookkeeping, delivery, complaints, returns, documentation, and legal claims. Marketing and newsletters are not part of v1.',
+            'The legal basis is normally that processing is necessary to answer your request, prepare or follow up an agreement, comply with legal obligations, or pursue a legitimate interest in secure operation, documentation, and claims handling.',
+            'After a completed sale, necessary information may be used for invoicing, bookkeeping, delivery, complaints, returns, documentation, and legal claims.',
           ],
         },
         {
@@ -210,47 +230,65 @@ const legalContent: Record<Locale, Record<LegalPageKind, LegalPageContent>> = {
           body: [
             'Unsuccessful inquiries are normally deleted or anonymized 12 months after the last contact. Interest-list entries are deleted when the painting is sold or when follow-up is no longer necessary.',
             'Completed-sale records, accounting material, and relevant sales documentation may be retained for five years when needed for bookkeeping, complaint handling, or legal claims. Active complaints or disputes are retained until resolved.',
-            'You may ask for access, correction, deletion, restriction, or objection where the rules provide those rights. Contact Engela Art at kontakt@engelaart.no.',
+            'You may ask for access, correction, deletion, restriction, data portability, or objection where the rules provide those rights. You may also complain to the Norwegian Data Protection Authority. Contact Engela Art through the Contact page or at kontakt@engelaart.no.',
           ],
         },
       ],
     },
     sales: {
       eyebrow: 'Engela Art',
-      title: 'Sales and returns',
+      title: 'Sales, terms, and returns',
       intro:
-        'This page explains how purchases, payment, delivery, returns, and documentation are handled when an original painting is sold manually after direct communication.',
+        'This page combines terms, payment, delivery, returns, and practical purchase information for original paintings sold manually after direct communication.',
       reviewNotice:
         'Final legal review required before production approval. Sales, withdrawal, complaint, and accounting wording must receive professional review before launch.',
       sections: [
         {
-          title: 'Price, framing, and agreement',
+          title: 'Structure and seller identity',
           body: [
-            'All v1 paintings are sold unframed. Listed price excludes shipping, customs, import charges, and special packaging unless this is agreed in writing.',
-            'Website terms are informational guidance. Binding acceptance happens in transaction-specific written email, invoice, or commission proposal after final painting, price, delivery, and scope are known.',
+            'Engela Art uses two public information pages in v1: Privacy and Sales, terms, and returns. Separate Terms or Payment/Delivery pages are not added until the sales model needs that extra separation.',
+            'The seller is Engela Art. Final ENK details and organization number must be confirmed before production launch. The private residential address is not public; any necessary pickup location is shared privately after agreement.',
           ],
         },
         {
-          title: 'Pickup, shipping, and market',
+          title: 'Original paintings, prices, and agreement',
           body: [
-            'Pickup in Nannestad by arrangement is possible. The exact pickup location is shared privately only after the buyer and time are confirmed.',
-            'Norway is the standard launch market. Domestic shipping is agreed case by case, and every shipped painting uses tracked shipping with appropriate available coverage.',
-            'International sales are assessed case by case. Destination, carrier, tracking, coverage, customs documents, import charges, delivery estimate, and total price must be clarified before reservation or invoice.',
+            'The website presents original physical paintings from Engela Art.',
+            'All available paintings show prices in NOK. Listed price excludes shipping, customs, import charges, and special packaging unless this is agreed in writing. All v1 paintings are sold unframed.',
+            'There is no cart or online checkout. A purchase happens only after written communication confirms the painting, availability, price, payment, delivery, and any transaction-specific conditions.',
+            'Website terms are informational guidance. Binding acceptance happens in transaction-specific written email, invoice, or commission proposal after final painting, price, delivery, and scope are known.',
           ],
         },
         {
           title: 'Payment',
           body: [
-            'After availability, condition, and delivery are confirmed in writing, Engela Art sends an invoice. Payment can normally be made by bank transfer, Vipps Business, or PayPal Business.',
-            'Payment must be received before shipping or handover unless Engela Art explicitly agrees otherwise in writing.',
+            'After availability, condition, and delivery are confirmed in writing, Engela Art sends an invoice or other manual payment agreement. Payment can normally be made by bank transfer, Vipps Business, or PayPal Business.',
+            'Payment must be received before shipping or handover unless Engela Art explicitly agrees otherwise in writing. No card or payment details are collected on the website.',
+          ],
+        },
+        {
+          title: 'Pickup, tracked shipping, and market',
+          body: [
+            'Pickup in Nannestad by arrangement is possible. The exact pickup location is shared privately only after the buyer and time are confirmed.',
+            'Norway is the standard launch market. Domestic shipping is agreed case by case, the buyer is told the shipping cost before payment, and every shipped painting uses tracked shipping with appropriate available coverage.',
+            'Carrier is selected according to painting size, value, destination, available tracking, and practical insurance or coverage. Delivery time is an estimate, not a guarantee.',
+            'International sales are assessed case by case. Destination, carrier, tracking, coverage, customs documents, import charges, delivery estimate, and total price must be clarified before reservation or invoice.',
           ],
         },
         {
           title: 'Withdrawal, complaints, and returns',
           body: [
             'Engela Art follows mandatory withdrawal, complaint, and refund rules where they apply. Final wording must be checked against the actual business form and sale situation before launch.',
-            'Contact Engela Art at kontakt@engelaart.no before returning a painting. The painting must be packed safely, and the buyer normally pays withdrawal-related return shipping unless law or the specific agreement says otherwise.',
-            'Faults, transit damage, or material differences from the description are handled according to the facts, agreement, and mandatory rules.',
+            'Contact Engela Art through the Contact page or at kontakt@engelaart.no before returning a painting. Wait for return clarification before sending the painting back, so packaging, address, deadline, documentation, and any shipping method can be clarified.',
+            'The painting must be packed safely, and the buyer normally pays withdrawal-related return shipping unless law or the specific agreement says otherwise. Faults, transit damage, or material differences from the description are handled according to the facts, agreement, and mandatory rules.',
+          ],
+        },
+        {
+          title: 'Copyright, limitations, and changes',
+          body: [
+            'Buying an original painting transfers ownership of the physical object, not copyright in the motif, photographs, or other content. Commercial use, reproduction, and claims of authorship require written permission.',
+            'Colours, screen display, and staged room images may differ from the physical painting. Nothing on the website limits mandatory consumer rights.',
+            'Engela Art may update this information when business details, providers, sales process, or legal review changes. The transaction-specific agreement confirmed in writing for a purchase controls that purchase.',
           ],
         },
         {

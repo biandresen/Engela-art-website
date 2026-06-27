@@ -50,6 +50,29 @@ describe('SEO discovery metadata', () => {
     ])
   })
 
+  it('describes the expanded legal pages without adding extra canonical routes', () => {
+    const privacy = buildPageSeo({
+      locale: 'no',
+      page: 'privacy',
+      path: '/no/personvern',
+    })
+    const sales = buildPageSeo({
+      locale: 'en',
+      page: 'sales',
+      path: '/en/sales-and-returns',
+    })
+
+    expect(privacy.title).toBe('Personvernerklæring | Engela Art')
+    expect(privacy.description).toContain('behandlingsansvar')
+    expect(privacy.description).toContain('språkkapsel')
+    expect(privacy.canonicalUrl).toBe('https://engelaart.no/no/personvern')
+    expect(sales.title).toBe('Sales, terms, and returns | Engela Art')
+    expect(sales.description).toContain('NOK prices')
+    expect(sales.description).toContain('Nannestad pickup')
+    expect(sales.description).toContain('tracked shipping')
+    expect(sales.canonicalUrl).toBe('https://engelaart.no/en/sales-and-returns')
+  })
+
   it('emits truthful VisualArtwork data and available-only offers for paintings', () => {
     const available = buildPageSeo({
       locale: 'en',
@@ -107,6 +130,10 @@ describe('SEO discovery metadata', () => {
     expect(locations).toContain('https://engelaart.no/en')
     expect(locations).toContain('https://engelaart.no/no/malerier')
     expect(locations).toContain('https://engelaart.no/en/paintings')
+    expect(locations).toContain('https://engelaart.no/no/personvern')
+    expect(locations).toContain('https://engelaart.no/en/privacy')
+    expect(locations).toContain('https://engelaart.no/no/salg-og-retur')
+    expect(locations).toContain('https://engelaart.no/en/sales-and-returns')
     expect(locations).toContain(
       'https://engelaart.no/no/malerier/temporary-painting-01',
     )
@@ -121,6 +148,10 @@ describe('SEO discovery metadata', () => {
       false,
     )
     expect(locations.some((location) => location.includes('private'))).toBe(
+      false,
+    )
+    expect(locations.some((location) => location.includes('terms'))).toBe(false)
+    expect(locations.some((location) => location.includes('payment'))).toBe(
       false,
     )
 
