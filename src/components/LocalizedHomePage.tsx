@@ -4,6 +4,7 @@ import { getPageContent } from '#/lib/i18n/content'
 import { getHomepage } from '#/lib/homepage/homepage'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { getPaintingStatusClassName } from '#/lib/paintings/presentation'
+import { cn } from '#/lib/utils'
 import {
   CustomerPhotosSection,
   TestimonialsSection,
@@ -40,6 +41,8 @@ export function LocalizedHomePage({
     content: homepageContent,
   } = getHomepage(locale)
   const paths = localizedPaths[locale]
+  const heroRoomContextImage = heroPresentation.roomContextImage
+  const heroHasRoomPreview = heroRoomContextImage !== undefined
   const testimonials =
     testimonialEntries ?? getApprovedTestimonials({ limit: 3 })
   const customerPhotos =
@@ -89,20 +92,36 @@ export function LocalizedHomePage({
           </div>
         </div>
 
-        <div className="flex min-h-96 items-center justify-center bg-muted p-4">
+        <div>
           <div className="w-full">
             <a
               href={`${paths.paintings}/${heroPresentation.painting.slug}`}
               className="group block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
-              <ArtworkImage
-                image={heroPresentation.mainImage}
-                locale={locale}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                loading="eager"
-                fetchPriority="high"
-                className="max-h-[38rem] w-full object-contain transition-opacity group-hover:opacity-90"
-              />
+              <div className="relative flex min-h-96 items-center justify-center overflow-hidden rounded-lg bg-muted p-4">
+                <ArtworkImage
+                  image={heroPresentation.mainImage}
+                  locale={locale}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  loading="eager"
+                  fetchPriority="high"
+                  className={cn(
+                    'max-h-[38rem] w-full object-contain transition-opacity duration-300 motion-reduce:transition-none',
+                    heroHasRoomPreview &&
+                      '[@media(hover:hover)]:group-hover:opacity-0 group-focus-visible:opacity-0',
+                  )}
+                />
+                {heroHasRoomPreview ? (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 motion-reduce:transition-none [@media(hover:hover)]:group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <ArtworkImage
+                      image={heroRoomContextImage}
+                      locale={locale}
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="max-h-[38rem] w-full object-contain"
+                    />
+                  </div>
+                ) : null}
+              </div>
               <h2 className="mt-4 text-lg font-semibold">
                 {heroPresentation.painting.title}
               </h2>

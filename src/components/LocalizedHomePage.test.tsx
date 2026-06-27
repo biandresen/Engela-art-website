@@ -103,7 +103,12 @@ describe('localized home page', () => {
         .getByRole('link', { name: 'Read about commissions' })
         .getAttribute('href'),
     ).toBe('/en/commissions')
-    expect(within(hero).getAllByRole('img')).toHaveLength(1)
+    expect(within(hero).getAllByRole('img')).toHaveLength(2)
+    expect(
+      within(hero).getByRole('img', {
+        name: /Temporary room visualization for painting 04/,
+      }),
+    ).toBeTruthy()
     expect(
       document.querySelector('[aria-roledescription="carousel"]'),
     ).toBeNull()
@@ -219,6 +224,41 @@ describe('localized home page', () => {
     expect(heroImage.getAttribute('sizes')).toBe(
       '(min-width: 1024px) 50vw, 100vw',
     )
+  })
+
+  it('matches the artwork-card radius and room-preview hover treatment in both locales', () => {
+    for (const locale of ['no', 'en'] as const) {
+      const { unmount } = render(<LocalizedHomePage locale={locale} />)
+      const hero = screen.getByRole('region', {
+        name:
+          locale === 'no'
+            ? 'Midlertidig sesongutvalg'
+            : 'Temporary seasonal selection',
+      })
+      const heroImage = within(hero).getByRole('img', {
+        name:
+          locale === 'no'
+            ? /Midlertidig hovedbilde for maleri 04/
+            : /Temporary main image for painting 04/,
+      })
+      const imageStage = heroImage.closest('div')
+
+      expect(imageStage?.className).toContain('rounded-lg')
+      expect(imageStage?.className).toContain('overflow-hidden')
+      expect(heroImage.className).toContain(
+        '[@media(hover:hover)]:group-hover:opacity-0',
+      )
+      expect(
+        within(hero).getByRole('img', {
+          name:
+            locale === 'no'
+              ? /Midlertidig romvisualisering for maleri 04/
+              : /Temporary room visualization for painting 04/,
+        }),
+      ).toBeTruthy()
+
+      unmount()
+    }
   })
 
   it('renders a concise temporary artist preview with a localized about link', () => {
