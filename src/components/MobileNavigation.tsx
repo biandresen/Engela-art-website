@@ -1,9 +1,11 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import type { LucideIcon } from 'lucide-react'
 
 type NavigationItem = {
   href: string
   label: string
+  icon: LucideIcon
 }
 
 type MobileNavigationProps = {
@@ -72,9 +74,15 @@ export function MobileNavigation({
                 <a
                   ref={index === 0 ? firstLinkRef : undefined}
                   href={item.href}
-                  className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                  className="flex items-center gap-3 rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                   onClick={closeAfterNavigation}
                 >
+                  <item.icon
+                    aria-hidden="true"
+                    focusable="false"
+                    className="size-4 shrink-0 text-muted-foreground"
+                    strokeWidth={1.75}
+                  />
                   {item.label}
                 </a>
               </li>
