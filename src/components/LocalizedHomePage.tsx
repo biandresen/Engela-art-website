@@ -62,7 +62,7 @@ export function LocalizedHomePage({
     <main>
       <section
         aria-label={homepageContent.heroLabel}
-        className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-8 lg:grid-cols-2 lg:items-center lg:px-12"
+        className="mx-auto grid min-h-[calc(100svh-4.25rem)] max-w-7xl gap-10 px-4 py-16 sm:min-h-[calc(100svh-6rem)] sm:px-8 lg:grid-cols-2 lg:items-center lg:px-12"
       >
         <div>
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">

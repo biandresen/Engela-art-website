@@ -110,6 +110,30 @@ describe('localized home page', () => {
     expect(screen.queryByRole('button', { name: /previous|next/i })).toBeNull()
   })
 
+  it('keeps featured works below the first viewport in both locales', () => {
+    for (const locale of ['no', 'en'] as const) {
+      const { unmount } = render(<LocalizedHomePage locale={locale} />)
+      const hero = screen.getByRole('region', {
+        name:
+          locale === 'no'
+            ? 'Midlertidig sesongutvalg'
+            : 'Temporary seasonal selection',
+      })
+      const featured = screen.getByRole('region', {
+        name: locale === 'no' ? 'Utvalgte malerier' : 'Featured paintings',
+      })
+
+      expect(hero.className).toContain('min-h-[calc(100svh-4.25rem)]')
+      expect(hero.className).toContain('sm:min-h-[calc(100svh-6rem)]')
+      expect(
+        hero.compareDocumentPosition(featured) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy()
+
+      unmount()
+    }
+  })
+
   it('renders featured catalog paintings in editorial order across statuses', () => {
     render(<LocalizedHomePage locale="en" />)
 
