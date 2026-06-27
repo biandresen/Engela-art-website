@@ -324,12 +324,19 @@ describe('painting detail routes', () => {
     await directRouter.load()
     render(<RouterProvider router={directRouter} />)
 
+    let navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Painting navigation',
+      },
+    )
+
     expect(
-      (
-        await screen.findByRole('link', {
-          name: 'View all paintings',
+      within(navigation)
+        .getByRole('link', {
+          name: 'Back to paintings',
         })
-      ).getAttribute('href'),
+        .getAttribute('href'),
     ).toBe('/en/paintings')
 
     cleanup()
@@ -346,15 +353,157 @@ describe('painting detail routes', () => {
     await galleryRouter.load()
     render(<RouterProvider router={galleryRouter} />)
 
+    navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Painting navigation',
+      },
+    )
+
     expect(
-      (
-        await screen.findByRole('link', {
+      within(navigation)
+        .getByRole('link', {
           name: 'Back to paintings',
         })
-      ).getAttribute('href'),
+        .getAttribute('href'),
     ).toBe(
       '/en/paintings?status=available&orientation=landscape&sort=price-desc',
     )
+  })
+
+  it('adds direct previous-next navigation using the default gallery order', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-01'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Painting navigation',
+      },
+    )
+
+    expect(
+      within(navigation)
+        .getByRole('button', { name: 'Previous painting unavailable' })
+        .getAttribute('disabled'),
+    ).not.toBeNull()
+    expect(
+      within(navigation)
+        .getByRole('link', { name: 'Next painting: Temporary painting 02' })
+        .getAttribute('href'),
+    ).toBe('/en/paintings/temporary-painting-02')
+  })
+
+  it('uses filtered and sorted gallery state for previous-next navigation', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: [
+          '/en/paintings/temporary-painting-02?status=reserved&sort=price-desc',
+        ],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Painting navigation',
+      },
+    )
+
+    expect(
+      within(navigation)
+        .getByRole('link', {
+          name: 'Previous painting: Temporary painting 05',
+        })
+        .getAttribute('href'),
+    ).toBe(
+      '/en/paintings/temporary-painting-05?status=reserved&sort=price-desc',
+    )
+    expect(
+      within(navigation)
+        .getByRole('button', { name: 'Next painting unavailable' })
+        .getAttribute('disabled'),
+    ).not.toBeNull()
+  })
+
+  it('preserves Norwegian language in painting navigation', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: [
+          '/no/malerier/temporary-painting-02?status=reserved&sort=price-desc',
+        ],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Malerinavigasjon',
+      },
+    )
+
+    expect(
+      within(navigation)
+        .getByRole('link', { name: 'Tilbake til malerier' })
+        .getAttribute('href'),
+    ).toBe('/no/malerier?status=reserved&sort=price-desc')
+    expect(
+      within(navigation)
+        .getByRole('link', {
+          name: 'Forrige maleri: Temporary painting 05',
+        })
+        .getAttribute('href'),
+    ).toBe('/no/malerier/temporary-painting-05?status=reserved&sort=price-desc')
+    expect(
+      within(navigation)
+        .getByRole('button', { name: 'Neste maleri er ikke tilgjengelig' })
+        .getAttribute('disabled'),
+    ).not.toBeNull()
+  })
+
+  it('disables unavailable next navigation on the last default-order painting', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-06'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const navigation = within(await screen.findByRole('main')).getByRole(
+      'navigation',
+      {
+        name: 'Painting navigation',
+      },
+    )
+
+    expect(
+      within(navigation)
+        .getByRole('link', { name: 'Previous painting: Temporary painting 05' })
+        .getAttribute('href'),
+    ).toBe('/en/paintings/temporary-painting-05')
+    expect(
+      within(navigation)
+        .getByRole('button', { name: 'Next painting unavailable' })
+        .getAttribute('disabled'),
+    ).not.toBeNull()
   })
 
   it('supports accessible fullscreen image inspection without private sources', async () => {

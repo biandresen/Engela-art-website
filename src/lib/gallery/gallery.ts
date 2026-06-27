@@ -119,6 +119,28 @@ export function getGallery(locale: Locale, search: GallerySearch) {
   }
 }
 
+export function getAdjacentGalleryPaintings(
+  currentSlug: string,
+  search: GallerySearch,
+) {
+  const paintings = paintingCatalog.query(search)
+  const currentIndex = paintings.findIndex(
+    (painting) => painting.slug === currentSlug,
+  )
+
+  if (currentIndex === -1) {
+    return {
+      previous: undefined,
+      next: undefined,
+    }
+  }
+
+  return {
+    previous: paintings[currentIndex - 1],
+    next: paintings[currentIndex + 1],
+  }
+}
+
 export function getGallerySearchString(search: GallerySearch): string {
   const parameters = new URLSearchParams()
 

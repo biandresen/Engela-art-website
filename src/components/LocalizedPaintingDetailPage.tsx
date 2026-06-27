@@ -1,7 +1,11 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import type { Locale } from '#/lib/i18n/locale'
-import { getGallerySearchString, galleryDefaults } from '#/lib/gallery/gallery'
+import {
+  getAdjacentGalleryPaintings,
+  getGallerySearchString,
+} from '#/lib/gallery/gallery'
 import type { GallerySearch } from '#/lib/gallery/gallery'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
@@ -32,18 +36,24 @@ export function LocalizedPaintingDetailPage({
   const selectedImage = detail.images[selectedImageIndex]
   const paths = localizedPaths[locale]
   const searchString = getGallerySearchString(gallerySearch)
-  const hasGalleryState =
-    gallerySearch.status !== galleryDefaults.status ||
-    gallerySearch.orientation !== galleryDefaults.orientation ||
-    gallerySearch.sort !== galleryDefaults.sort
+  const adjacentPaintings = getAdjacentGalleryPaintings(
+    painting.slug,
+    gallerySearch,
+  )
   const galleryActionLabel =
+    locale === 'no' ? 'Tilbake til malerier' : 'Back to paintings'
+  const detailNavigationLabel =
+    locale === 'no' ? 'Malerinavigasjon' : 'Painting navigation'
+  const previousLabel = locale === 'no' ? 'Forrige' : 'Previous'
+  const nextLabel = locale === 'no' ? 'Neste' : 'Next'
+  const previousUnavailableLabel =
     locale === 'no'
-      ? hasGalleryState
-        ? 'Tilbake til malerier'
-        : 'Se alle malerier'
-      : hasGalleryState
-        ? 'Back to paintings'
-        : 'View all paintings'
+      ? 'Forrige maleri er ikke tilgjengelig'
+      : 'Previous painting unavailable'
+  const nextUnavailableLabel =
+    locale === 'no'
+      ? 'Neste maleri er ikke tilgjengelig'
+      : 'Next painting unavailable'
   const actionNavigationLabel =
     locale === 'no' ? 'Malerihandlinger' : 'Painting actions'
   const stickyActionLabel =
@@ -69,6 +79,67 @@ export function LocalizedPaintingDetailPage({
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 pb-44 sm:px-8 lg:px-12">
+      <nav
+        aria-label={detailNavigationLabel}
+        className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <a
+          href={`${paths.paintings}${searchString}`}
+          className="inline-flex w-fit items-center gap-2 rounded-sm text-sm font-semibold underline underline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          <ChevronLeft aria-hidden="true" className="size-4" />
+          {galleryActionLabel}
+        </a>
+
+        <div className="flex flex-wrap gap-3">
+          {adjacentPaintings.previous ? (
+            <Button asChild variant="outline" size="sm">
+              <a
+                href={`${paths.paintings}/${adjacentPaintings.previous.slug}${searchString}`}
+                aria-label={`${locale === 'no' ? 'Forrige maleri' : 'Previous painting'}: ${adjacentPaintings.previous.title}`}
+              >
+                <ChevronLeft aria-hidden="true" />
+                {previousLabel}
+              </a>
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              aria-label={previousUnavailableLabel}
+              disabled
+            >
+              <ChevronLeft aria-hidden="true" />
+              {previousLabel}
+            </Button>
+          )}
+
+          {adjacentPaintings.next ? (
+            <Button asChild variant="outline" size="sm">
+              <a
+                href={`${paths.paintings}/${adjacentPaintings.next.slug}${searchString}`}
+                aria-label={`${locale === 'no' ? 'Neste maleri' : 'Next painting'}: ${adjacentPaintings.next.title}`}
+              >
+                {nextLabel}
+                <ChevronRight aria-hidden="true" />
+              </a>
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              aria-label={nextUnavailableLabel}
+              disabled
+            >
+              {nextLabel}
+              <ChevronRight aria-hidden="true" />
+            </Button>
+          )}
+        </div>
+      </nav>
+
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)]">
         <section aria-label={detail.content.imagesLabel}>
           <div className="grid gap-4 md:grid-cols-[5rem_minmax(0,1fr)]">
