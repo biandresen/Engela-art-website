@@ -1,12 +1,17 @@
+import { useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
 import type { Locale } from '#/lib/i18n/locale'
 import { getPageContent } from '#/lib/i18n/content'
 import { localizedPaths } from '#/lib/i18n/routes'
+import type { AboutProcessImage } from '#/lib/about/about'
 import { getAboutContent } from '#/lib/about/about'
 import {
   TestimonialsSection,
   getApprovedTestimonials,
 } from '#/lib/testimonials/testimonials'
 import { env } from '#/env'
+import { cn } from '#/lib/utils'
 
 import { Button } from './ui/button'
 
@@ -69,18 +74,16 @@ export function LocalizedAboutPage({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {about.processTitle}
-            </h2>
-            <ul className="mt-5 space-y-3 text-muted-foreground">
-              {about.processItems.map((item) => (
-                <li key={item} className="border-t border-border pt-3">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <AboutProcessSection
+            title={about.processTitle}
+            intro={about.processIntro}
+            items={about.processItems}
+            images={about.processImages}
+            carouselLabel={about.processCarouselLabel}
+            previousLabel={about.processPreviousLabel}
+            nextLabel={about.processNextLabel}
+            slideStatus={about.processSlideStatus}
+          />
         </div>
       </section>
 
@@ -116,5 +119,171 @@ export function LocalizedAboutPage({ locale }: { locale: Locale }) {
         intro={about.testimonialsIntro}
       />
     </main>
+  )
+}
+
+type AboutProcessSectionProps = {
+  title: string
+  intro: string
+  items: ReadonlyArray<string>
+  images: ReadonlyArray<AboutProcessImage>
+  carouselLabel: string
+  previousLabel: string
+  nextLabel: string
+  slideStatus: (current: number, total: number) => string
+}
+
+export function AboutProcessSection({
+  title,
+  intro,
+  items,
+  images,
+  carouselLabel,
+  previousLabel,
+  nextLabel,
+  slideStatus,
+}: AboutProcessSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const showCarousel = images.length > 0
+  const totalImages = images.length
+
+  const showPrevious = () => {
+    setActiveIndex((current) =>
+      current === 0 ? Math.max(totalImages - 1, 0) : current - 1,
+    )
+  }
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % totalImages)
+  }
+
+  return (
+    <div>
+      <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        {title}
+      </h2>
+      <p className="mt-5 text-lg leading-8 text-muted-foreground">{intro}</p>
+      <ul className="mt-5 space-y-3 text-muted-foreground">
+        {items.map((item) => (
+          <li key={item} className="border-t border-border pt-3">
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      {showCarousel ? (
+        <section
+          aria-label={carouselLabel}
+          aria-roledescription="carousel"
+          className="mt-8"
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault()
+              showPrevious()
+            } else if (event.key === 'ArrowRight') {
+              event.preventDefault()
+              showNext()
+            }
+          }}
+        >
+          <div className="overflow-hidden rounded-md border border-border bg-background">
+            <div
+              className="flex transition-transform duration-300 ease-out motion-reduce:transition-none"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {images.map((image) => (
+                <figure key={image.id} className="min-w-full">
+                  <ProcessImage image={image} />
+                  <figcaption className="border-t border-border px-4 py-3 text-sm leading-6 text-muted-foreground">
+                    {image.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label={previousLabel}
+              onClick={showPrevious}
+            >
+              <ChevronLeft aria-hidden="true" />
+            </Button>
+            <p
+              aria-live="polite"
+              className="text-sm font-medium text-muted-foreground"
+            >
+              {slideStatus(activeIndex + 1, totalImages)}
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label={nextLabel}
+              onClick={showNext}
+            >
+              <ChevronRight aria-hidden="true" />
+            </Button>
+          </div>
+
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {images.map((image, index) => (
+              <button
+                key={image.id}
+                type="button"
+                aria-label={image.caption}
+                aria-current={index === activeIndex ? 'true' : undefined}
+                onClick={() => setActiveIndex(index)}
+                className={cn(
+                  'size-2.5 rounded-full border border-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
+                  index === activeIndex ? 'bg-primary' : 'bg-transparent',
+                )}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </div>
+  )
+}
+
+function ProcessImage({ image }: { image: AboutProcessImage }) {
+  const largestVariant = image.variants.at(-1)
+
+  if (!largestVariant) {
+    return null
+  }
+
+  const avifSrcSet = image.variants
+    .map((variant) => `${variant.avif} ${variant.width}w`)
+    .join(', ')
+  const webpSrcSet = image.variants
+    .map((variant) => `${variant.webp} ${variant.width}w`)
+    .join(', ')
+
+  return (
+    <picture className="block">
+      <source
+        type="image/avif"
+        srcSet={avifSrcSet}
+        sizes="(min-width: 768px) 40vw, 100vw"
+      />
+      <source
+        type="image/webp"
+        srcSet={webpSrcSet}
+        sizes="(min-width: 768px) 40vw, 100vw"
+      />
+      <img
+        src={largestVariant.fallback}
+        width={image.width}
+        height={image.height}
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        className="aspect-[4/3] w-full bg-surface object-cover"
+      />
+    </picture>
   )
 }
