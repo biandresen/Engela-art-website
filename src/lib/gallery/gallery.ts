@@ -55,9 +55,9 @@ export function getGallery(locale: Locale, search: GallerySearch) {
         ? {
             title: 'Malerier',
             intro:
-              'Utforsk hele den midlertidige katalogen. Opplysninger merket som midlertidige avventer kunstnerens godkjenning.',
+              'Utforsk originale malerier fra Engela Art med status, mål og pris. Hver forespørsel går videre som en personlig samtale med Anne Mari.',
             collectionLabel: 'Malerisamling',
-            temporaryMetadata: 'Midlertidige katalogopplysninger',
+            temporaryMetadata: 'Originalt maleri fra Engela Art',
             statusFilterLabel: 'Status',
             orientationFilterLabel: 'Retning',
             sortLabel: 'Sorter etter',
@@ -87,9 +87,9 @@ export function getGallery(locale: Locale, search: GallerySearch) {
         : {
             title: 'Paintings',
             intro:
-              'Explore the complete temporary catalog. Details marked as temporary await artist approval.',
+              'Explore original paintings from Engela Art with status, dimensions, and price. Each inquiry continues as a personal conversation with Anne Mari.',
             collectionLabel: 'Painting collection',
-            temporaryMetadata: 'Temporary catalog metadata',
+            temporaryMetadata: 'Original painting from Engela Art',
             statusFilterLabel: 'Status',
             orientationFilterLabel: 'Orientation',
             sortLabel: 'Sort by',

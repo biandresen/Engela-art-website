@@ -27,8 +27,8 @@ describe('painting catalog', () => {
     const catalog = createPaintingCatalog([createPaintingRecord()])
 
     expect(catalog.all()[0]?.technique).toEqual({
-      no: 'Midlertidig teknikktekst – avventer kunstnergodkjenning.',
-      en: 'Temporary technique text — awaiting artist approval.',
+      no: 'Eksempel på teknikktekst.',
+      en: 'Example technique text.',
     })
     expect(catalog.all()[0]?.images[0]).toMatchObject({
       width: 640,
@@ -230,19 +230,19 @@ function createPaintingRecord(
   return {
     paintingId: 'EA-2026-001',
     metadataApproval: 'temporary',
-    title: 'Temporary catalog entry 01',
-    slug: 'temporary-catalog-entry-01',
+    title: 'Example catalog entry 01',
+    slug: 'example-catalog-entry-01',
     medium: {
-      no: 'Midlertidig mediumtekst – avventer kunstnergodkjenning.',
-      en: 'Temporary medium text — awaiting artist approval.',
+      no: 'Eksempel på mediumtekst.',
+      en: 'Example medium text.',
     },
     technique: {
-      no: 'Midlertidig teknikktekst – avventer kunstnergodkjenning.',
-      en: 'Temporary technique text — awaiting artist approval.',
+      no: 'Eksempel på teknikktekst.',
+      en: 'Example technique text.',
     },
     visualSummary: {
-      no: 'Midlertidig bildetekst – avventer kunstnergodkjenning.',
-      en: 'Temporary visual summary — awaiting artist approval.',
+      no: 'Eksempel på bildetekst.',
+      en: 'Example visual summary.',
     },
     widthCm: 40,
     heightCm: 60,
@@ -254,8 +254,8 @@ function createPaintingRecord(
       {
         role: 'main',
         alt: {
-          no: 'Midlertidig alternativ tekst.',
-          en: 'Temporary alternative text.',
+          no: 'Eksempel på alternativ tekst.',
+          en: 'Example alternative text.',
         },
         width: 640,
         height: 960,
@@ -279,12 +279,12 @@ function createPaintingRecord(
       {
         role: 'room-context',
         alt: {
-          no: 'Midlertidig romvisualisering.',
-          en: 'Temporary room visualization.',
+          no: 'Eksempel på romvisualisering.',
+          en: 'Example room visualization.',
         },
         caption: {
-          no: 'Midlertidig visualisering. Ramme og møbler følger ikke med.',
-          en: 'Temporary visualization. Frame and furnishings are not included.',
+          no: 'Eksempel på romvisning. Ramme og møbler følger ikke med.',
+          en: 'Example room view. Frame and furnishings are not included.',
         },
         width: 960,
         height: 720,

@@ -16,8 +16,8 @@ import type {
   InquirySubmissionResult,
 } from '#/lib/inquiries/inquiry'
 import { submitInquiryServer } from '#/lib/inquiries/server'
-import { env } from '#/env'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
+import { socialLinks } from '#/lib/social-links'
 
 type LocalizedContactPageProps = {
   locale: Locale
@@ -389,7 +389,7 @@ export function LocalizedContactPage({
             </h2>
             <div className="mt-3 flex flex-col gap-2">
               <a
-                href={env.VITE_INSTAGRAM_URL ?? 'https://www.instagram.com/'}
+                href={socialLinks.instagram}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() =>
@@ -402,21 +402,6 @@ export function LocalizedContactPage({
                 className="underline underline-offset-4 hover:text-foreground"
               >
                 Instagram
-              </a>
-              <a
-                href={env.VITE_FACEBOOK_URL ?? 'https://www.facebook.com/'}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() =>
-                  captureAnalyticsEvent({
-                    name: 'outbound_link_clicked',
-                    language: locale,
-                    destination: 'facebook',
-                  })
-                }
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                Facebook
               </a>
             </div>
           </section>
@@ -529,7 +514,8 @@ const contactCopy = {
       'Engela Art behandler opplysningene for å svare på henvendelsen din. Les',
     privacyLink: 'personvernerklæringen',
     privacyAfter: '.',
-    responseTime: 'Du kan forvente personlig svar innen to virkedager.',
+    responseTime:
+      'Du kan forvente personlig svar fra Anne Mari innen to virkedager.',
     confirmationEmail:
       'Etter sending sendes en automatisk bekreftelse til e-postadressen du oppgir.',
     fallbackTitle: 'E-post som alternativ',
@@ -537,9 +523,9 @@ const contactCopy = {
       'Hvis skjemaet ikke virker, kan du sende samme informasjon direkte på e-post.',
     socialTitle: 'Sosiale medier',
     success:
-      'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
+      'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
     successDelayed:
-      'Henvendelsen er mottatt. Den automatiske bekreftelsen på e-post kan være forsinket og kommer kanskje ikke med en gang. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar innen to virkedager. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
+      'Henvendelsen er mottatt. Den automatiske bekreftelsen på e-post kan være forsinket og kommer kanskje ikke med en gang. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
     validationError: 'Sjekk feltene som er markert og prøv igjen.',
     deliveryError:
       'Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen, eller send e-post til kontakt@engelaart.no.',
@@ -574,7 +560,7 @@ const contactCopy = {
     privacyLink: 'privacy notice',
     privacyAfter: '.',
     responseTime:
-      'You can expect a personal response within two business days.',
+      'You can expect a personal response from Anne Mari within two business days.',
     confirmationEmail:
       'After sending, an automatic confirmation email is sent to the email address you enter.',
     fallbackTitle: 'Email fallback',
@@ -582,9 +568,9 @@ const contactCopy = {
       'If the form does not work, send the same information directly by email.',
     socialTitle: 'Social media',
     success:
-      'Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email kontakt@engelaart.no.',
+      'Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response from Anne Mari within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email kontakt@engelaart.no.',
     successDelayed:
-      'Your inquiry has been received. The automatic confirmation email may be delayed and may not arrive immediately. This does not create a reservation or agreement. You can expect a personal response within two business days. If the confirmation never arrives, email kontakt@engelaart.no.',
+      'Your inquiry has been received. The automatic confirmation email may be delayed and may not arrive immediately. This does not create a reservation or agreement. You can expect a personal response from Anne Mari within two business days. If the confirmation never arrives, email kontakt@engelaart.no.',
     validationError: 'Check the marked fields and try again.',
     deliveryError:
       'The inquiry could not be sent right now. Try again, or email kontakt@engelaart.no.',

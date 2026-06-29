@@ -69,18 +69,19 @@ function buildProcessImages(
 export const aboutContent: Record<Locale, AboutContent> = {
   no: {
     eyebrow: 'Engela Art',
-    approvalLabel: 'Kunstnergodkjent biografi mangler',
+    approvalLabel: 'Anne Mari Engelsrud',
     intro:
-      'Engela Art erstatter denne midlertidige sideteksten når kunstneren har godkjent norsk kildetekst og engelsk oversettelse.',
-    portraitAlt: 'Portrett av Engela, kunstneren bak Engela Art',
+      'Anne Mari Engelsrud er kunstneren bak Engela Art. Hun maler originale arbeider med varme, struktur og et ønske om å gi glede videre.',
+    portraitAlt: 'Portrett av Anne Mari Engelsrud, kunstneren bak Engela Art',
     storyTitle: 'Historien bak kunsten',
     storyParagraphs: [
-      'Denne siden er satt opp for en personlig kunstnerfortelling, men den publiserer ikke en offisiell biografi før innholdet er godkjent av kunstneren.',
-      'Den endelige teksten bør beskrive Engelas egen motivasjon, bakgrunn, inspirasjon og arbeidsmåte med konkrete detaljer i stedet for generelle markedsføringspåstander.',
+      'Anne Mari vokste opp på gård i Nannestad. Allerede tidlig var det tydelig for både henne selv og menneskene rundt henne at hun hadde en kunstnerisk side og en sterk glede ved å tegne og male.',
+      'Drømmen om å male og skape har fulgt henne lenge. Etter at hun ble pensjonist, fikk hun endelig mer rom til å ta den drømmen på alvor og la kreativiteten få en større plass i hverdagen.',
+      'Engela Art er bygget rundt den personlige gleden ved original kunst: arbeider som kan leve i et hjem, skape varme i et rom og gi andre noe av den samme gleden Anne Mari finner i prosessen.',
     ],
-    processTitle: 'Hvordan jeg jobber',
+    processTitle: 'Hvordan Anne Mari jobber',
     processIntro:
-      'Engela bygger hvert maleri lag for lag, fra en rolig idéfase til arbeid med farger, struktur og de siste justeringene i atelieret.',
+      'Anne Mari bygger hvert maleri lag for lag, fra en rolig idéfase til arbeid med farger, struktur og de siste justeringene.',
     processItems: [
       'Motivet starter ofte med stemning, farge og bevegelse før komposisjonen strammes inn.',
       'Materialer velges etter overflate og uttrykk, med rom for tekstur, transparente lag og synlige penselspor.',
@@ -90,7 +91,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     processImages: buildProcessImages([
       {
         file: 'studio-table',
-        alt: 'Arbeidsbord med pensler, maling og lerret i Engelas atelier',
+        alt: 'Arbeidsbord med pensler, maling og lerret hos Anne Mari',
         caption: 'Materialene legges frem før farge og komposisjon prøves ut.',
       },
       {
@@ -121,22 +122,24 @@ export const aboutContent: Record<Locale, AboutContent> = {
     instagramAction: 'Besøk Instagram',
     testimonialsHeading: 'Tilbakemeldinger',
     testimonialsIntro:
-      'Godkjente kundeuttalelser kan vises her når de har reell kilde og skriftlig publiseringstillatelse.',
+      'Når Engela Art har reelle kundeuttalelser med skriftlig publiseringstillatelse, kan de vises her.',
   },
   en: {
     eyebrow: 'Engela Art',
-    approvalLabel: 'Artist-approved biography pending',
+    approvalLabel: 'Anne Mari Engelsrud',
     intro:
-      'Engela Art will replace this temporary page copy after the artist approves the final Norwegian source text and English translation.',
-    portraitAlt: 'Portrait of Engela, the artist behind Engela Art',
+      'Anne Mari Engelsrud is the artist behind Engela Art. She paints original works with warmth, texture, and a wish to pass joy on to others.',
+    portraitAlt:
+      'Portrait of Anne Mari Engelsrud, the artist behind Engela Art',
     storyTitle: 'The story behind the work',
     storyParagraphs: [
-      'This page is prepared for a personal artist story, but it does not publish an official biography until the artist has approved the content.',
-      "The final copy should describe Engela's own motivation, background, inspiration, and process with concrete details instead of generic marketing claims.",
+      'Anne Mari grew up on a farm in Nannestad. From early on, it was clear to both her and the people around her that she had an artistic side and loved drawing and painting.',
+      'The dream of painting and creating stayed with her for many years. After retirement, she finally had more room to embrace that dream and give creativity a larger place in everyday life.',
+      'Engela Art is built around the personal joy of original art: works that can live in a home, bring warmth to a room, and share some of the joy Anne Mari finds in the process.',
     ],
-    processTitle: 'How I work',
+    processTitle: 'How Anne Mari works',
     processIntro:
-      'Engela builds each painting layer by layer, moving from a quiet idea stage into colour, texture, and final adjustments in the studio.',
+      'Anne Mari builds each painting layer by layer, moving from a quiet idea stage into colour, texture, and final adjustments.',
     processItems: [
       'A piece often begins with mood, colour, and movement before the composition is tightened.',
       'Materials are chosen for surface and expression, with room for texture, transparent layers, and visible brushwork.',
@@ -146,7 +149,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     processImages: buildProcessImages([
       {
         file: 'studio-table',
-        alt: "Studio table with brushes, paint, and canvas in Engela's workspace",
+        alt: "Studio table with brushes, paint, and canvas in Anne Mari's workspace",
         caption:
           'Materials are set out before colour and composition are explored.',
       },
@@ -178,7 +181,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     instagramAction: 'Visit Instagram',
     testimonialsHeading: 'Testimonials',
     testimonialsIntro:
-      'Approved buyer testimonials can appear here when they have a real source and written publication permission.',
+      'When Engela Art has real buyer testimonials with written publication permission, they can appear here.',
   },
 }
 

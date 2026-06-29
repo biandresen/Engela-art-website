@@ -16,36 +16,36 @@ export function getHomepage(locale: Locale) {
   const content =
     locale === 'no'
       ? {
-          heroLabel: 'Midlertidig sesongutvalg',
+          heroLabel: 'Sesongutvalg',
           temporaryNotice:
-            'Midlertidig hjemmesideinnhold – endelig tekst og utvalg avventer kunstnerens godkjenning.',
+            'Anne Mari Engelsrud maler originale arbeider med varme farger, tekstur og rolig bevegelse. Hun vokste opp på gård i Nannestad, og kunsten bærer med seg både natur, minner og gleden ved å skape.',
           galleryAction: 'Se alle malerier',
           commissionsAction: 'Les om bestillingsverk',
           featuredLabel: 'Utvalgte malerier',
           featuredTitle: 'Utvalgte verk',
-          temporaryMetadata: 'Midlertidige katalogopplysninger',
+          temporaryMetadata: 'Originalt maleri fra Engela Art',
           artistPreviewLabel: 'Om kunstneren',
-          artistPreviewTitle: 'Kunstneren bak Engela Art',
+          artistPreviewTitle: 'Anne Mari Engelsrud',
           artistPreview:
-            'Midlertidig kunstnerpresentasjon – godkjent biografi og prosessbeskrivelse mangler.',
-          artistPreviewAction: 'Om Engela',
-          artistPortraitAlt: 'Portrett av Engela',
+            'Etter mange år med ønsket om å male og være kreativ, kunne Anne Mari ta drømmen på alvor etter pensjonisttilværelsen. Hun deler kunsten sin i håp om å gi andre glede.',
+          artistPreviewAction: 'Om Anne Mari',
+          artistPortraitAlt: 'Portrett av Anne Mari Engelsrud',
         }
       : {
-          heroLabel: 'Temporary seasonal selection',
+          heroLabel: 'Seasonal selection',
           temporaryNotice:
-            'Temporary homepage content — final copy and selection await artist approval.',
+            'Anne Mari Engelsrud paints original works with warm colour, texture, and quiet movement. Raised on a farm in Nannestad, she carries nature, memory, and the joy of making into her art.',
           galleryAction: 'View all paintings',
           commissionsAction: 'Read about commissions',
           featuredLabel: 'Featured paintings',
           featuredTitle: 'Selected works',
-          temporaryMetadata: 'Temporary catalog metadata',
+          temporaryMetadata: 'Original painting from Engela Art',
           artistPreviewLabel: 'About the artist',
-          artistPreviewTitle: 'The artist behind Engela Art',
+          artistPreviewTitle: 'Anne Mari Engelsrud',
           artistPreview:
-            'Temporary artist preview — approved biography and process details are pending.',
-          artistPreviewAction: 'About Engela',
-          artistPortraitAlt: 'Portrait of Engela',
+            'After many years of wanting to paint and be creative, Anne Mari was finally able to embrace that dream after retirement. She shares her art in the hope that it brings joy to others.',
+          artistPreviewAction: 'About Anne Mari',
+          artistPortraitAlt: 'Portrait of Anne Mari Engelsrud',
         }
 
   return {

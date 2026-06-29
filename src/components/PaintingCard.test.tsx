@@ -18,7 +18,7 @@ describe('painting card', () => {
         href="/en/paintings/example"
         headingLevel={2}
         imageSizes="100vw"
-        metadataNotice="Temporary catalog metadata"
+        metadataNotice="Original painting from Engela Art"
         showFullMetadata
       />,
     )
@@ -41,7 +41,7 @@ describe('painting card', () => {
     expect(card.textContent).toContain('Layered palette knife texture')
     expect(card.textContent).toContain('2026 · 40 × 50 × 2 cm')
     expect(card.textContent).toContain('Price: NOK 4,500')
-    expect(card.textContent).toContain('Temporary catalog metadata')
+    expect(card.textContent).toContain('Original painting from Engela Art')
     expect(card.textContent).toContain(
       'Room image is illustrative. Frame and furnishings are not included.',
     )
@@ -58,7 +58,7 @@ describe('painting card', () => {
         href="/en/paintings/example"
         headingLevel={3}
         imageSizes="100vw"
-        metadataNotice="Temporary catalog metadata"
+        metadataNotice="Original painting from Engela Art"
       />,
     )
 
@@ -80,7 +80,7 @@ const roomContextImage = createImage('room-context', 'Room-context preview')
 
 const painting: Painting = {
   paintingId: 'EA-2026-999',
-  metadataApproval: 'temporary',
+  metadataApproval: 'artist-approved',
   title: 'Example painting',
   slug: 'example',
   medium: {

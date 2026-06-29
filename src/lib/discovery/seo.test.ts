@@ -87,7 +87,7 @@ describe('SEO discovery metadata', () => {
       paintingSlug: 'temporary-painting-03',
     })
 
-    expect(available.title).toBe('Temporary painting 01 | Engela Art')
+    expect(available.title).toBe('Jordvarme | Engela Art')
     expect(available.openGraph.type).toBe('article')
     expect(available.openGraph.image.url).toBe(
       'https://engelaart.no/assets/paintings/temporary-painting-01/main-960.jpg',
@@ -95,15 +95,15 @@ describe('SEO discovery metadata', () => {
     expect(available.structuredData).toHaveLength(1)
     expect(available.structuredData[0]).toMatchObject({
       '@type': 'VisualArtwork',
-      name: 'Temporary painting 01',
+      name: 'Jordvarme',
       identifier: 'EA-2026-001',
-      artMedium: 'Temporary medium text. Materials require artist approval.',
+      artMedium: 'Acrylic and texture paste on canvas.',
       additionalProperty: [
         {
           '@type': 'PropertyValue',
           name: 'Technique',
           value:
-            'Temporary technique text. Technique requires artist approval.',
+            'Layered brushwork, palette-knife marks, and built-up texture.',
         },
       ],
       offers: {
@@ -117,7 +117,7 @@ describe('SEO discovery metadata', () => {
     expect(sold.structuredData).toHaveLength(1)
     expect(sold.structuredData[0]).toMatchObject({
       '@type': 'VisualArtwork',
-      name: 'Temporary painting 03',
+      name: 'Stille glede',
     })
     expect(sold.structuredData[0]).not.toHaveProperty('offers')
   })

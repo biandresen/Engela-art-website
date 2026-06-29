@@ -35,6 +35,7 @@ describe('Engela Art brand asset contract', () => {
     for (const path of [
       'public/assets/brand/logo-header-dark.png',
       'public/assets/brand/logo-footer-light.png',
+      'public/assets/brand/footer-image.webp',
       'public/assets/brand/watermark-dark.png',
       'public/assets/brand/watermark-light.png',
     ]) {

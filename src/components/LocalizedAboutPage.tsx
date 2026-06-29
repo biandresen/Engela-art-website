@@ -12,6 +12,7 @@ import {
 } from '#/lib/testimonials/testimonials'
 import type { Testimonial } from '#/lib/testimonials/testimonials'
 import { env } from '#/env'
+import { socialLinks } from '#/lib/social-links'
 import { cn } from '#/lib/utils'
 
 import { Button } from './ui/button'
@@ -123,11 +124,7 @@ export function LocalizedAboutPage({
               <a href={paths.contact}>{about.contactAction}</a>
             </Button>
             <Button asChild variant="link" size="lg">
-              <a
-                href={env.VITE_INSTAGRAM_URL ?? 'https://www.instagram.com/'}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
                 {about.instagramAction}
               </a>
             </Button>

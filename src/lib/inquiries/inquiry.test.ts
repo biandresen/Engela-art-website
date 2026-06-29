@@ -46,7 +46,7 @@ describe('inquiry submission seam', () => {
     expect(deps.email.messages[0]).toMatchObject({
       to: 'kontakt@engelaart.no',
       replyTo: 'ada@example.com',
-      subject: 'Engela Art painting inquiry: Temporary painting 01',
+      subject: 'Engela Art painting inquiry: Jordvarme',
     })
     expect(deps.email.messages[0]?.text).toContain('EA-2026-001')
     expect(deps.email.messages[0]?.text).toContain(
@@ -89,15 +89,15 @@ describe('inquiry submission seam', () => {
         painting: 'temporary-painting-01',
         requestedType: 'similar-work',
         inquiryType: 'painting',
-        subject: 'Engela Art painting inquiry: Temporary painting 01',
+        subject: 'Engela Art painting inquiry: Jordvarme',
         acknowledgement:
-          'This does not reserve the painting. The artist confirms availability before any reservation.',
+          'This does not reserve the painting. Anne Mari confirms availability before any reservation.',
       },
       {
         painting: 'temporary-painting-02',
         requestedType: 'painting',
         inquiryType: 'interest-list',
-        subject: 'Engela Art interest-list inquiry: Temporary painting 02',
+        subject: 'Engela Art interest-list inquiry: Lys over åker',
         acknowledgement:
           'This does not reserve or guarantee the painting. Interest-list order uses the server submission time.',
       },
@@ -105,7 +105,7 @@ describe('inquiry submission seam', () => {
         painting: 'temporary-painting-03',
         requestedType: 'painting',
         inquiryType: 'similar-work',
-        subject: 'Engela Art similar-work inquiry: Temporary painting 03',
+        subject: 'Engela Art similar-work inquiry: Stille glede',
         acknowledgement:
           'This does not request an exact reproduction or create an accepted commission.',
       },
@@ -170,7 +170,7 @@ describe('inquiry submission seam', () => {
       paintingSlug: 'temporary-painting-03',
     })
     expect(deps.email.messages[0]).toMatchObject({
-      subject: 'Engela Art commission inquiry: Temporary painting 03',
+      subject: 'Engela Art commission inquiry: Stille glede',
     })
     expect(deps.email.messages[0]?.text).toContain('Inquiry type: commission')
     expect(deps.email.messages[0]?.text).toContain(
@@ -181,7 +181,7 @@ describe('inquiry submission seam', () => {
       'I want a new work with a related mood, not a copy.',
     )
     expect(deps.email.messages[1]?.text).toContain(
-      'This does not create an accepted commission. Any commission requires artist review and a written proposal.',
+      'This does not create an accepted commission. Any commission requires Anne Mari’s review and a written proposal.',
     )
   })
 

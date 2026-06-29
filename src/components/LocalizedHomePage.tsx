@@ -106,58 +106,58 @@ export function LocalizedHomePage({
           </div>
         </div>
 
-        <div>
-          <div className="w-full">
-            <a
-              href={`${paths.paintings}/${heroPresentation.painting.slug}`}
-              className="group block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-            >
-              <div className="relative flex min-h-96 items-center justify-center overflow-hidden rounded-lg bg-muted p-4">
-                <ArtworkImage
-                  image={heroPresentation.mainImage}
-                  locale={locale}
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  loading="eager"
-                  fetchPriority="high"
-                  className={cn(
-                    'max-h-[38rem] w-full object-contain transition-opacity duration-300 motion-reduce:transition-none',
-                    heroHasRoomPreview &&
-                      '[@media(hover:hover)]:group-hover:opacity-0 group-focus-visible:opacity-0',
-                  )}
-                />
-                {heroHasRoomPreview ? (
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 motion-reduce:transition-none [@media(hover:hover)]:group-hover:opacity-100 group-focus-visible:opacity-100">
-                    <ArtworkImage
-                      image={heroRoomContextImage}
-                      locale={locale}
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="max-h-[38rem] w-full object-contain"
-                    />
-                  </div>
-                ) : null}
-              </div>
-              <h2 className="mt-4 text-lg font-semibold">
-                {heroPresentation.painting.title}
-              </h2>
-            </a>
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <Badge
-                variant="outline"
-                className={getPaintingStatusClassName(
-                  heroPresentation.painting.status,
+        <article className="overflow-hidden rounded-lg border border-border bg-surface transition-colors hover:border-muted-foreground/70 focus-within:border-muted-foreground/70">
+          <a
+            href={`${paths.paintings}/${heroPresentation.painting.slug}`}
+            className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+          >
+            <div className="relative flex min-h-96 items-center justify-center bg-muted p-4">
+              <ArtworkImage
+                image={heroPresentation.mainImage}
+                locale={locale}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                loading="eager"
+                fetchPriority="high"
+                className={cn(
+                  'max-h-[38rem] w-full object-contain transition-opacity duration-300 motion-reduce:transition-none',
+                  heroHasRoomPreview &&
+                    '[@media(hover:hover)]:group-hover:opacity-0 group-focus-visible:opacity-0',
                 )}
-              >
-                {heroPresentation.statusLabel}
-              </Badge>
-              <p className="text-sm text-muted-foreground">
+              />
+              {heroHasRoomPreview ? (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 motion-reduce:transition-none [@media(hover:hover)]:group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <ArtworkImage
+                    image={heroRoomContextImage}
+                    locale={locale}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="max-h-[38rem] w-full object-contain"
+                  />
+                </div>
+              ) : null}
+            </div>
+            <div className="p-4">
+              <div className="flex items-start justify-between gap-4">
+                <h2 className="text-lg font-semibold">
+                  {heroPresentation.painting.title}
+                </h2>
+                <Badge
+                  variant="outline"
+                  className={getPaintingStatusClassName(
+                    heroPresentation.painting.status,
+                  )}
+                >
+                  {heroPresentation.statusLabel}
+                </Badge>
+              </div>
+              <p className="mt-3 text-sm font-semibold text-foreground">
                 {heroPresentation.priceLabel}
               </p>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {homepageContent.temporaryMetadata}
+              </p>
             </div>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {homepageContent.temporaryMetadata}
-            </p>
-          </div>
-        </div>
+          </a>
+        </article>
       </section>
 
       <section

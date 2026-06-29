@@ -54,7 +54,7 @@ export type AnalyticsEvent =
   | {
       name: 'outbound_link_clicked'
       language: Locale
-      destination: 'email' | 'instagram' | 'facebook'
+      destination: 'email' | 'instagram'
     }
 
 export type AnalyticsCaptureResult =
@@ -220,7 +220,7 @@ const analyticsEventSchema = z.discriminatedUnion('name', [
   z.object({
     name: z.literal('outbound_link_clicked'),
     language: localeSchema,
-    destination: z.enum(['email', 'instagram', 'facebook']),
+    destination: z.enum(['email', 'instagram']),
   }),
 ])
 

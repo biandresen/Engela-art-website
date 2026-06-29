@@ -53,7 +53,7 @@ describe('contact routes', () => {
     const main = await screen.findByRole('main')
 
     expect(main.textContent).toContain(
-      'You can expect a personal response within two business days.',
+      'You can expect a personal response from Anne Mari within two business days.',
     )
     expect(main.textContent).toContain(
       'After sending, an automatic confirmation email is sent to the email address you enter.',
@@ -74,7 +74,7 @@ describe('contact routes', () => {
     const main = await screen.findByRole('main')
 
     expect(main.textContent).toContain(
-      'Du kan forvente personlig svar innen to virkedager.',
+      'Du kan forvente personlig svar fra Anne Mari innen to virkedager.',
     )
     expect(main.textContent).toContain(
       'Etter sending sendes en automatisk bekreftelse til e-postadressen du oppgir.',
@@ -87,19 +87,19 @@ describe('contact routes', () => {
         url: '/en/contact?type=painting&painting=temporary-painting-01',
         title: 'Painting inquiry',
         prefill:
-          'Hello Engela Art,\n\nI am interested in Temporary painting 01 (EA-2026-001). Please let me know whether it is available and what the next steps are.',
+          'Hello Anne Mari,\n\nI am interested in Jordvarme (EA-2026-001). Please let me know whether it is available and what the next steps are.',
       },
       {
         url: '/en/contact?type=interest-list&painting=temporary-painting-02',
         title: 'Interest list',
         prefill:
-          'Hello Engela Art,\n\nI would like to join the interest list for Temporary painting 02 (EA-2026-002). I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.',
+          'Hello Anne Mari,\n\nI would like to join the interest list for Lys over åker (EA-2026-002). I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.',
       },
       {
         url: '/en/contact?type=similar-work&painting=temporary-painting-03',
         title: 'Similar work',
         prefill:
-          'Hello Engela Art,\n\nI am interested in similar work with Temporary painting 03 (EA-2026-003) as a reference. I understand this does not request an exact reproduction or create an accepted commission.',
+          'Hello Anne Mari,\n\nI am interested in similar work with Stille glede (EA-2026-003) as a reference. I understand this does not request an exact reproduction or create an accepted commission.',
       },
     ] as const
 
@@ -125,7 +125,7 @@ describe('contact routes', () => {
         'Use the form for painting inquiries. You can also email kontakt@engelaart.no.',
       )
       expect(main.textContent).toContain(item.title)
-      expect(main.textContent).toContain('Temporary painting')
+      expect(main.textContent).toMatch(/Jordvarme|Lys over åker|Stille glede/)
       expect(
         within(main).getByLabelText<HTMLTextAreaElement>('Message').value,
       ).toBe(item.prefill)
@@ -145,6 +145,13 @@ describe('contact routes', () => {
           .getByRole('link', { name: 'privacy notice' })
           .getAttribute('href'),
       ).toBe('/en/privacy')
+      expect(
+        within(main)
+          .getByRole('link', { name: 'Instagram' })
+          .getAttribute('href'),
+      ).toBe('https://www.instagram.com/engela_art/')
+      expect(within(main).queryByRole('link', { name: 'Facebook' })).toBeNull()
+      expect(main.textContent).not.toMatch(/facebook/i)
     }
   })
 
@@ -188,7 +195,7 @@ describe('contact routes', () => {
     )
     expect(
       within(main).getByLabelText<HTMLTextAreaElement>('Melding').value,
-    ).toBe('Hei Engela Art,\n\n')
+    ).toBe('Hei Anne Mari,\n\n')
   })
 
   it('renders commission inquiry fields and preserves trusted reference context', async () => {
@@ -207,15 +214,13 @@ describe('contact routes', () => {
     const main = await screen.findByRole('main')
 
     expect(main.textContent).toContain('Commission inquiry')
-    expect(main.textContent).toContain('Temporary painting 03')
+    expect(main.textContent).toContain('Stille glede')
     expect(main.textContent).toContain(
       'A reference painting helps describe direction, but this is still a new commission inquiry.',
     )
     expect(
       within(main).getByLabelText<HTMLTextAreaElement>('Message').value,
-    ).toContain(
-      'possible commission inspired by Temporary painting 03 (EA-2026-003)',
-    )
+    ).toContain('possible commission inspired by Stille glede (EA-2026-003)')
     expect(
       within(main).getByLabelText('Desired dimensions (optional)'),
     ).toBeTruthy()
@@ -267,7 +272,7 @@ describe('contact routes', () => {
 
     expect(name.value).toBe('')
     expect(email.value).toBe('')
-    expect(message.value).toBe('Hello Engela Art,\n\n')
+    expect(message.value).toBe('Hello Anne Mari,\n\n')
     await waitFor(() => expect(submit.hasAttribute('disabled')).toBe(true))
   })
 

@@ -49,12 +49,12 @@ describe('gallery routes', () => {
         (card) => within(card).getByRole('heading', { level: 2 }).textContent,
       ),
     ).toEqual([
-      'Temporary painting 01',
-      'Temporary painting 02',
-      'Temporary painting 03',
-      'Temporary painting 04',
-      'Temporary painting 05',
-      'Temporary painting 06',
+      'Hjemlengsel',
+      'Jordvarme',
+      'Lys over åker',
+      'Morgenro',
+      'Sommerminne',
+      'Stille glede',
     ])
   })
 
@@ -89,7 +89,7 @@ describe('gallery routes', () => {
       expect(cards).toHaveLength(1)
       expect(
         within(cards[0]).getByRole('heading', { level: 2 }).textContent,
-      ).toBe('Temporary painting 04')
+      ).toBe('Sommerminne')
       expect(router.state.location.search).toEqual({
         status: 'available',
         orientation: 'landscape',
@@ -138,12 +138,12 @@ describe('gallery routes', () => {
           (card) => within(card).getByRole('heading', { level: 2 }).textContent,
         ),
       ).toEqual([
-        'Temporary painting 06',
-        'Temporary painting 05',
-        'Temporary painting 04',
-        'Temporary painting 03',
-        'Temporary painting 02',
-        'Temporary painting 01',
+        'Hjemlengsel',
+        'Morgenro',
+        'Sommerminne',
+        'Stille glede',
+        'Lys over åker',
+        'Jordvarme',
       ])
       expect(router.state.location.searchStr).toBe('?sort=price-desc')
     })
@@ -193,7 +193,7 @@ describe('gallery routes', () => {
         within(screen.getByRole('region', { name: 'Painting collection' }))
           .getAllByRole('heading', { level: 2 })
           .map((heading) => heading.textContent),
-      ).toEqual(['Temporary painting 03', 'Temporary painting 06'])
+      ).toEqual(['Stille glede', 'Hjemlengsel'])
     })
 
     router.history.forward()
@@ -292,14 +292,14 @@ describe('gallery routes', () => {
     const cards = within(collection).getAllByRole('article')
     const firstCard = cards[0]
     const image = within(firstCard).getByRole('img', {
-      name: /Midlertidig hovedbilde for maleri 03/,
+      name: /Rett forfra-bilde av maleri 03/,
     })
     const sources = image.closest('picture')?.querySelectorAll('source')
 
     expect(cards).toHaveLength(2)
     expect(firstCard.textContent).toContain('Solgt')
-    expect(firstCard.textContent).toContain('Midlertidig mediumtekst')
-    expect(firstCard.textContent).toContain('Midlertidig teknikktekst')
+    expect(firstCard.textContent).toContain('Akryl og strukturpasta på lerret.')
+    expect(firstCard.textContent).toContain('Lagvis arbeid med pensel')
     expect(firstCard.textContent).toContain('50 × 50 × 2 cm')
     expect(firstCard.textContent).toContain('Historisk oppgitt pris: 3 000 kr')
     expect(firstCard.textContent).toContain('2026')

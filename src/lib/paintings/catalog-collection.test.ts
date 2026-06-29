@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { paintingCatalog } from '#/local-db/paintings'
 
 describe('complete painting collection', () => {
-  it('validates all six temporary catalog entries as one collection', () => {
+  it('validates all six public catalog entries as one collection', () => {
     const paintings = paintingCatalog.all()
 
     expect(paintings).toHaveLength(6)
@@ -13,10 +13,10 @@ describe('complete painting collection', () => {
     expect(new Set(paintings.map((painting) => painting.slug)).size).toBe(6)
 
     for (const painting of paintings) {
-      expect(painting.metadataApproval).toBe('temporary')
-      expect(painting.title).toMatch(/^Temporary painting 0[1-6]$/)
-      expect(painting.technique.no).toContain('Midlertidig teknikktekst')
-      expect(painting.technique.en).toContain('Temporary technique text')
+      expect(painting.metadataApproval).toBe('artist-approved')
+      expect(painting.title.trim()).not.toBe('')
+      expect(painting.technique.no).toContain('Lagvis arbeid')
+      expect(painting.technique.en).toContain('Layered brushwork')
       expect(painting.images.map((image) => image.role)).toEqual([
         'main',
         'room-context',

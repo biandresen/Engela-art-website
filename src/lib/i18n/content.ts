@@ -32,7 +32,7 @@ const pageContent: Record<
 > = {
   no: {
     home: {
-      title: 'Original kunst av Engela',
+      title: 'Original kunst av Anne Mari Engelsrud',
       intro: 'Oppdag malerier og kunstneren bak Engela Art.',
     },
     paintings: {
@@ -45,10 +45,10 @@ const pageContent: Record<
     },
     commissions: {
       title: 'Bestillingsverk',
-      intro: 'Les om muligheten for et maleri inspirert av Engelas uttrykk.',
+      intro: 'Les om muligheten for et maleri inspirert av Anne Maris uttrykk.',
     },
     about: {
-      title: 'Om Engela',
+      title: 'Om Anne Mari',
       intro: 'Bli kjent med kunstneren og prosessen bak arbeidene.',
     },
     contact: {
@@ -66,7 +66,7 @@ const pageContent: Record<
   },
   en: {
     home: {
-      title: 'Original art by Engela',
+      title: 'Original art by Anne Mari Engelsrud',
       intro: 'Discover paintings and the artist behind Engela Art.',
     },
     paintings: {
@@ -79,10 +79,10 @@ const pageContent: Record<
     },
     commissions: {
       title: 'Commissions',
-      intro: "Learn about paintings inspired by Engela's artistic practice.",
+      intro: "Learn about paintings inspired by Anne Mari's artistic practice.",
     },
     about: {
-      title: 'About Engela',
+      title: 'About Anne Mari',
       intro: 'Meet the artist and learn about her creative process.',
     },
     contact: {
@@ -130,7 +130,6 @@ export function getFooterLabels(locale: Locale) {
         email: 'Send e-post til Engela Art',
         emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art på Instagram',
-        facebook: 'Engela Art på Facebook',
         contact: 'Kontakt',
         copyrightOwner: 'Art by Engela Art.',
         copyrightWarning:
@@ -153,7 +152,6 @@ export function getFooterLabels(locale: Locale) {
         email: 'Email Engela Art',
         emailAddress: 'kontakt@engelaart.no',
         instagram: 'Engela Art on Instagram',
-        facebook: 'Engela Art on Facebook',
         contact: 'Contact',
         copyrightOwner: 'Art by Engela Art.',
         copyrightWarning:

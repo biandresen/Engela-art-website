@@ -45,22 +45,20 @@ describe('painting detail routes', () => {
     expect(
       within(main).getByRole('heading', {
         level: 1,
-        name: 'Temporary painting 01',
+        name: 'Jordvarme',
       }),
     ).toBeTruthy()
     expect(main.textContent).toContain('EA-2026-001')
+    expect(main.textContent).toContain('Acrylic and texture paste on canvas.')
     expect(main.textContent).toContain(
-      'Temporary medium text. Materials require artist approval.',
-    )
-    expect(main.textContent).toContain(
-      'Temporary technique text. Technique requires artist approval.',
+      'Layered brushwork, palette-knife marks, and built-up texture.',
     )
     expect(main.textContent).toContain('40 × 60 × 2 cm')
     expect(main.textContent).toContain('2026')
     expect(main.textContent).toContain('Available')
     expect(main.textContent).toContain('Price: NOK 1,000')
     expect(main.textContent).toContain(
-      'Temporary catalog copy for painting 01.',
+      'A warm portrait-format painting where earth tones',
     )
 
     const imageGallery = within(main).getByRole('region', {
@@ -68,7 +66,7 @@ describe('painting detail routes', () => {
     })
     expect(within(imageGallery).getAllByRole('button')).toHaveLength(3)
     const mainImage = within(imageGallery).getByRole('img', {
-      name: /Temporary main image for painting 01/,
+      name: /Straight-on image of painting 01/,
     })
     expect(mainImage.getAttribute('width')).toBe('960')
     expect(mainImage.getAttribute('height')).toBe('1280')
@@ -105,7 +103,7 @@ describe('painting detail routes', () => {
       name: /Open selected image 1 in image viewer/,
     })
     const selectedImage = within(selectedImageButton).getByRole('img', {
-      name: /Temporary main image for painting 01/,
+      name: /Straight-on image of painting 01/,
     })
     const firstThumbnail = within(imageGallery).getByRole('button', {
       name: /Selected image 1/,
@@ -124,13 +122,13 @@ describe('painting detail routes', () => {
 
     expect(
       within(selectedImageButton).getByRole('img', {
-        name: /Temporary room visualization for painting 01/,
+        name: /Painting 01/,
       }),
     ).toBeTruthy()
     expect(firstThumbnail.getAttribute('aria-current')).toBeNull()
     expect(secondThumbnail.getAttribute('aria-current')).toBe('true')
     expect(imageGallery.textContent).toContain(
-      'Temporary visualization using placeholder dimensions.',
+      'The room view shows scale and atmosphere.',
     )
   })
 
@@ -147,8 +145,8 @@ describe('painting detail routes', () => {
 
     const main = await screen.findByRole('main')
 
-    expect(main.textContent).toContain('Midlertidig mediumtekst.')
-    expect(main.textContent).toContain('Midlertidig teknikktekst.')
+    expect(main.textContent).toContain('Akryl og strukturpasta på lerret.')
+    expect(main.textContent).toContain('Lagvis arbeid med pensel')
     expect(main.textContent).toContain('Reservert')
     expect(main.textContent).toContain('Oppgitt pris: 2 000 kr')
     expect(main.textContent).toContain('Selges uten ramme.')
@@ -249,7 +247,7 @@ describe('painting detail routes', () => {
       expect(main.textContent).toContain('Sold unframed.')
       expect(main.textContent).toContain('Listed price excludes shipping.')
       expect(main.textContent).toContain(
-        'Availability is confirmed by the artist before a reservation is created.',
+        'Anne Mari confirms availability before a reservation is created.',
       )
       expect(main.textContent).toContain(item.notice)
       expect(stickyActions.textContent).toContain(item.stickyPrice)
@@ -309,7 +307,7 @@ describe('painting detail routes', () => {
       'Dust acrylic surfaces gently with a clean, dry, soft brush',
     )
     expect(care.textContent).toContain(
-      'Temporary care profile. Final guidance awaits material confirmation.',
+      'Handle the textured surface carefully and avoid rubbing it.',
     )
   })
 
@@ -391,12 +389,12 @@ describe('painting detail routes', () => {
 
     expect(
       within(navigation)
-        .getByRole('button', { name: 'Previous painting unavailable' })
-        .getAttribute('disabled'),
-    ).not.toBeNull()
+        .getByRole('link', { name: 'Previous painting: Hjemlengsel' })
+        .getAttribute('href'),
+    ).toBe('/en/paintings/temporary-painting-06')
     expect(
       within(navigation)
-        .getByRole('link', { name: 'Next painting: Temporary painting 02' })
+        .getByRole('link', { name: 'Next painting: Lys over åker' })
         .getAttribute('href'),
     ).toBe('/en/paintings/temporary-painting-02')
   })
@@ -424,7 +422,7 @@ describe('painting detail routes', () => {
     expect(
       within(navigation)
         .getByRole('link', {
-          name: 'Previous painting: Temporary painting 05',
+          name: 'Previous painting: Morgenro',
         })
         .getAttribute('href'),
     ).toBe(
@@ -465,7 +463,7 @@ describe('painting detail routes', () => {
     expect(
       within(navigation)
         .getByRole('link', {
-          name: 'Forrige maleri: Temporary painting 05',
+          name: 'Forrige maleri: Morgenro',
         })
         .getAttribute('href'),
     ).toBe('/no/malerier/temporary-painting-05?status=reserved&sort=price-desc')
@@ -480,7 +478,7 @@ describe('painting detail routes', () => {
     const router = createRouter({
       routeTree,
       history: createMemoryHistory({
-        initialEntries: ['/en/paintings/temporary-painting-06'],
+        initialEntries: ['/en/paintings/temporary-painting-03'],
       }),
     })
 
@@ -496,9 +494,9 @@ describe('painting detail routes', () => {
 
     expect(
       within(navigation)
-        .getByRole('link', { name: 'Previous painting: Temporary painting 05' })
+        .getByRole('link', { name: 'Previous painting: Sommerminne' })
         .getAttribute('href'),
-    ).toBe('/en/paintings/temporary-painting-05')
+    ).toBe('/en/paintings/temporary-painting-04')
     expect(
       within(navigation)
         .getByRole('button', { name: 'Next painting unavailable' })
@@ -528,7 +526,7 @@ describe('painting detail routes', () => {
       name: 'Close image viewer',
     })
     const viewerImage = within(viewer).getByRole('img', {
-      name: /Temporary main image for painting 01/,
+      name: /Straight-on image of painting 01/,
     })
 
     expect(document.activeElement).toBe(closeButton)
@@ -541,11 +539,11 @@ describe('painting detail routes', () => {
 
     expect(
       within(viewer).getByRole('img', {
-        name: /Temporary room visualization for painting 01/,
+        name: /Painting 01/,
       }),
     ).toBeTruthy()
     expect(viewer.textContent).toContain(
-      'Temporary visualization using placeholder dimensions.',
+      'The room view shows scale and atmosphere.',
     )
 
     fireEvent.keyDown(viewer, { key: 'Escape' })

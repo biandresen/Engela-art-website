@@ -90,7 +90,7 @@ describe('about routes', () => {
       within(main)
         .getByRole('link', { name: 'Visit Instagram' })
         .getAttribute('href'),
-    ).toBe('https://www.instagram.com/')
+    ).toBe('https://www.instagram.com/engela_art/')
 
     const portrait = within(main).getByRole('img', {
       name: 'Portrait of Anne Mari Engelsrud, the artist behind Engela Art',

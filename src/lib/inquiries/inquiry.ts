@@ -488,7 +488,7 @@ function createBuyerAcknowledgement({
       '',
       'Engela Art has received your inquiry.',
       reservationText,
-      'You can expect a personal response within two business days.',
+      'You can expect a personal response from Anne Mari within two business days.',
       'Please check spam if the automatic acknowledgement is delayed. If no personal response arrives within two business days, email kontakt@engelaart.no.',
       '',
       painting
@@ -504,7 +504,7 @@ function createBuyerAcknowledgement({
 
 function getAcknowledgementSafetyText(inquiryType: InquiryType): string {
   if (inquiryType === 'painting') {
-    return 'This does not reserve the painting. The artist confirms availability before any reservation.'
+    return 'This does not reserve the painting. Anne Mari confirms availability before any reservation.'
   }
 
   if (inquiryType === 'interest-list') {
@@ -516,7 +516,7 @@ function getAcknowledgementSafetyText(inquiryType: InquiryType): string {
   }
 
   if (inquiryType === 'commission') {
-    return 'This does not create an accepted commission. Any commission requires artist review and a written proposal.'
+    return 'This does not create an accepted commission. Any commission requires Anne Mari’s review and a written proposal.'
   }
 
   return 'This does not create a reservation, sale, or accepted commission.'
@@ -528,13 +528,13 @@ const labels = {
     commissionTitle: 'Forespørsel om bestillingsverk',
     fallbackNotice:
       'Lenken inneholdt en ugyldig eller utdatert referanse, så skjemaet er satt til en generell henvendelse.',
-    generalPrefill: 'Hei Engela Art,\n\n',
+    generalPrefill: 'Hei Anne Mari,\n\n',
     commissionPrefill:
-      'Hei Engela Art,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av Engelas uttrykk.',
+      'Hei Anne Mari,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av uttrykket ditt.',
     commissionReferenceNotice:
       'Et referansemaleri hjelper med retningen, men dette er fortsatt en ny forespørsel om bestillingsverk.',
     commissionReferencePrefill(paintingReference: string): string {
-      return `Hei Engela Art,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent oppdrag.`
+      return `Hei Anne Mari,\n\nJeg ønsker å høre om et mulig bestillingsverk inspirert av ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent oppdrag.`
     },
     contextTitles: {
       painting: 'Forespørsel om maleri',
@@ -543,13 +543,13 @@ const labels = {
     },
     prefill(type: InquiryType, paintingReference: string): string {
       if (type === 'interest-list') {
-        return `Hei Engela Art,\n\nJeg ønsker å stå på interesselisten for ${paintingReference}. Jeg forstår at dette ikke reserverer eller garanterer maleriet, og at interessen behandles i rekkefølgen forespørslene mottas med 48 timers svarfrist hvis jeg blir kontaktet.`
+        return `Hei Anne Mari,\n\nJeg ønsker å stå på interesselisten for ${paintingReference}. Jeg forstår at dette ikke reserverer eller garanterer maleriet, og at interessen behandles i rekkefølgen forespørslene mottas med 48 timers svarfrist hvis jeg blir kontaktet.`
       }
       if (type === 'similar-work') {
-        return `Hei Engela Art,\n\nJeg er interessert i lignende arbeid med utgangspunkt i ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent bestillingsoppdrag.`
+        return `Hei Anne Mari,\n\nJeg er interessert i lignende arbeid med utgangspunkt i ${paintingReference}. Jeg forstår at dette ikke er en forespørsel om en nøyaktig kopi eller et godkjent bestillingsoppdrag.`
       }
 
-      return `Hei Engela Art,\n\nJeg er interessert i ${paintingReference}. Gi meg gjerne beskjed om maleriet er tilgjengelig og hva neste steg er.`
+      return `Hei Anne Mari,\n\nJeg er interessert i ${paintingReference}. Gi meg gjerne beskjed om maleriet er tilgjengelig og hva neste steg er.`
     },
   },
   en: {
@@ -557,13 +557,13 @@ const labels = {
     commissionTitle: 'Commission inquiry',
     fallbackNotice:
       'The link contained an invalid or outdated reference, so the form has fallen back to a general inquiry.',
-    generalPrefill: 'Hello Engela Art,\n\n',
+    generalPrefill: 'Hello Anne Mari,\n\n',
     commissionPrefill:
-      "Hello Engela Art,\n\nI would like to ask about a possible commission inspired by Engela's work.",
+      'Hello Anne Mari,\n\nI would like to ask about a possible commission inspired by your work.',
     commissionReferenceNotice:
       'A reference painting helps describe direction, but this is still a new commission inquiry.',
     commissionReferencePrefill(paintingReference: string): string {
-      return `Hello Engela Art,\n\nI would like to ask about a possible commission inspired by ${paintingReference}. I understand this does not request an exact reproduction or create an accepted project.`
+      return `Hello Anne Mari,\n\nI would like to ask about a possible commission inspired by ${paintingReference}. I understand this does not request an exact reproduction or create an accepted project.`
     },
     contextTitles: {
       painting: 'Painting inquiry',
@@ -572,13 +572,13 @@ const labels = {
     },
     prefill(type: InquiryType, paintingReference: string): string {
       if (type === 'interest-list') {
-        return `Hello Engela Art,\n\nI would like to join the interest list for ${paintingReference}. I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.`
+        return `Hello Anne Mari,\n\nI would like to join the interest list for ${paintingReference}. I understand this does not reserve or guarantee the painting, and that interest is handled in submission order with a 48-hour response window if contacted.`
       }
       if (type === 'similar-work') {
-        return `Hello Engela Art,\n\nI am interested in similar work with ${paintingReference} as a reference. I understand this does not request an exact reproduction or create an accepted commission.`
+        return `Hello Anne Mari,\n\nI am interested in similar work with ${paintingReference} as a reference. I understand this does not request an exact reproduction or create an accepted commission.`
       }
 
-      return `Hello Engela Art,\n\nI am interested in ${paintingReference}. Please let me know whether it is available and what the next steps are.`
+      return `Hello Anne Mari,\n\nI am interested in ${paintingReference}. Please let me know whether it is available and what the next steps are.`
     },
   },
 } as const

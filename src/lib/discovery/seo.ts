@@ -64,7 +64,7 @@ const localizedDescriptions: Record<
 > = {
   no: {
     home: () =>
-      'Originale malerier fra Engela Art. Utforsk tilgjengelige arbeider, kunstnerhistorien og hvordan du kan sende en trygg forespørsel.',
+      'Originale malerier av Anne Mari Engelsrud hos Engela Art. Utforsk tilgjengelige arbeider, kunstnerhistorien og hvordan du kan sende en trygg forespørsel.',
     paintings: () =>
       'Utforsk originale malerier fra Engela Art med status, mål, medium, teknikk og oppgitt pris i NOK.',
     painting: (painting) =>
@@ -72,9 +72,9 @@ const localizedDescriptions: Record<
         ? `${painting.title} fra Engela Art. Se status, mål, medium, teknikk, pris og hvordan du kan sende en forespørsel.`
         : getPageContent('no', 'painting').intro,
     commissions: () =>
-      'Les hvordan Engela Art vurderer bestillingsverk inspirert av eksisterende arbeider, med startpriser, tidslinjer og forespørsel.',
+      'Les hvordan Anne Mari vurderer bestillingsverk inspirert av eksisterende arbeider, med startpriser, tidslinjer og forespørsel.',
     about: () =>
-      'Bli kjent med Engela og prosessen bak de originale maleriene fra Engela Art.',
+      'Bli kjent med Anne Mari Engelsrud og prosessen bak de originale maleriene fra Engela Art.',
     contact: () =>
       'Ta kontakt med Engela Art om malerier, interesseliste, lignende arbeider eller bestillingsverk.',
     privacy: () =>
@@ -84,7 +84,7 @@ const localizedDescriptions: Record<
   },
   en: {
     home: () =>
-      'Original paintings by Engela Art. Explore available work, the artist story, and how to send a clear inquiry.',
+      'Original paintings by Anne Mari Engelsrud at Engela Art. Explore available work, the artist story, and how to send a clear inquiry.',
     paintings: () =>
       'Explore original paintings from Engela Art with status, dimensions, medium, technique, and listed NOK prices.',
     painting: (painting) =>
@@ -92,9 +92,9 @@ const localizedDescriptions: Record<
         ? `${painting.title} by Engela Art. View status, dimensions, medium, technique, price, and how to send an inquiry.`
         : getPageContent('en', 'painting').intro,
     commissions: () =>
-      'Learn how Engela Art reviews inspired-by commission inquiries, including starting prices, timelines, and the inquiry process.',
+      'Learn how Anne Mari reviews inspired-by commission inquiries, including starting prices, timelines, and the inquiry process.',
     about: () =>
-      'Meet Engela and learn about the process behind the original paintings from Engela Art.',
+      'Meet Anne Mari Engelsrud and learn about the process behind the original paintings from Engela Art.',
     contact: () =>
       'Get in touch with Engela Art about paintings, interest lists, similar work, or commissions.',
     privacy: () =>

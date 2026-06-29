@@ -57,7 +57,7 @@ const faqContent: Record<
     commissions: {
       question: 'Kan jeg bestille et nytt maleri?',
       answer:
-        'Du kan sende en forespørsel om et nytt maleri inspirert av Engelas eksisterende uttrykk. Det er ikke en automatisk bestilling, og nøyaktig kopi eller fremmede stiler loves ikke.',
+        'Du kan sende en forespørsel om et nytt maleri inspirert av Anne Maris eksisterende uttrykk. Det er ikke en automatisk bestilling, og nøyaktig kopi eller fremmede stiler loves ikke.',
     },
     'response-target': {
       question: 'Hvor raskt svarer Engela Art?',
@@ -99,7 +99,7 @@ const faqContent: Record<
     commissions: {
       question: 'Can I commission a new painting?',
       answer:
-        "You can inquire about a new painting inspired by Engela's existing practice. This is not an automatic order, and exact copies or unrelated styles are not promised.",
+        "You can inquire about a new painting inspired by Anne Mari's existing practice. This is not an automatic order, and exact copies or unrelated styles are not promised.",
     },
     'response-target': {
       question: 'How quickly will Engela Art reply?',

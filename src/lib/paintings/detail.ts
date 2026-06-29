@@ -84,12 +84,12 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
             dimensions: 'Mål',
             year: 'År',
             description: 'Beskrivelse',
-            temporaryMetadata: 'Midlertidige katalogopplysninger',
+            temporaryMetadata: 'Originalt maleri fra Engela Art',
             purchaseGuidance: 'Kjøpsinformasjon',
             unframed: 'Selges uten ramme.',
             shippingExcluded: 'Oppgitt pris er uten frakt.',
             availability:
-              'Tilgjengelighet bekreftes av kunstneren før en reservasjon opprettes.',
+              'Anne Mari bekrefter tilgjengelighet før en reservasjon opprettes.',
             delivery:
               'Henting i Nannestad avtales på e-post. Sporing og passende tilgjengelig dekning brukes ved sending. Internasjonal levering vurderes i hvert enkelt tilfelle.',
           }
@@ -106,12 +106,12 @@ export function getPaintingDetail(locale: Locale, painting: Painting) {
             dimensions: 'Dimensions',
             year: 'Year',
             description: 'Description',
-            temporaryMetadata: 'Temporary catalog metadata',
+            temporaryMetadata: 'Original painting from Engela Art',
             purchaseGuidance: 'Purchase information',
             unframed: 'Sold unframed.',
             shippingExcluded: 'Listed price excludes shipping.',
             availability:
-              'Availability is confirmed by the artist before a reservation is created.',
+              'Anne Mari confirms availability before a reservation is created.',
             delivery:
               'Pickup in Nannestad is arranged by email. Tracked shipping with appropriate available coverage is used for deliveries. International delivery is considered case by case.',
           },

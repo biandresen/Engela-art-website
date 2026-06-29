@@ -121,13 +121,13 @@ const commissionsCopy = {
   no: {
     title: 'Bestillingsverk',
     intro:
-      'Forespørsler må være inspirert av Engelas eget uttrykk. Siden hvert arbeid vurderes individuelt, er dette en samtalestart og ikke en bestilling, avtale eller fast pris.',
+      'Forespørsler må være inspirert av Anne Maris eget uttrykk. Siden hvert arbeid vurderes individuelt, er dette en samtalestart og ikke en bestilling, avtale eller fast pris.',
     action: 'Start en forespørsel om bestillingsverk',
     paintingsAction: 'Se malerier som referanse',
     principles: [
       {
-        title: 'Innenfor Engelas praksis',
-        body: 'Nye malerier diskuteres når ønsket passer med Engelas materialer, uttrykk og motivverden. Urelaterte stiler eller dekoroppdrag kan avslås.',
+        title: 'Innenfor Anne Maris praksis',
+        body: 'Nye malerier diskuteres når ønsket passer med Anne Maris materialer, uttrykk og motivverden. Urelaterte stiler eller rene dekoroppdrag kan avslås.',
       },
       {
         title: 'Ingen nøyaktig kopi',
@@ -135,7 +135,7 @@ const commissionsCopy = {
       },
       {
         title: 'Kunstnerens vurdering',
-        body: 'Engela kan takke nei, stille oppfølgingsspørsmål eller sende et skriftlig forslag hvis oppdraget virker riktig.',
+        body: 'Anne Mari kan takke nei, stille oppfølgingsspørsmål eller sende et skriftlig forslag hvis oppdraget virker riktig.',
       },
     ],
     guidanceTitle: 'Veiledende fra-priser og tidslinjer',
@@ -168,7 +168,7 @@ const commissionsCopy = {
       'Bestillingsverk starter med en forespørsel og blir først bindende gjennom et skriftlig forslag som begge parter godtar.',
     process: [
       'Du beskriver ønsket retning, mulig størrelse, budsjett og eventuelle referansemalerier.',
-      'Engela vurderer om oppdraget passer kunstnerisk og praktisk.',
+      'Anne Mari vurderer om oppdraget passer kunstnerisk og praktisk.',
       'Hvis arbeidet kan tas videre, sender hun et skriftlig forslag med konsept, mål, medium, pris, tidslinje, tilbakemeldingspunkter, levering og betaling.',
       'Standard betalingsplan er 50% depositum før arbeidet begynner og 50% sluttbetaling etter ferdig godkjenning og før levering eller henting.',
       'Prosessen inkluderer én konseptavklaring og én fremdriftsoppdatering. Store endringer krever separat avtale om pris og tid.',
@@ -180,19 +180,19 @@ const commissionsCopy = {
       'Levering eller henting avtales i forslaget. Frakt kommer i tillegg der det er aktuelt.',
       'Ferdige bestillingsverk kan vises i Engela Arts portfolio med mindre personvern avtales skriftlig før arbeidet starter.',
       'Avbestilling og depositum må vurderes opp mot norsk forbrukerrett før endelig publisering.',
-      'Norsk tekst, engelske oversettelser og kommersielle vilkår trenger kunstnerens og eventuell juridisk/regnskapsmessig godkjenning før lansering.',
+      'Endelig pris, tidsplan og praktiske vilkår avklares alltid skriftlig før arbeidet starter.',
     ],
   },
   en: {
     title: 'Commissions',
     intro:
-      "New paintings are discussed only when they fit Engela's existing artistic practice. A message starts a conversation; it is not an order, accepted commission, fixed quote, or guaranteed schedule.",
+      "New paintings are discussed only when they fit Anne Mari's existing artistic practice. A message starts a conversation; it is not an order, accepted commission, fixed quote, or guaranteed schedule.",
     action: 'Start a commission inquiry',
     paintingsAction: 'View paintings for reference',
     principles: [
       {
-        title: "Within Engela's practice",
-        body: "Commission requests should be inspired by Engela's existing materials, visual language, and subjects. Unrelated styles or decorative briefs may be declined.",
+        title: "Within Anne Mari's practice",
+        body: "Commission requests should be inspired by Anne Mari's existing materials, visual language, and subjects. Unrelated styles or purely decorative briefs may be declined.",
       },
       {
         title: 'No exact reproduction',
@@ -200,7 +200,7 @@ const commissionsCopy = {
       },
       {
         title: 'Artist review first',
-        body: 'Engela may decline, ask follow-up questions, or send a written proposal when the request is a good fit.',
+        body: 'Anne Mari may decline, ask follow-up questions, or send a written proposal when the request is a good fit.',
       },
     ],
     guidanceTitle: 'Indicative from-prices and timelines',
@@ -233,7 +233,7 @@ const commissionsCopy = {
       'Commission work starts with an inquiry and becomes real only through a written proposal that both sides accept.',
     process: [
       'You describe the desired direction, possible size, budget, and any reference paintings.',
-      'Engela reviews whether the request fits creatively and practically.',
+      'Anne Mari reviews whether the request fits creatively and practically.',
       'If the work can move forward, she sends a written proposal covering concept, dimensions, medium, price, timeline, feedback points, delivery, and payment.',
       'The default payment schedule is a 50% deposit before work begins and 50% final payment after completion approval and before delivery or pickup.',
       'The process includes one concept confirmation and one progress update. Major changes require a separate agreement on price and timing.',
@@ -245,7 +245,7 @@ const commissionsCopy = {
       'Delivery or pickup is agreed in the proposal. Shipping is added where relevant.',
       'Completed commissions may appear in the Engela Art portfolio unless privacy is agreed in writing before work begins.',
       'Cancellation and deposit terms need review against Norwegian consumer law before final publication.',
-      'Norwegian copy, English translations, and commercial terms still need artist and possible legal/accounting approval before launch.',
+      'Final price, schedule, and practical terms are always clarified in writing before work begins.',
     ],
   },
 } as const

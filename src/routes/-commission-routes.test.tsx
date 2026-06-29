@@ -40,7 +40,7 @@ describe('commission routes', () => {
       within(main).getByRole('heading', { level: 1, name: 'Commissions' }),
     ).toBeTruthy()
     expect(main.textContent).toContain(
-      "New paintings are discussed only when they fit Engela's existing artistic practice.",
+      "New paintings are discussed only when they fit Anne Mari's existing artistic practice.",
     )
     expect(main.textContent).toContain('Exact reproductions are not promised.')
     expect(main.textContent).toContain('Small study, up to 30 x 30 cm')
@@ -78,7 +78,7 @@ describe('commission routes', () => {
       }),
     ).toBeTruthy()
     expect(main.textContent).toContain(
-      'Forespørsler må være inspirert av Engelas eget uttrykk.',
+      'Forespørsler må være inspirert av Anne Maris eget uttrykk.',
     )
     expect(main.textContent).toContain('Veiledende fra-priser')
     expect(main.textContent).toContain('fra 1 000 kr')
