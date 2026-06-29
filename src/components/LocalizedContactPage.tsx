@@ -406,7 +406,19 @@ export function LocalizedContactPage({
             </div>
           </section>
 
-          <FaqSection locale={locale} scope="contact" />
+          <div className="space-y-3">
+            <FaqSection locale={locale} scope="contact" />
+            <p className="text-sm leading-6 text-muted-foreground">
+              {copy.moreQuestionsBefore}{' '}
+              <a
+                href={paths.sales}
+                className="font-medium text-foreground underline underline-offset-4 hover:text-primary"
+              >
+                {copy.moreQuestionsLink}
+              </a>
+              .
+            </p>
+          </div>
         </aside>
       </div>
     </main>
@@ -522,6 +534,8 @@ const contactCopy = {
     fallbackBody:
       'Hvis skjemaet ikke virker, kan du sende samme informasjon direkte på e-post.',
     socialTitle: 'Sosiale medier',
+    moreQuestionsBefore: 'Flere spørsmål om salg, vilkår eller retur:',
+    moreQuestionsLink: 'Gå til salg, vilkår og retur',
     success:
       'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
     successDelayed:
@@ -567,6 +581,8 @@ const contactCopy = {
     fallbackBody:
       'If the form does not work, send the same information directly by email.',
     socialTitle: 'Social media',
+    moreQuestionsBefore: 'More questions about sales, terms, or returns:',
+    moreQuestionsLink: 'Go to sales, terms, and returns',
     success:
       'Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response from Anne Mari within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email kontakt@engelaart.no.',
     successDelayed:

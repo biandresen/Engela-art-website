@@ -58,6 +58,16 @@ describe('contact routes', () => {
     expect(main.textContent).toContain(
       'After sending, an automatic confirmation email is sent to the email address you enter.',
     )
+    expect(main.textContent).toContain(
+      'More questions about sales, terms, or returns:',
+    )
+    expect(
+      within(main)
+        .getByRole('link', {
+          name: 'Go to sales, terms, and returns',
+        })
+        .getAttribute('href'),
+    ).toBe('/en/sales-and-returns')
   })
 
   it('shows Norwegian response-time and confirmation guidance before submission', async () => {
@@ -79,6 +89,14 @@ describe('contact routes', () => {
     expect(main.textContent).toContain(
       'Etter sending sendes en automatisk bekreftelse til e-postadressen du oppgir.',
     )
+    expect(main.textContent).toContain(
+      'Flere spørsmål om salg, vilkår eller retur:',
+    )
+    expect(
+      within(main)
+        .getByRole('link', { name: 'Gå til salg, vilkår og retur' })
+        .getAttribute('href'),
+    ).toBe('/no/salg-og-retur')
   })
 
   it('renders status-specific painting journeys through the unified contact form', async () => {
