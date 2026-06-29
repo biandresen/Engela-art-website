@@ -1,10 +1,10 @@
-import { Facebook, Instagram, Mail } from 'lucide-react'
+import { Instagram, Mail } from 'lucide-react'
 import { useRouterState } from '@tanstack/react-router'
 
-import { env } from '#/env'
 import { getFooterLabels } from '#/lib/i18n/content'
 import { getLocaleFromPathname, localizedPaths } from '#/lib/i18n/routes'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
+import { socialLinks } from '#/lib/social-links'
 
 export default function Footer() {
   const pathname = useRouterState({
@@ -94,51 +94,29 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {(env.VITE_INSTAGRAM_URL || env.VITE_FACEBOOK_URL) && (
-            <nav aria-label={labels.follow}>
-              <h2 className="text-xs font-semibold tracking-[0.12em] text-footer-foreground/70 uppercase">
-                {labels.follow}
-              </h2>
-              <div className="mt-4 flex gap-3">
-                {env.VITE_INSTAGRAM_URL && (
-                  <a
-                    href={env.VITE_INSTAGRAM_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={labels.instagram}
-                    onClick={() =>
-                      captureAnalyticsEvent({
-                        name: 'outbound_link_clicked',
-                        language: locale,
-                        destination: 'instagram',
-                      })
-                    }
-                    className={iconLinkClass}
-                  >
-                    <Instagram aria-hidden="true" className="size-5" />
-                  </a>
-                )}
-                {env.VITE_FACEBOOK_URL && (
-                  <a
-                    href={env.VITE_FACEBOOK_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={labels.facebook}
-                    onClick={() =>
-                      captureAnalyticsEvent({
-                        name: 'outbound_link_clicked',
-                        language: locale,
-                        destination: 'facebook',
-                      })
-                    }
-                    className={iconLinkClass}
-                  >
-                    <Facebook aria-hidden="true" className="size-5" />
-                  </a>
-                )}
-              </div>
-            </nav>
-          )}
+          <nav aria-label={labels.follow}>
+            <h2 className="text-xs font-semibold tracking-[0.12em] text-footer-foreground/70 uppercase">
+              {labels.follow}
+            </h2>
+            <div className="mt-4 flex gap-3">
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={labels.instagram}
+                onClick={() =>
+                  captureAnalyticsEvent({
+                    name: 'outbound_link_clicked',
+                    language: locale,
+                    destination: 'instagram',
+                  })
+                }
+                className={iconLinkClass}
+              >
+                <Instagram aria-hidden="true" className="size-5" />
+              </a>
+            </div>
+          </nav>
         </div>
       </div>
 

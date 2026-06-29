@@ -24,8 +24,7 @@ vi.mock('@tanstack/react-router', () => ({
 
 vi.mock('#/env', () => ({
   env: {
-    VITE_INSTAGRAM_URL: 'https://www.instagram.com/engelaart',
-    VITE_FACEBOOK_URL: 'https://www.facebook.com/engelaart',
+    VITE_GOOGLE_BUSINESS_PROFILE_URL: '',
   },
 }))
 
@@ -100,12 +99,9 @@ describe('footer', () => {
       within(footer)
         .getByRole('link', { name: 'Engela Art on Instagram' })
         .getAttribute('href'),
-    ).toBe('https://www.instagram.com/engelaart')
-    expect(
-      within(footer)
-        .getByRole('link', { name: 'Engela Art on Facebook' })
-        .getAttribute('href'),
-    ).toBe('https://www.facebook.com/engelaart')
+    ).toBe('https://www.instagram.com/engela_art/')
+    expect(within(footer).queryByRole('link', { name: /facebook/i })).toBeNull()
+    expect(footer.textContent).not.toMatch(/facebook/i)
     expect(footer.textContent).toContain(`© ${currentYear} Art by Engela Art.`)
     expect(footer.textContent).toContain(
       'All content and artworks are protected by copyright and may not be used or copied without written permission from Engela Art.',
