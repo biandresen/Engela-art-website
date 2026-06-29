@@ -39,6 +39,10 @@ export function LocalizedAboutPage({
       includePreview: showTestimonialPreview,
       previewEntries: testimonialPreviewEntries,
     })
+  const googleProfileLabel =
+    locale === 'no' ? 'Google-anmeldelser' : 'Google reviews'
+  const googleReviewsUrl =
+    env.VITE_GOOGLE_BUSINESS_PROFILE_URL ?? 'https://example.com/google-reviews'
 
   return (
     <main>
@@ -136,7 +140,9 @@ export function LocalizedAboutPage({
         entries={testimonials}
         heading={about.testimonialsHeading}
         intro={about.testimonialsIntro}
-        className="bg-muted"
+        googleProfileUrl={googleReviewsUrl}
+        googleProfileLabel={googleProfileLabel}
+        className="-mb-16 bg-muted"
       />
     </main>
   )

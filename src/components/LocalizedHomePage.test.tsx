@@ -87,7 +87,7 @@ describe('localized home page', () => {
     ).toBe('/no/bestillingsverk')
   })
 
-  it('renders localized English buyer actions without carousel behavior', () => {
+  it('renders localized English buyer actions without hero carousel behavior', () => {
     render(<LocalizedHomePage locale="en" />)
 
     const hero = screen.getByRole('region', {
@@ -110,10 +110,10 @@ describe('localized home page', () => {
         name: /Painting 04 shown in a room/,
       }),
     ).toBeTruthy()
+    expect(hero.querySelector('[aria-roledescription="carousel"]')).toBeNull()
     expect(
-      document.querySelector('[aria-roledescription="carousel"]'),
+      within(hero).queryByRole('button', { name: /previous|next/i }),
     ).toBeNull()
-    expect(screen.queryByRole('button', { name: /previous|next/i })).toBeNull()
   })
 
   it('keeps featured works below the first viewport in both locales', () => {
@@ -281,10 +281,22 @@ describe('localized home page', () => {
     ).toBe('secondary')
   })
 
-  it('omits testimonials and customer photos when no approved local data exists', () => {
+  it('renders the approved fake testimonials while omitting customer photos', () => {
     render(<LocalizedHomePage locale="en" />)
 
-    expect(screen.queryByRole('region', { name: 'Testimonials' })).toBeNull()
+    const testimonials = screen.getByRole('region', { name: 'Testimonials' })
+
+    expect(testimonials.textContent).toContain('Kari Nordmann')
+    expect(testimonials.textContent).toContain('Fake placeholder')
+    expect(testimonials.textContent).toContain(
+      'See all customer testimonials here:',
+    )
+    expect(
+      within(testimonials)
+        .getByRole('link', { name: 'Google reviews' })
+        .getAttribute('href'),
+    ).toBe('https://example.com/google-reviews')
+    expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
     expect(screen.queryByRole('region', { name: 'Customer homes' })).toBeNull()
     expect(screen.queryByText(/coming soon/i)).toBeNull()
     expect(screen.queryByText(/\[DUMMY]/i)).toBeNull()
@@ -293,7 +305,7 @@ describe('localized home page', () => {
     )
   })
 
-  it('can show local testimonial preview cards for development review', () => {
+  it('prefers approved fake testimonials over local preview cards', () => {
     render(
       <LocalizedHomePage
         locale="en"
@@ -320,7 +332,8 @@ describe('localized home page', () => {
       name: 'Testimonials',
     })
 
-    expect(testimonials.textContent).toContain('[LOCAL PREVIEW]')
+    expect(testimonials.textContent).toContain('Kari Nordmann')
+    expect(testimonials.textContent).not.toContain('[LOCAL PREVIEW]')
     expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
     expect(
       within(testimonials).getByRole('button', { name: 'Next testimonial' }),
@@ -352,7 +365,7 @@ describe('localized home page', () => {
     )
     expect(
       within(testimonials)
-        .getByRole('link', { name: 'View Engela Art on Google' })
+        .getByRole('link', { name: 'Google reviews' })
         .getAttribute('href'),
     ).toBe('https://example.com/google-profile')
     expect(

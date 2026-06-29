@@ -59,7 +59,48 @@ type TestimonialsSectionProps = {
   className?: string
 }
 
-export const approvedTestimonials: ReadonlyArray<Testimonial> = []
+export const approvedTestimonials: ReadonlyArray<Testimonial> = [
+  {
+    quote: {
+      no: 'En tydelig plassholdertekst som viser hvordan kundeuttalelser ser ut i karusellen.',
+      en: 'A clear placeholder text showing how customer testimonials look in the carousel.',
+    },
+    displayName: 'Kari Nordmann',
+    date: '2026-06-01',
+    rating: 5,
+    source: {
+      type: 'email',
+      label: {
+        no: 'Falsk plassholder',
+        en: 'Fake placeholder',
+      },
+    },
+    publicationConsent: {
+      status: 'written',
+      documentedAt: '2026-06-01',
+    },
+  },
+  {
+    quote: {
+      no: 'En annen tydelig testuttalelse for å kontrollere rating, dato og navigasjon.',
+      en: 'Another clear test testimonial for checking rating, date, and navigation.',
+    },
+    displayName: 'Ola Nordmann',
+    date: '2026-06-02',
+    rating: 4,
+    source: {
+      type: 'email',
+      label: {
+        no: 'Falsk plassholder',
+        en: 'Fake placeholder',
+      },
+    },
+    publicationConsent: {
+      status: 'written',
+      documentedAt: '2026-06-02',
+    },
+  },
+]
 
 export const approvedCustomerPhotos: ReadonlyArray<CustomerPhoto> = []
 
@@ -244,19 +285,11 @@ export function TestimonialsSection({
               {intro}
             </p>
           ) : null}
-          {googleProfileUrl ? (
-            <a
-              href={googleProfileUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-flex w-fit rounded-sm text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-            >
-              {googleProfileLabel ??
-                (locale === 'no'
-                  ? 'Se Google-profilen'
-                  : 'View the Google profile')}
-            </a>
-          ) : null}
+          <GoogleReviewsLink
+            locale={locale}
+            url={googleProfileUrl}
+            label={googleProfileLabel}
+          />
         </div>
 
         <div
@@ -327,6 +360,36 @@ export function TestimonialsSection({
   )
 }
 
+function GoogleReviewsLink({
+  locale,
+  url,
+  label,
+}: {
+  locale: Locale
+  url?: string
+  label?: string
+}) {
+  if (!url) {
+    return null
+  }
+
+  return (
+    <p className="mt-5 text-sm text-muted-foreground">
+      {locale === 'no'
+        ? 'Se alle kundeuttalelser her: '
+        : 'See all customer testimonials here: '}
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex w-fit rounded-sm font-semibold text-foreground underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      >
+        {label ?? (locale === 'no' ? 'Google-anmeldelser' : 'Google reviews')}
+      </a>
+    </p>
+  )
+}
+
 function TestimonialCard({
   entry,
   locale,
@@ -336,11 +399,43 @@ function TestimonialCard({
   locale: Locale
   isActive: boolean
 }) {
+  if (!isActive) {
+    return (
+      <article
+        aria-hidden="true"
+        className="min-w-full rounded-lg border border-border bg-surface p-5 sm:p-6"
+      >
+        <TestimonialCardContent
+          entry={entry}
+          locale={locale}
+          isInteractive={false}
+        />
+      </article>
+    )
+  }
+
   return (
-    <article
-      aria-hidden={isActive ? undefined : 'true'}
-      className="min-w-full rounded-lg border border-border bg-surface p-5 sm:p-6"
-    >
+    <article className="min-w-full rounded-lg border border-border bg-surface p-5 sm:p-6">
+      <TestimonialCardContent
+        entry={entry}
+        locale={locale}
+        isInteractive={true}
+      />
+    </article>
+  )
+}
+
+function TestimonialCardContent({
+  entry,
+  locale,
+  isInteractive,
+}: {
+  entry: Testimonial
+  locale: Locale
+  isInteractive: boolean
+}) {
+  return (
+    <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-semibold text-foreground">{entry.displayName}</p>
@@ -352,7 +447,7 @@ function TestimonialCard({
                 href={entry.source.url}
                 target="_blank"
                 rel="noreferrer"
-                tabIndex={isActive ? undefined : -1}
+                tabIndex={isInteractive ? undefined : -1}
                 className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               >
                 {entry.source.label[locale]}
@@ -368,7 +463,7 @@ function TestimonialCard({
       <blockquote className="mt-6 text-lg leading-8">
         "{entry.quote[locale]}"
       </blockquote>
-    </article>
+    </>
   )
 }
 

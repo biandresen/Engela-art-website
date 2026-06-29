@@ -223,6 +223,7 @@ describe('testimonials section', () => {
       name: 'Read Google reviews',
     })
 
+    expect(region.textContent).toContain('See all customer testimonials here:')
     expect(link.getAttribute('href')).toBe('https://example.com/google-profile')
     expect(document.querySelector('script[type="application/ld+json"]')).toBe(
       null,
@@ -231,11 +232,25 @@ describe('testimonials section', () => {
 })
 
 describe('testimonial data sources', () => {
-  it('keeps testimonial production content empty until permissioned quotes exist', () => {
-    expect(getApprovedTestimonials()).toEqual([])
+  it('exposes the requested fake testimonials as approved placeholder content', () => {
+    const entries = getApprovedTestimonials()
+
+    expect(entries).toHaveLength(2)
+    expect(entries.map((entry) => entry.displayName)).toEqual([
+      'Kari Nordmann',
+      'Ola Nordmann',
+    ])
+    expect(entries.map((entry) => entry.rating)).toEqual([5, 4])
+    expect(
+      entries.every(
+        (entry) =>
+          entry.source.type === 'email' &&
+          entry.source.label.en === 'Fake placeholder',
+      ),
+    ).toBe(true)
   })
 
-  it('can provide clearly marked local preview testimonials without changing approved content', () => {
+  it('prefers approved testimonial content over local preview testimonials', () => {
     const entries = getTestimonialsForDisplay({
       includePreview: true,
       previewEntries: [
@@ -259,14 +274,16 @@ describe('testimonial data sources', () => {
       ],
     })
 
-    expect(getApprovedTestimonials()).toEqual([])
     expect(entries).toHaveLength(2)
-    expect(entries[0]?.quote.en).toContain('[LOCAL PREVIEW]')
+    expect(entries.map((entry) => entry.displayName)).toEqual([
+      'Kari Nordmann',
+      'Ola Nordmann',
+    ])
     expect(entries.map((entry) => entry.rating)).toEqual([5, 4])
   })
 
-  it('does not include local preview testimonials unless explicitly requested', () => {
-    expect(getTestimonialsForDisplay()).toEqual([])
+  it('returns approved testimonials without requiring local preview mode', () => {
+    expect(getTestimonialsForDisplay()).toEqual(getApprovedTestimonials())
   })
 
   it('keeps customer-photo production content empty until permissioned photos exist', () => {

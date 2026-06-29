@@ -64,7 +64,11 @@ export function LocalizedHomePage({
       ? 'Et kort utvalg av godkjente kundeuttalelser.'
       : 'A concise selection of approved buyer feedback.'
   const googleProfileLabel =
-    locale === 'no' ? 'Se Engela Art på Google' : 'View Engela Art on Google'
+    locale === 'no' ? 'Google-anmeldelser' : 'Google reviews'
+  const googleReviewsUrl =
+    googleProfileUrl ??
+    env.VITE_GOOGLE_BUSINESS_PROFILE_URL ??
+    'https://example.com/google-reviews'
   const customerPhotosHeading = locale === 'no' ? 'Kundehjem' : 'Customer homes'
   const customerPhotosIntro =
     locale === 'no'
@@ -238,9 +242,7 @@ export function LocalizedHomePage({
         entries={testimonials}
         heading={testimonialsHeading}
         intro={testimonialsIntro}
-        googleProfileUrl={
-          googleProfileUrl ?? env.VITE_GOOGLE_BUSINESS_PROFILE_URL
-        }
+        googleProfileUrl={googleReviewsUrl}
         googleProfileLabel={googleProfileLabel}
       />
 

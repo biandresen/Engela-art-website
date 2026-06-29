@@ -124,7 +124,20 @@ describe('about routes', () => {
     fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
     expect(carousel.textContent).toContain('Image 1 of 4')
 
-    expect(screen.queryByRole('region', { name: /testimonials/i })).toBeNull()
+    const testimonials = screen.getByRole('region', { name: /testimonials/i })
+
+    expect(testimonials.textContent).toContain('Kari Nordmann')
+    expect(testimonials.textContent).toContain('Fake placeholder')
+    expect(testimonials.textContent).toContain(
+      'See all customer testimonials here:',
+    )
+    expect(
+      within(testimonials)
+        .getByRole('link', { name: 'Google reviews' })
+        .getAttribute('href'),
+    ).toBe('https://example.com/google-reviews')
+    expect(testimonials.className).toContain('-mb-16')
+    expect(testimonials.className).toContain('bg-muted')
     expect(main.textContent).not.toMatch(/coming soon/i)
     expect(main.textContent).not.toMatch(/google rating/i)
     expect(main.textContent).not.toContain('[DUMMY]')
@@ -240,7 +253,7 @@ describe('about routes', () => {
     expect(within(testimonials).getByLabelText('4 of 5 stars')).toBeTruthy()
   })
 
-  it('can show local testimonial preview cards on the About page for development review', () => {
+  it('prefers approved fake testimonials over local preview cards on the About page', () => {
     render(
       <LocalizedAboutPage
         locale="en"
@@ -265,7 +278,13 @@ describe('about routes', () => {
 
     const testimonials = screen.getByRole('region', { name: 'Testimonials' })
 
-    expect(testimonials.textContent).toContain('[LOCAL PREVIEW]')
+    expect(testimonials.textContent).toContain('Kari Nordmann')
+    expect(testimonials.textContent).not.toContain('[LOCAL PREVIEW]')
+    expect(
+      within(testimonials)
+        .getByRole('link', { name: 'Google reviews' })
+        .getAttribute('href'),
+    ).toBe('https://example.com/google-reviews')
     expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
     expect(
       within(testimonials).getByRole('button', { name: 'Next testimonial' }),
