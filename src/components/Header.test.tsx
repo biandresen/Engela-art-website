@@ -46,6 +46,7 @@ describe('Header', () => {
     expect(paintingsLink.getAttribute('aria-current')).toBe('page')
     expect(paintingsLink.className).toContain('border-border')
     expect(paintingsLink.className).toContain('bg-muted')
+    expect(paintingsLink.className).toContain('whitespace-nowrap')
   })
 
   it('marks the matching mobile navigation link as active for Norwegian routes', () => {
