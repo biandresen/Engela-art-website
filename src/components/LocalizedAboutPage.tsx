@@ -10,16 +10,25 @@ import {
   TestimonialsSection,
   getApprovedTestimonials,
 } from '#/lib/testimonials/testimonials'
+import type { Testimonial } from '#/lib/testimonials/testimonials'
 import { env } from '#/env'
 import { cn } from '#/lib/utils'
 
 import { Button } from './ui/button'
 
-export function LocalizedAboutPage({ locale }: { locale: Locale }) {
+type LocalizedAboutPageProps = {
+  locale: Locale
+  testimonialEntries?: ReadonlyArray<Testimonial>
+}
+
+export function LocalizedAboutPage({
+  locale,
+  testimonialEntries,
+}: LocalizedAboutPageProps) {
   const content = getPageContent(locale, 'about')
   const about = getAboutContent(locale)
   const paths = localizedPaths[locale]
-  const testimonials = getApprovedTestimonials()
+  const testimonials = testimonialEntries ?? getApprovedTestimonials()
 
   return (
     <main>

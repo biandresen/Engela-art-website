@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen, within } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import {
@@ -20,6 +26,7 @@ const approvedTestimonial: Testimonial = {
   },
   displayName: 'A. Buyer',
   date: '2026-06-01',
+  rating: 4,
   source: {
     type: 'email',
     label: {
@@ -42,14 +49,20 @@ const pendingTestimonial: Testimonial = {
   },
 }
 
+const invalidRatingTestimonial = {
+  ...approvedTestimonial,
+  displayName: 'Invalid Rating Buyer',
+  rating: 6,
+} as unknown as Testimonial
+
 const approvedCustomerPhoto: CustomerPhoto = {
   image: {
     src: '/assets/customer-stories/example-room.jpg',
     width: 1200,
     height: 900,
     alt: {
-      no: 'Maleriet Temporary painting 01 hjemme hos en kunde',
-      en: 'Temporary painting 01 in a customer home',
+      no: 'Maleriet Jordvarme hjemme hos en kunde',
+      en: 'Jordvarme in a customer home',
     },
   },
   caption: {
@@ -58,7 +71,7 @@ const approvedCustomerPhoto: CustomerPhoto = {
   },
   paintingReference: {
     slug: 'temporary-painting-01',
-    title: 'Temporary painting 01',
+    title: 'Jordvarme',
   },
   publicationConsent: {
     status: 'written',
@@ -102,7 +115,20 @@ describe('testimonials section', () => {
     expect(screen.queryByText('Unapproved Buyer')).toBeNull()
   })
 
-  it('renders approved entries with attribution, permission-aware source, and display limit', () => {
+  it('suppresses entries with ratings outside the five-star range', () => {
+    render(
+      <TestimonialsSection
+        locale="en"
+        entries={[invalidRatingTestimonial]}
+        heading="Collector words"
+      />,
+    )
+
+    expect(screen.queryByText('Collector words')).toBeNull()
+    expect(screen.queryByText('Invalid Rating Buyer')).toBeNull()
+  })
+
+  it('renders approved entries as cards with attribution, date, rating, source, and display limit', () => {
     render(
       <TestimonialsSection
         locale="en"
@@ -117,6 +143,8 @@ describe('testimonials section', () => {
     const articles = within(region).getAllByRole('article')
 
     expect(articles).toHaveLength(1)
+    expect(within(articles[0]).getByLabelText('4 of 5 stars')).toBeTruthy()
+    expect(within(articles[0]).getByText('2026-06-01')).toBeTruthy()
     expect(region.textContent).toContain(
       'The painting was even more beautiful in person',
     )
@@ -142,7 +170,43 @@ describe('testimonials section', () => {
     expect(content?.className).toContain('max-w-7xl')
   })
 
-  it('can link to a configured Google profile without rendering ratings or structured review data', () => {
+  it('renders carousel controls with clear accessible names and keyboard navigation', () => {
+    render(
+      <TestimonialsSection
+        locale="en"
+        entries={[
+          approvedTestimonial,
+          {
+            ...approvedTestimonial,
+            displayName: 'Second Buyer',
+            date: '2026-06-04',
+            rating: 5,
+            quote: {
+              no: 'Oppfølgingen var varm og ryddig.',
+              en: 'The follow-up was warm and orderly.',
+            },
+          },
+        ]}
+        heading="Collector words"
+      />,
+    )
+
+    const carousel = screen.getByLabelText('Testimonial carousel')
+
+    expect(carousel.textContent).toContain('Testimonial 1 of 2')
+    expect(screen.getByLabelText('4 of 5 stars')).toBeTruthy()
+
+    fireEvent.click(
+      within(carousel).getByRole('button', { name: 'Next testimonial' }),
+    )
+    expect(carousel.textContent).toContain('Testimonial 2 of 2')
+    expect(screen.getByLabelText('5 of 5 stars')).toBeTruthy()
+
+    fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
+    expect(carousel.textContent).toContain('Testimonial 1 of 2')
+  })
+
+  it('can link to a configured Google profile without rendering structured review data', () => {
     render(
       <TestimonialsSection
         locale="en"
@@ -159,7 +223,6 @@ describe('testimonials section', () => {
     })
 
     expect(link.getAttribute('href')).toBe('https://example.com/google-profile')
-    expect(region.textContent).not.toMatch(/rating|stars/i)
     expect(document.querySelector('script[type="application/ld+json"]')).toBe(
       null,
     )
@@ -167,18 +230,8 @@ describe('testimonials section', () => {
 })
 
 describe('testimonial data sources', () => {
-  it('exposes three clearly marked dummy testimonials for temporary visual review', () => {
-    const testimonials = getApprovedTestimonials()
-
-    expect(testimonials).toHaveLength(3)
-    expect(testimonials.map((entry) => entry.displayName)).toEqual([
-      'Dummy Kunde 1',
-      'Dummy Kunde 2',
-      'Dummy Kunde 3',
-    ])
-    expect(
-      testimonials.every((entry) => entry.quote.en.includes('[DUMMY]')),
-    ).toBe(true)
+  it('keeps testimonial production content empty until permissioned quotes exist', () => {
+    expect(getApprovedTestimonials()).toEqual([])
   })
 
   it('keeps customer-photo production content empty until permissioned photos exist', () => {
@@ -210,7 +263,7 @@ describe('customer photos section', () => {
     )
 
     expect(screen.queryByText('Customer stories')).toBeNull()
-    expect(screen.queryByText('Temporary painting 01')).toBeNull()
+    expect(screen.queryByText('Jordvarme')).toBeNull()
   })
 
   it('renders approved customer photos with lazy-loaded image, caption, and painting reference', () => {
@@ -225,14 +278,14 @@ describe('customer photos section', () => {
 
     const region = screen.getByRole('region', { name: 'Customer stories' })
     const image = within(region).getByRole('img', {
-      name: 'Temporary painting 01 in a customer home',
+      name: 'Jordvarme in a customer home',
     })
 
     expect(image.getAttribute('loading')).toBe('lazy')
     expect(image.getAttribute('src')).toBe(
       '/assets/customer-stories/example-room.jpg',
     )
-    expect(region.textContent).toContain('Temporary painting 01')
+    expect(region.textContent).toContain('Jordvarme')
     expect(region.textContent).toContain(
       'Approved customer interior with the painting on the wall.',
     )

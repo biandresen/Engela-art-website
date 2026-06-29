@@ -18,6 +18,7 @@ const approvedTestimonial: Testimonial = {
   },
   displayName: 'A. Buyer',
   date: '2026-06-01',
+  rating: 5,
   source: {
     type: 'email',
     label: {
@@ -37,8 +38,8 @@ const approvedCustomerPhoto: CustomerPhoto = {
     width: 1200,
     height: 900,
     alt: {
-      no: 'Maleriet Temporary painting 01 hjemme hos en kunde',
-      en: 'Temporary painting 01 in a customer home',
+      no: 'Maleriet Jordvarme hjemme hos en kunde',
+      en: 'Jordvarme in a customer home',
     },
   },
   caption: {
@@ -47,7 +48,7 @@ const approvedCustomerPhoto: CustomerPhoto = {
   },
   paintingReference: {
     slug: 'temporary-painting-01',
-    title: 'Temporary painting 01',
+    title: 'Jordvarme',
   },
   publicationConsent: {
     status: 'written',
@@ -60,18 +61,18 @@ describe('localized home page', () => {
     render(<LocalizedHomePage locale="no" />)
 
     const hero = screen.getByRole('region', {
-      name: 'Midlertidig sesongutvalg',
+      name: 'Sesongutvalg',
     })
 
     expect(
       within(hero).getByRole('heading', {
         level: 1,
-        name: 'Original kunst av Engela',
+        name: 'Original kunst av Anne Mari Engelsrud',
       }),
     ).toBeTruthy()
     expect(
       within(hero).getByRole('img', {
-        name: /Midlertidig hovedbilde for maleri 04/,
+        name: /Rett forfra-bilde av maleri 04/,
       }),
     ).toBeTruthy()
     expect(
@@ -90,7 +91,7 @@ describe('localized home page', () => {
     render(<LocalizedHomePage locale="en" />)
 
     const hero = screen.getByRole('region', {
-      name: 'Temporary seasonal selection',
+      name: 'Seasonal selection',
     })
 
     expect(
@@ -106,7 +107,7 @@ describe('localized home page', () => {
     expect(within(hero).getAllByRole('img')).toHaveLength(2)
     expect(
       within(hero).getByRole('img', {
-        name: /Temporary room visualization for painting 04/,
+        name: /Painting 04 shown in a room/,
       }),
     ).toBeTruthy()
     expect(
@@ -119,10 +120,7 @@ describe('localized home page', () => {
     for (const locale of ['no', 'en'] as const) {
       const { unmount } = render(<LocalizedHomePage locale={locale} />)
       const hero = screen.getByRole('region', {
-        name:
-          locale === 'no'
-            ? 'Midlertidig sesongutvalg'
-            : 'Temporary seasonal selection',
+        name: locale === 'no' ? 'Sesongutvalg' : 'Seasonal selection',
       })
       const featured = screen.getByRole('region', {
         name: locale === 'no' ? 'Utvalgte malerier' : 'Featured paintings',
@@ -157,11 +155,7 @@ describe('localized home page', () => {
       cards.map(
         (card) => within(card).getByRole('heading', { level: 3 }).textContent,
       ),
-    ).toEqual([
-      'Temporary painting 01',
-      'Temporary painting 02',
-      'Temporary painting 03',
-    ])
+    ).toEqual(['Jordvarme', 'Lys over åker', 'Stille glede'])
     expect(cards.map((card) => card.textContent)).toEqual([
       expect.stringContaining('Available'),
       expect.stringContaining('Reserved'),
@@ -205,7 +199,7 @@ describe('localized home page', () => {
     render(<LocalizedHomePage locale="en" />)
 
     const heroImage = screen.getByRole('img', {
-      name: /Temporary main image for painting 04/,
+      name: /Straight-on image of painting 04/,
     })
     const picture = heroImage.closest('picture')
     const sources = picture?.querySelectorAll('source')
@@ -230,21 +224,20 @@ describe('localized home page', () => {
     for (const locale of ['no', 'en'] as const) {
       const { unmount } = render(<LocalizedHomePage locale={locale} />)
       const hero = screen.getByRole('region', {
-        name:
-          locale === 'no'
-            ? 'Midlertidig sesongutvalg'
-            : 'Temporary seasonal selection',
+        name: locale === 'no' ? 'Sesongutvalg' : 'Seasonal selection',
       })
       const heroImage = within(hero).getByRole('img', {
         name:
           locale === 'no'
-            ? /Midlertidig hovedbilde for maleri 04/
-            : /Temporary main image for painting 04/,
+            ? /Rett forfra-bilde av maleri 04/
+            : /Straight-on image of painting 04/,
       })
-      const imageStage = heroImage.closest('div')
+      const heroCard = heroImage.closest('article')
 
-      expect(imageStage?.className).toContain('rounded-lg')
-      expect(imageStage?.className).toContain('overflow-hidden')
+      expect(heroCard?.className).toContain('rounded-lg')
+      expect(heroCard?.className).toContain('border-border')
+      expect(heroCard?.className).toContain('bg-surface')
+      expect(heroCard?.className).toContain('overflow-hidden')
       expect(heroImage.className).toContain(
         '[@media(hover:hover)]:group-hover:opacity-0',
       )
@@ -252,16 +245,21 @@ describe('localized home page', () => {
         within(hero).getByRole('img', {
           name:
             locale === 'no'
-              ? /Midlertidig romvisualisering for maleri 04/
-              : /Temporary room visualization for painting 04/,
+              ? /Maleriet 04 vist i et rom/
+              : /Painting 04 shown in a room/,
         }),
       ).toBeTruthy()
+      expect(heroCard?.textContent).not.toContain(
+        locale === 'no'
+          ? 'Et lyst, liggende maleri med varme nyanser'
+          : 'A bright landscape-format painting with warm tones',
+      )
 
       unmount()
     }
   })
 
-  it('renders a concise temporary artist preview with a localized about link', () => {
+  it('renders a concise artist preview with a localized about link', () => {
     render(<LocalizedHomePage locale="en" />)
 
     const artistPreview = screen.getByRole('region', {
@@ -269,29 +267,27 @@ describe('localized home page', () => {
     })
 
     expect(artistPreview.textContent).toContain(
-      'Temporary artist preview — approved biography and process details are pending.',
+      'After many years of wanting to paint and be creative',
     )
     expect(
       within(artistPreview)
-        .getByRole('link', { name: 'About Engela' })
+        .getByRole('link', { name: 'About Anne Mari' })
         .getAttribute('href'),
     ).toBe('/en/about')
     expect(
       within(artistPreview)
-        .getByRole('link', { name: 'About Engela' })
+        .getByRole('link', { name: 'About Anne Mari' })
         .getAttribute('data-variant'),
     ).toBe('secondary')
   })
 
-  it('renders dummy testimonials but no customer-photo placeholders', () => {
+  it('omits testimonials and customer photos when no approved local data exists', () => {
     render(<LocalizedHomePage locale="en" />)
 
-    const testimonials = screen.getByRole('region', { name: 'Testimonials' })
-
-    expect(within(testimonials).getAllByRole('article')).toHaveLength(3)
-    expect(testimonials.textContent).toContain('[DUMMY]')
+    expect(screen.queryByRole('region', { name: 'Testimonials' })).toBeNull()
     expect(screen.queryByRole('region', { name: 'Customer homes' })).toBeNull()
     expect(screen.queryByText(/coming soon/i)).toBeNull()
+    expect(screen.queryByText(/\[DUMMY]/i)).toBeNull()
     expect(document.querySelector('script[type="application/ld+json"]')).toBe(
       null,
     )
@@ -327,10 +323,10 @@ describe('localized home page', () => {
     ).toBe('https://example.com/google-profile')
     expect(
       within(customerPhotos)
-        .getByRole('img', { name: 'Temporary painting 01 in a customer home' })
+        .getByRole('img', { name: 'Jordvarme in a customer home' })
         .getAttribute('loading'),
     ).toBe('lazy')
-    expect(customerPhotos.textContent).toContain('Temporary painting 01')
+    expect(customerPhotos.textContent).toContain('Jordvarme')
     expect(
       artistPreview.compareDocumentPosition(testimonials) &
         Node.DOCUMENT_POSITION_FOLLOWING,

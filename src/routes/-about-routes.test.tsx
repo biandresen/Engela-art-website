@@ -14,8 +14,12 @@ import {
 } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { AboutProcessSection } from '#/components/LocalizedAboutPage'
+import {
+  AboutProcessSection,
+  LocalizedAboutPage,
+} from '#/components/LocalizedAboutPage'
 import { routeTree } from '#/routeTree.gen'
+import type { Testimonial } from '#/lib/testimonials/testimonials'
 
 vi.mock('@tanstack/react-devtools', () => ({
   TanStackDevtools: () => null,
@@ -27,8 +31,29 @@ vi.mock('@tanstack/react-router-devtools', () => ({
 
 afterEach(cleanup)
 
+const approvedTestimonial: Testimonial = {
+  quote: {
+    no: 'Maleriet kom trygt frem, og oppfølgingen var personlig.',
+    en: 'The painting arrived safely, and the follow-up felt personal.',
+  },
+  displayName: 'A. Collector',
+  date: '2026-06-10',
+  rating: 5,
+  source: {
+    type: 'email',
+    label: {
+      no: 'Godkjent e-postuttalelse',
+      en: 'Approved email testimonial',
+    },
+  },
+  publicationConsent: {
+    status: 'written',
+    documentedAt: '2026-06-11',
+  },
+}
+
 describe('about routes', () => {
-  it('renders the English trust journey with approved portrait derivatives and dummy testimonial preview content', async () => {
+  it('renders the English trust journey with polished artist copy and portrait derivatives', async () => {
     const router = createRouter({
       routeTree,
       history: createMemoryHistory({
@@ -42,17 +67,19 @@ describe('about routes', () => {
     const main = await screen.findByRole('main')
 
     expect(
-      within(main).getByRole('heading', { level: 1, name: 'About Engela' }),
+      within(main).getByRole('heading', { level: 1, name: 'About Anne Mari' }),
     ).toBeTruthy()
-    expect(main.textContent).toContain('Artist-approved biography pending')
     expect(main.textContent).toContain(
-      'Engela Art will replace this temporary page copy after the artist approves the final Norwegian source text and English translation.',
+      'Anne Mari grew up on a farm in Nannestad.',
     )
     expect(
-      within(main).getByRole('heading', { level: 2, name: 'How I work' }),
+      within(main).getByRole('heading', {
+        level: 2,
+        name: 'How Anne Mari works',
+      }),
     ).toBeTruthy()
     expect(main.textContent).toContain(
-      'Engela builds each painting layer by layer',
+      'Anne Mari builds each painting layer by layer',
     )
     expect(
       within(main)
@@ -66,7 +93,7 @@ describe('about routes', () => {
     ).toBe('https://www.instagram.com/')
 
     const portrait = within(main).getByRole('img', {
-      name: 'Portrait of Engela, the artist behind Engela Art',
+      name: 'Portrait of Anne Mari Engelsrud, the artist behind Engela Art',
     })
     const picture = portrait.closest('picture')
 
@@ -80,7 +107,7 @@ describe('about routes', () => {
     })
     expect(
       within(carousel).getByRole('img', {
-        name: "Studio table with brushes, paint, and canvas in Engela's workspace",
+        name: "Studio table with brushes, paint, and canvas in Anne Mari's workspace",
       }),
     ).toBeTruthy()
     expect(within(carousel).getAllByRole('img')).toHaveLength(4)
@@ -97,12 +124,10 @@ describe('about routes', () => {
     fireEvent.keyDown(carousel, { key: 'ArrowLeft' })
     expect(carousel.textContent).toContain('Image 1 of 4')
 
-    const testimonials = screen.getByRole('region', { name: /testimonials/i })
-
-    expect(within(testimonials).getAllByRole('article')).toHaveLength(3)
-    expect(testimonials.textContent).toContain('[DUMMY]')
+    expect(screen.queryByRole('region', { name: /testimonials/i })).toBeNull()
     expect(main.textContent).not.toMatch(/coming soon/i)
     expect(main.textContent).not.toMatch(/google rating/i)
+    expect(main.textContent).not.toContain('[DUMMY]')
   })
 
   it('renders localized Norwegian About content and inquiry path', async () => {
@@ -119,19 +144,20 @@ describe('about routes', () => {
     const main = await screen.findByRole('main')
 
     expect(
-      within(main).getByRole('heading', { level: 1, name: 'Om Engela' }),
+      within(main).getByRole('heading', { level: 1, name: 'Om Anne Mari' }),
     ).toBeTruthy()
-    expect(main.textContent).toContain('Kunstnergodkjent biografi mangler')
     expect(main.textContent).toContain(
-      'Engela Art erstatter denne midlertidige sideteksten når kunstneren har godkjent norsk kildetekst og engelsk oversettelse.',
+      'Anne Mari vokste opp på gård i Nannestad.',
     )
     expect(
       within(main).getByRole('heading', {
         level: 2,
-        name: 'Hvordan jeg jobber',
+        name: 'Hvordan Anne Mari jobber',
       }),
     ).toBeTruthy()
-    expect(main.textContent).toContain('Engela bygger hvert maleri lag for lag')
+    expect(main.textContent).toContain(
+      'Anne Mari bygger hvert maleri lag for lag',
+    )
     expect(
       within(main)
         .getByRole('link', { name: 'Send en henvendelse' })
@@ -139,7 +165,7 @@ describe('about routes', () => {
     ).toBe('/no/kontakt')
     expect(
       within(main).getByRole('img', {
-        name: 'Portrett av Engela, kunstneren bak Engela Art',
+        name: 'Portrett av Anne Mari Engelsrud, kunstneren bak Engela Art',
       }),
     ).toBeTruthy()
 
@@ -148,7 +174,7 @@ describe('about routes', () => {
     })
     expect(
       within(carousel).getByRole('img', {
-        name: 'Arbeidsbord med pensler, maling og lerret i Engelas atelier',
+        name: 'Arbeidsbord med pensler, maling og lerret hos Anne Mari',
       }),
     ).toBeTruthy()
     expect(carousel.textContent).toContain(
@@ -179,5 +205,38 @@ describe('about routes', () => {
     expect(
       screen.queryByRole('button', { name: 'Next process image' }),
     ).toBeNull()
+  })
+
+  it('renders approved testimonials as a carousel on the About page', () => {
+    render(
+      <LocalizedAboutPage
+        locale="en"
+        testimonialEntries={[
+          approvedTestimonial,
+          {
+            ...approvedTestimonial,
+            displayName: 'Second Collector',
+            date: '2026-06-12',
+            rating: 4,
+          },
+        ]}
+      />,
+    )
+
+    const testimonials = screen.getByRole('region', { name: 'Testimonials' })
+    const carousel = within(testimonials).getByLabelText('Testimonial carousel')
+
+    expect(testimonials.textContent).toContain(
+      'The painting arrived safely, and the follow-up felt personal.',
+    )
+    expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
+    expect(carousel.textContent).toContain('Testimonial 1 of 2')
+
+    fireEvent.click(
+      within(carousel).getByRole('button', { name: 'Next testimonial' }),
+    )
+
+    expect(carousel.textContent).toContain('Testimonial 2 of 2')
+    expect(within(testimonials).getByLabelText('4 of 5 stars')).toBeTruthy()
   })
 })

@@ -1,5 +1,9 @@
+import { useState } from 'react'
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+
 import type { Locale } from '#/lib/i18n/locale'
 import { cn } from '#/lib/utils'
+import { Button } from '#/components/ui/button'
 
 type LocalizedText = Record<Locale, string>
 
@@ -18,6 +22,7 @@ export type Testimonial = {
   quote: LocalizedText
   displayName: string
   date: string
+  rating: 1 | 2 | 3 | 4 | 5
   source: TestimonialSource
   publicationConsent: {
     status: 'written' | 'pending'
@@ -54,65 +59,7 @@ type TestimonialsSectionProps = {
   className?: string
 }
 
-export const approvedTestimonials: ReadonlyArray<Testimonial> = [
-  {
-    quote: {
-      no: '[DUMMY] Maleriet ga rommet en helt ny varme, og dialogen føltes personlig fra første melding.',
-      en: '[DUMMY] The painting brought a new warmth to the room, and the conversation felt personal from the first message.',
-    },
-    displayName: 'Dummy Kunde 1',
-    date: '2026-06-01',
-    source: {
-      type: 'email',
-      label: {
-        no: 'Dummy e-postuttalelse',
-        en: 'Dummy email testimonial',
-      },
-    },
-    publicationConsent: {
-      status: 'written',
-      documentedAt: '2026-06-01',
-    },
-  },
-  {
-    quote: {
-      no: '[DUMMY] Vi fikk god hjelp til å forstå størrelse, uttrykk og hvordan maleriet ville passe hjemme hos oss.',
-      en: '[DUMMY] We got thoughtful help understanding the size, mood, and how the painting would fit in our home.',
-    },
-    displayName: 'Dummy Kunde 2',
-    date: '2026-06-02',
-    source: {
-      type: 'email',
-      label: {
-        no: 'Dummy e-postuttalelse',
-        en: 'Dummy email testimonial',
-      },
-    },
-    publicationConsent: {
-      status: 'written',
-      documentedAt: '2026-06-02',
-    },
-  },
-  {
-    quote: {
-      no: '[DUMMY] Det føltes trygt å kjøpe originalkunst når prosessen var så rolig, tydelig og menneskelig.',
-      en: '[DUMMY] Buying original art felt safe because the process was calm, clear, and human.',
-    },
-    displayName: 'Dummy Kunde 3',
-    date: '2026-06-03',
-    source: {
-      type: 'email',
-      label: {
-        no: 'Dummy e-postuttalelse',
-        en: 'Dummy email testimonial',
-      },
-    },
-    publicationConsent: {
-      status: 'written',
-      documentedAt: '2026-06-03',
-    },
-  },
-]
+export const approvedTestimonials: ReadonlyArray<Testimonial> = []
 
 export const approvedCustomerPhotos: ReadonlyArray<CustomerPhoto> = []
 
@@ -142,6 +89,8 @@ export function isPublishableTestimonial(
   const hasQuote = Boolean(entry.quote.no.trim() && entry.quote.en.trim())
   const hasAttribution = Boolean(entry.displayName.trim())
   const hasDate = /^\d{4}-\d{2}-\d{2}$/.test(entry.date)
+  const hasValidRating =
+    Number.isInteger(entry.rating) && entry.rating >= 1 && entry.rating <= 5
   const hasPermission =
     entry.publicationConsent.status === 'written' &&
     /^\d{4}-\d{2}-\d{2}$/.test(entry.publicationConsent.documentedAt)
@@ -152,7 +101,14 @@ export function isPublishableTestimonial(
         )
       : Boolean(entry.source.label.no && entry.source.label.en)
 
-  return hasQuote && hasAttribution && hasDate && hasPermission && hasSource
+  return (
+    hasQuote &&
+    hasAttribution &&
+    hasDate &&
+    hasValidRating &&
+    hasPermission &&
+    hasSource
+  )
 }
 
 export function isPublishableCustomerPhoto(
@@ -186,12 +142,25 @@ export function TestimonialsSection({
   googleProfileLabel,
   className,
 }: TestimonialsSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0)
   const visibleEntries = entries.filter(isPublishableTestimonial)
   const limitedEntries =
     typeof limit === 'number' ? visibleEntries.slice(0, limit) : visibleEntries
 
   if (limitedEntries.length === 0) {
     return null
+  }
+
+  const carouselLabels = getTestimonialCarouselLabels(locale)
+  const totalEntries = limitedEntries.length
+  const showControls = totalEntries > 1
+  const showPrevious = () => {
+    setActiveIndex((current) =>
+      current === 0 ? totalEntries - 1 : current - 1,
+    )
+  }
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % totalEntries)
   }
 
   return (
@@ -221,42 +190,163 @@ export function TestimonialsSection({
           ) : null}
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {limitedEntries.map((entry) => (
-            <article
-              key={`${entry.displayName}-${entry.date}`}
-              className="border-t border-border pt-5"
+        <div
+          aria-label={carouselLabels.region}
+          aria-roledescription="carousel"
+          className="mt-10"
+          onKeyDown={(event) => {
+            if (!showControls) {
+              return
+            }
+
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault()
+              showPrevious()
+            } else if (event.key === 'ArrowRight') {
+              event.preventDefault()
+              showNext()
+            }
+          }}
+        >
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-300 ease-out motion-reduce:transition-none"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
-              <blockquote className="text-lg leading-8">
-                "{entry.quote[locale]}"
-              </blockquote>
-              <footer className="mt-5 text-sm text-muted-foreground">
-                <p className="font-semibold text-foreground">
-                  {entry.displayName}
-                </p>
-                <p>
-                  <time dateTime={entry.date}>{entry.date}</time>
-                  {' - '}
-                  {entry.source.type === 'google' ? (
-                    <a
-                      href={entry.source.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                    >
-                      {entry.source.label[locale]}
-                    </a>
-                  ) : (
-                    entry.source.label[locale]
-                  )}
-                </p>
-              </footer>
-            </article>
-          ))}
+              {limitedEntries.map((entry, index) => (
+                <TestimonialCard
+                  key={`${entry.displayName}-${entry.date}`}
+                  entry={entry}
+                  locale={locale}
+                  isActive={index === activeIndex}
+                />
+              ))}
+            </div>
+          </div>
+
+          {showControls ? (
+            <div className="mt-5 flex items-center justify-between gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                aria-label={carouselLabels.previous}
+                onClick={showPrevious}
+              >
+                <ChevronLeft aria-hidden="true" />
+              </Button>
+              <p
+                aria-live="polite"
+                className="text-sm font-medium text-muted-foreground"
+              >
+                {carouselLabels.status(activeIndex + 1, totalEntries)}
+              </p>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                aria-label={carouselLabels.next}
+                onClick={showNext}
+              >
+                <ChevronRight aria-hidden="true" />
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>
   )
+}
+
+function TestimonialCard({
+  entry,
+  locale,
+  isActive,
+}: {
+  entry: Testimonial
+  locale: Locale
+  isActive: boolean
+}) {
+  return (
+    <article
+      aria-hidden={isActive ? undefined : 'true'}
+      className="min-w-full rounded-lg border border-border bg-surface p-5 sm:p-6"
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="font-semibold text-foreground">{entry.displayName}</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            <time dateTime={entry.date}>{entry.date}</time>
+            {' - '}
+            {entry.source.type === 'google' ? (
+              <a
+                href={entry.source.url}
+                target="_blank"
+                rel="noreferrer"
+                tabIndex={isActive ? undefined : -1}
+                className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              >
+                {entry.source.label[locale]}
+              </a>
+            ) : (
+              entry.source.label[locale]
+            )}
+          </p>
+        </div>
+        <StarRating rating={entry.rating} locale={locale} />
+      </div>
+
+      <blockquote className="mt-6 text-lg leading-8">
+        "{entry.quote[locale]}"
+      </blockquote>
+    </article>
+  )
+}
+
+function StarRating({ rating, locale }: { rating: number; locale: Locale }) {
+  const label =
+    locale === 'no' ? `${rating} av 5 stjerner` : `${rating} of 5 stars`
+
+  return (
+    <div aria-label={label} className="flex items-center gap-1">
+      {Array.from({ length: 5 }, (_, index) => {
+        const isFilled = index < rating
+
+        return (
+          <Star
+            key={index}
+            aria-hidden="true"
+            className={cn(
+              'size-5 stroke-[1.8]',
+              isFilled
+                ? 'fill-[#B98218] text-[#B98218]'
+                : 'fill-transparent text-border',
+            )}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
+function getTestimonialCarouselLabels(locale: Locale) {
+  if (locale === 'no') {
+    return {
+      region: 'Kundeuttalelser',
+      previous: 'Forrige kundeuttalelse',
+      next: 'Neste kundeuttalelse',
+      status: (current: number, total: number) =>
+        `Kundeuttalelse ${current} av ${total}`,
+    }
+  }
+
+  return {
+    region: 'Testimonial carousel',
+    previous: 'Previous testimonial',
+    next: 'Next testimonial',
+    status: (current: number, total: number) =>
+      `Testimonial ${current} of ${total}`,
+  }
 }
 
 type CustomerPhotosSectionProps = {
