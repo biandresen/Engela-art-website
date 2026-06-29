@@ -9,8 +9,8 @@ import { MobileNavigation } from './MobileNavigation'
 afterEach(cleanup)
 
 const items = [
-  { href: '/en', label: 'Home', icon: Home },
-  { href: '/en/paintings', label: 'Paintings', icon: Images },
+  { href: '/en', label: 'Home', icon: Home, isActive: true },
+  { href: '/en/paintings', label: 'Paintings', icon: Images, isActive: false },
 ]
 
 describe('mobile navigation', () => {
@@ -64,5 +64,27 @@ describe('mobile navigation', () => {
       expect(icon.getAttribute('aria-hidden')).toBe('true')
       expect(icon.getAttribute('focusable')).toBe('false')
     }
+  })
+
+  it('marks the active mobile link with a visible fill and border', () => {
+    render(
+      <MobileNavigation
+        items={items}
+        menuLabel="Open menu"
+        closeLabel="Close menu"
+      />,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
+
+    const activeLink = screen.getByRole('link', { name: 'Home' })
+    const inactiveLink = screen.getByRole('link', { name: 'Paintings' })
+
+    expect(activeLink.getAttribute('aria-current')).toBe('page')
+    expect(activeLink.className).toContain('border-border')
+    expect(activeLink.className).toContain('bg-muted')
+    expect(inactiveLink.getAttribute('aria-current')).toBeNull()
+    expect(inactiveLink.className).toContain('border-transparent')
+    expect(inactiveLink.className).toContain('bg-transparent')
   })
 })

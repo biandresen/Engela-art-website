@@ -8,8 +8,17 @@ import {
   localizedPaths,
 } from '#/lib/i18n/routes'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
+import { cn } from '#/lib/utils'
 
 import { MobileNavigation } from './MobileNavigation'
+
+function isNavigationItemActive(pathname: string, href: string) {
+  if (href === localizedPaths.en.home || href === localizedPaths.no.home) {
+    return pathname === href
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
 
 export default function Header() {
   const location = useRouterState({
@@ -25,7 +34,10 @@ export default function Header() {
     { href: paths.commissions, label: labels.commissions, icon: Paintbrush },
     { href: paths.about, label: labels.about, icon: User },
     { href: paths.contact, label: labels.contact, icon: Mail },
-  ]
+  ].map((item) => ({
+    ...item,
+    isActive: isNavigationItemActive(location.pathname, item.href),
+  }))
   const equivalentPath = getEquivalentLocalizedPath(
     location.pathname,
     location.searchStr,
@@ -65,15 +77,16 @@ export default function Header() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  aria-current={
-                    location.pathname === item.href ? 'page' : undefined
-                  }
-                  className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring aria-[current=page]:text-foreground"
+                  aria-current={item.isActive ? 'page' : undefined}
+                  className={cn(
+                    'inline-flex items-center gap-1.5 rounded-md border border-transparent bg-transparent px-2 py-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
+                    item.isActive && 'border-border bg-muted text-foreground',
+                  )}
                 >
                   <item.icon
                     aria-hidden="true"
                     focusable="false"
-                    className="mr-1.5 inline size-3.5 align-[-0.125em]"
+                    className="size-3.5"
                     strokeWidth={1.75}
                   />
                   {item.label}
