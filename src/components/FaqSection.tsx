@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouterState } from '@tanstack/react-router'
+import { ChevronDown } from 'lucide-react'
 
 import type { Locale } from '#/lib/i18n/locale'
 import { getFaqItems } from '#/lib/legal/faq'
@@ -67,9 +68,14 @@ export function FaqSection({ locale, scope }: FaqSectionProps) {
       </h2>
       <div className="divide-y divide-border border-y border-border">
         {items.map((item) => (
-          <details key={item.key} id={item.id} className="group py-3">
-            <summary className="cursor-pointer list-none font-medium text-foreground marker:content-[''] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
-              {item.question}
+          <details key={item.key} id={item.id} className="group py-1">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-md py-2 font-medium text-foreground transition-colors marker:content-[''] hover:text-primary focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+              <span>{item.question}</span>
+              <ChevronDown
+                aria-hidden="true"
+                data-testid="faq-toggle-affordance"
+                className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+              />
             </summary>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               {item.answer}
