@@ -21,11 +21,13 @@ type PaintingAssetManifest = {
   paintings: Array<{
     slug: string
     watermark: {
-      asset: string
-      corner: string
+      text: string
+      placement: 'lower-third'
+      color: string
       opacity: number
-      scale: number
-      margin: number
+      fontScale: number
+      minFontSize: number
+      maxFontSize: number
       pixelDifferenceVerified: boolean
     }
     images: Array<{
@@ -51,6 +53,14 @@ describe('painting image pipeline', () => {
     expect(manifest.paintings).toHaveLength(6)
 
     for (const painting of manifest.paintings) {
+      expect(painting.watermark).toMatchObject({
+        text: '© Engela Art',
+        placement: 'lower-third',
+        color: 'white',
+        opacity: 0.28,
+      })
+      expect(painting.watermark).not.toHaveProperty('asset')
+      expect(painting.watermark).not.toHaveProperty('corner')
       expect(painting.watermark.pixelDifferenceVerified).toBe(true)
       expect(painting.images.map((image) => image.role)).toEqual([
         'main',

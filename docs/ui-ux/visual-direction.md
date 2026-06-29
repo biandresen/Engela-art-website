@@ -159,11 +159,11 @@ Before launch, create and verify:
 - Favicon and manifest icon sizes
 - Social avatar crop
 - Default Open Graph image
-- A simplified Engela Art artwork-watermark asset with light and dark variants
+- A clear `© Engela Art` text watermark for painting derivatives
 - Responsive portrait derivatives
 - Appropriate PNG/WebP/AVIF outputs by use case
 
-The artwork watermark should use a simplified brand mark or wordmark rather than the full illustrated logo. It must remain legible at small sizes and work over both light and dark painting areas.
+The artwork watermark should use clear text rather than the full illustrated logo. It must remain legible at small sizes and work over both light and dark painting areas.
 
 ## Visual Risks
 

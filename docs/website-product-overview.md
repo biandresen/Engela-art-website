@@ -216,6 +216,7 @@ Every painting image published on the website will receive a subtle Engela Art w
 
 The watermark will:
 
+- Use the text `© Engela Art`
 - Identify Engela Art after casual copying
 - Use a consistent size and placement
 - Remain visible without covering important artwork details

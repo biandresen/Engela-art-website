@@ -30,13 +30,7 @@ console.log(
 )
 
 async function preparePainting(config) {
-  const watermark = {
-    asset: `/assets/brand/watermark-${config.watermark.variant}.png`,
-    corner: config.watermark.corner,
-    opacity: paintingAssetDefaults.opacity,
-    scale: paintingAssetDefaults.scale,
-    margin: paintingAssetDefaults.margin,
-  }
+  const watermark = paintingAssetDefaults.watermark
   const main = await prepareMainImage(config, watermark)
   const roomContext = await prepareRoomContextImage(config, watermark)
 
@@ -167,32 +161,14 @@ async function applyWatermark(input, watermarkConfig) {
   const base = await sharp(input).ensureAlpha().raw().toBuffer({
     resolveWithObject: true,
   })
-  const watermarkWidth = Math.max(
-    48,
-    Math.round(base.info.width * watermarkConfig.scale),
-  )
-  const watermarkPath = resolve(
-    root,
-    'public',
-    watermarkConfig.asset.replace(/^\//, ''),
-  )
-  const watermark = await createOpacityAdjustedWatermark(
-    watermarkPath,
-    watermarkWidth,
-    watermarkConfig.opacity,
-  )
-  const margin = Math.round(base.info.width * watermarkConfig.margin)
-  const placement = getPlacement(
-    watermarkConfig.corner,
+  const watermark = createTextWatermarkSvg(
     base.info.width,
     base.info.height,
-    watermark.width,
-    watermark.height,
-    margin,
+    watermarkConfig,
   )
   const basePng = await sharp(base.data, { raw: base.info }).png().toBuffer()
   const markedPng = await sharp(basePng)
-    .composite([{ input: watermark.buffer, ...placement }])
+    .composite([{ input: Buffer.from(watermark.svg), top: 0, left: 0 }])
     .png()
     .toBuffer()
   const marked = await sharp(markedPng).ensureAlpha().raw().toBuffer({
@@ -210,7 +186,7 @@ async function applyWatermark(input, watermarkConfig) {
     }
   }
 
-  if (changedPixels < watermark.width * watermark.height * 0.03) {
+  if (changedPixels < watermark.minimumChangedPixels) {
     throw new Error('Watermark pixel verification failed')
   }
 
@@ -222,31 +198,58 @@ async function applyWatermark(input, watermarkConfig) {
   }
 }
 
-async function createOpacityAdjustedWatermark(path, width, opacity) {
-  const image = await sharp(path)
-    .resize({ width, withoutEnlargement: false })
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true })
-
-  for (let index = 3; index < image.data.length; index += image.info.channels) {
-    image.data[index] = Math.round(image.data[index] * opacity)
-  }
+function createTextWatermarkSvg(width, height, watermarkConfig) {
+  const fontSize = clamp(
+    Math.round(width * watermarkConfig.fontScale),
+    watermarkConfig.minFontSize,
+    watermarkConfig.maxFontSize,
+  )
+  const x = Math.round(width / 2)
+  const y = Math.round(height * watermarkConfig.verticalPosition)
+  const escapedText = escapeSvgText(watermarkConfig.text)
+  const minimumChangedPixels = Math.max(48, Math.round(width * height * 0.001))
 
   return {
-    buffer: await sharp(image.data, { raw: image.info }).png().toBuffer(),
-    width: image.info.width,
-    height: image.info.height,
+    minimumChangedPixels,
+    svg: `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="watermark-shadow" x="-30%" y="-80%" width="160%" height="260%">
+            <feDropShadow dx="0" dy="${Math.max(1, Math.round(fontSize * 0.04))}" stdDeviation="${Math.max(1, Math.round(fontSize * 0.06))}" flood-color="black" flood-opacity="0.45"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="${Math.max(2, Math.round(fontSize * 0.12))}" flood-color="black" flood-opacity="0.25"/>
+          </filter>
+        </defs>
+        <text
+          x="${x}"
+          y="${y}"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="${fontSize}"
+          font-weight="500"
+          letter-spacing="${Math.round(fontSize * 0.03)}"
+          fill="${watermarkConfig.color}"
+          fill-opacity="${watermarkConfig.opacity}"
+          stroke="black"
+          stroke-opacity="0.18"
+          stroke-width="${Math.max(0.7, fontSize * 0.035).toFixed(2)}"
+          paint-order="stroke fill"
+          filter="url(#watermark-shadow)"
+        >${escapedText}</text>
+      </svg>
+    `,
   }
 }
 
-function getPlacement(corner, baseWidth, baseHeight, width, height, margin) {
-  const left = corner.endsWith('right') ? baseWidth - width - margin : margin
-  const top = corner.startsWith('bottom')
-    ? baseHeight - height - margin
-    : margin
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max)
+}
 
-  return { left, top }
+function escapeSvgText(text) {
+  return text
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
 }
 
 async function writeFormats(input, slug, role, width, height) {

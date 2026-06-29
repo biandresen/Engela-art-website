@@ -4,11 +4,14 @@
     {
       "slug": "temporary-painting-01",
       "watermark": {
-        "asset": "/assets/brand/watermark-light.png",
-        "corner": "bottom-right",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -20,42 +23,42 @@
               "format": "avif",
               "width": 480,
               "height": 640,
-              "sha256": "3c7084f8d1b74d9abd85e7b8c83d16ed58de379c92b437290648a5f0a704e61b"
+              "sha256": "2b712223aaa96fee1325f84c4e6b92bae85ecd5f3575ab083093f16c874dde93"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 640,
-              "sha256": "4101ecbf66f5b4da88ce948d9d5cdae1b6c42d9e9409d21943e2f6672d749a08"
+              "sha256": "28efece3fb1933b6edcfe005ba61f31bd45f1d04278ef838ef405724db19ffbc"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 640,
-              "sha256": "6d801b0666f5886932e8553f5bf611a4d243fa54ec2f7b6d26a64ea2a1d819f5"
+              "sha256": "2d7fec63a969b84e56a2a330307471c8edb12c15719c8061da7bf871a5855b6f"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 1280,
-              "sha256": "1fd58a9e766aa0a80eec29740c544d8c75d5a59989ed00e7e4e399660a9bb503"
+              "sha256": "4437b38c97c4f0e495c607090582db6c5d926bcdfec14fbeec89baf6d8e3de52"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 1280,
-              "sha256": "c9cbeb9a7590f26255be0d749d853809abe0296a627e73074beef7288eb15c72"
+              "sha256": "8211f5c1ffd38e244c3362b847bc4d68336938c9ae4f56ccfecd9f4295fae5a0"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 1280,
-              "sha256": "d67d62f22d22498457c18d293ad80f7e350d8cb9a0f80893c4e037cc4cf17c97"
+              "sha256": "e4cb670c1404d2dcb2070c2c2105cbe8bed94db37134f100511b65df3b9b8a8e"
             }
           ]
         },
@@ -67,42 +70,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "51b8121df8020971aaac860a42d78272ce32644182d0af18f3dbf3739a1bf945"
+              "sha256": "306c56a8773f0569e086d057925c0caeafc1e8418dfc92c24754e400e9bba1f7"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "d1332dd8d9ac9fd4aa3dab2b99a31e2dc2df89b66a4c7e4b15ac1ed4cb3da00e"
+              "sha256": "8de21889d4b6437ec4433487f5cb63e86e380d6abf58e82beb2bf27f4c54e2e7"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "409ba06be1a807c90a0b337b9fd296b57844d827877744901e6efdbb537c4555"
+              "sha256": "6142f5a51f74b146147e9da5b36c3bd89d27123e5049dbdaa10f1cab4d4b70ca"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "e33e512efed04df2b827a773693800977d9018c78a1d0eb1a629a57b404e40de"
+              "sha256": "8c91350efd0a076a05f922e3064fd0b1eb5c477f33e28d2641b4a481bed78b5f"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "f47ed6a3e33cce828a032d9e436a500854f2b05e111939d10605d3e7b77e69d6"
+              "sha256": "cc4becc89d3a3874c323d199d03a243423a4f09b2de87fb136b45ad4640771e9"
             },
             {
               "path": "/assets/paintings/temporary-painting-01/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "bce9b2210dd87dd6e1bf4aa5d6eb4af61ecee6fd63f4bfdf177a60e7adc47084"
+              "sha256": "db93e3e9c77d39c5c6641e02ec83022e770f25356b8be4ff48739c7e811e150d"
             }
           ]
         }
@@ -111,11 +114,14 @@
     {
       "slug": "temporary-painting-02",
       "watermark": {
-        "asset": "/assets/brand/watermark-light.png",
-        "corner": "bottom-right",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -127,42 +133,42 @@
               "format": "avif",
               "width": 480,
               "height": 360,
-              "sha256": "47540e865efb0afb680c0e083c68756869e844363a33ec08d17af1dd6e787b36"
+              "sha256": "1e0f81deda296496f539de693b0c7e5ec3c75edc04bddfdfaf99aaa964e845a4"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 360,
-              "sha256": "0edca93b2ea9302514ca175ff692fc96b07e85e6c8800d3426d4182bcf233a98"
+              "sha256": "4100fea543e331197edb73b27105db56ebc1b143aa3adfd1ccf0cf5551e8dde7"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 360,
-              "sha256": "8f17426ca12260c59500a722abe4ac75b161895f888dbfd184c33d596705c318"
+              "sha256": "474f69485dbcb9f8b70c77c53b9232f5128d05e372ac7e22ade9782705983403"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 721,
-              "sha256": "4eb1a2765c6bb2289faaf0429a6b47d0d4d1a3955e2dbed44a0e6f0747ba7a41"
+              "sha256": "152077ae7c2b4394c21178f66f27679b6e627c928a2ccc6dffc9ee59a54bb290"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 721,
-              "sha256": "a3e92cf438909b178fbc2ff0ea3fddcc6b80b6a7a8ff07467a9fc4016852fa72"
+              "sha256": "15673084d7fdb2b46f067af15fa3fb862968465161478f408371f269dcc2648a"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 721,
-              "sha256": "903e6252d09854a59d9ffe6318035b1e280fec92fac3e1b22382d3e42b4e5b8e"
+              "sha256": "1d7f5bc29dc50f301fa15d256c29db27a6f7a3c4a137387f7666d2a179133df6"
             }
           ]
         },
@@ -174,42 +180,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "de544f88b16b85d7e356b81115f94460bad6d2f9272393db8157369fef27ee55"
+              "sha256": "745cb93ade63cf568eb17abdba6a690d5f78000df0b264323ff2c450367b9ea7"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "14a7cb2e49fbb5a18597fb2aea97333d27512d4f36a890a18087594d2f1a171e"
+              "sha256": "7a3ef6fd419e398a58f3338664e26af526a9d4d15017946bd839d0bfd23cb97c"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "5b95e39a9905ee0431e68ab6afee4dc38b33483ad8e038ee086fee1bdecdc28d"
+              "sha256": "4a54501b6fa627e46dfbb36d08685fa1b1180e135ec4f97a481aefb7640164dd"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "a06c29f9cf007db202907b38fc996e09fd3f49f6c4393df829a793daf97f1070"
+              "sha256": "24c917695ad54ddba855eca7d3ba184347aa82d33d5b97def2d0b6f8edb3945c"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "108055dd2fca32026e1dd8585e64da66bee47cf550645b5fed269138d3953bab"
+              "sha256": "a8b0e5d81e3282d97ea73f6889dd34a5dbe7c2a2a8dc8abd3c4b189e245a2a5d"
             },
             {
               "path": "/assets/paintings/temporary-painting-02/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "0f3140565fc330ae54202aeb039db36310fd21aa1c4a89daa18d694e972c35dc"
+              "sha256": "96ca27285303cd5c957d4f7edbb2f457b903e5d34f9a94956931bcbfc8a58139"
             }
           ]
         }
@@ -218,11 +224,14 @@
     {
       "slug": "temporary-painting-03",
       "watermark": {
-        "asset": "/assets/brand/watermark-dark.png",
-        "corner": "top-left",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -234,42 +243,42 @@
               "format": "avif",
               "width": 480,
               "height": 478,
-              "sha256": "6446ab6e0ccb385cf0d2fc10634680c7320533f4edc1e2b971065287e148db12"
+              "sha256": "5f420927b9790ea24e6fb298e8856af0f74fc654f974e7d5b8db1cc57c81b8e1"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 478,
-              "sha256": "25df8dc09476a313cecb8c968ddc84f6191f3d9d4f485e91a63e992a3b4ee1bb"
+              "sha256": "2b97126cbdca6be20cfa8d5274c420c66b4ce01fa4bba766e307b6729625c7a9"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 478,
-              "sha256": "2fca416a14f1a82dcfa72cc3dff357a49b1b81121ca19226a2a74733a3aeaa19"
+              "sha256": "4c225c128649b1ddd6cff6c2f211061f61820b54dd4c4b2d8d029241d133a919"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 957,
-              "sha256": "354bf1d7dcb692e0c8d781c0052fa2286ab60b7714d6d7cff83d0eb25988e5e8"
+              "sha256": "f1deb638ebc20e6125686cd81d6d7f324198e0bb15c32cd33f90104d4fcc83cd"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 957,
-              "sha256": "68e214549f92154279ad4b88bde23768f693161c3e204cb13021c9c6d6af9bdb"
+              "sha256": "bc926edee7703cf3ccc64beb8c8b3d7476e3dd2ac1feda1375a67e52b8f23ad4"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 957,
-              "sha256": "5d92028abc76bb4d1e9497bf6b6ebc832d51a4b50e882fce92008343d74221cd"
+              "sha256": "a9f85ca37097dc22683d8c055edf1ba43fe05ad54d171029759d6ccc7b5064eb"
             }
           ]
         },
@@ -281,42 +290,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "0d2e1edf9e6a141ecc87ac897ca59922336a91b25d1ccf0208c1069dabba13da"
+              "sha256": "d50f4d04de200c82342fbcee3fc3f9b56a4f0946d3a5e8e230b4ef6afd37b436"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "5bd629b3a65c0c03e703abc549beef2940f4acaafb3aed42b16dcc84957d2973"
+              "sha256": "a4f8b11f4ecc62cb4322d8031480e5f766026fb87cd9f8a010fa40510c7d727b"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "b73d3e9c7494c33759fcfc3fb5c333dba0dc2e5f0dbf0cbc6fe7e6ba80b51de8"
+              "sha256": "54afdd89ccb351b2f4af6cd583cbd6ef9cafba06a1ecd7e8631fdb82994ae324"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "cc98ac65bb6ad0d3fb88208585a2f78e4546d1c577615d016541293730342b03"
+              "sha256": "caf33b1b2c89c22b500bf81cbbc37cc29a16d0b021ed934e61958bfd9416f933"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "3f3b52d3d4e0e08513e900ba5558f833deec09b64d529e6965a926da7841eec6"
+              "sha256": "b5fca0b944f60504d5319eb4e5dbfed8700423681f8a428a6bdc4e72f1a03649"
             },
             {
               "path": "/assets/paintings/temporary-painting-03/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "d0599cdc8d23c10c535b96165e340e813fb2f4bdcf8fee7316fd7c665245d99e"
+              "sha256": "2968f2ac9e31729e0b840c045fe518ef64402314593f10432b0893a10b68abb1"
             }
           ]
         }
@@ -325,11 +334,14 @@
     {
       "slug": "temporary-painting-04",
       "watermark": {
-        "asset": "/assets/brand/watermark-light.png",
-        "corner": "bottom-right",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -341,42 +353,42 @@
               "format": "avif",
               "width": 480,
               "height": 361,
-              "sha256": "e622da463ae082b86eb2fc56fb584d76715bd228731cacbc3ddfbe22950e2294"
+              "sha256": "25f112cb04e9bba74da2ca1e4ee180486da6869fb601bb4967dcad0fee51edb0"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 361,
-              "sha256": "4085c01c473ea1ffcd419bf6549a0bfde649c53a09ebb05d1714ca9a29cf92aa"
+              "sha256": "1e4b2f51631c2ac95eb9dc062ee1e24f9345a4cccf09e24e208273491e01980b"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 361,
-              "sha256": "5e2eaba2d83e8d3a12a6f70d9cfb24e1918bcbed7cfe71202b0d3c36ea6abcd8"
+              "sha256": "ed2dd0e3162fc0ba1941c9131cab1c09bebd90db9e76a9ae8f61fda9f289e6dc"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 722,
-              "sha256": "43365532c805103b4535b388feaf8729cb0f6958bfb149e80269150bc45f248e"
+              "sha256": "060a01628d724b78e5cd04abe3c1958decf265a03de013abbca14e885a64725f"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 722,
-              "sha256": "b473ffbb8814e353b812f71572df0ed39a18ab687bf4f17c1c4e56ef34ee9731"
+              "sha256": "b6e635eb097f3a7b4a8faf1e4ac25f053a869442ea8996cd7204a4685a7088a9"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 722,
-              "sha256": "75898a451b5037391c1681fa3a411f60a4f328a9ab5c9415cebe56bf9cf094bf"
+              "sha256": "015fb842c0a85378dbcd8a0f6a9085e19c7c4193b7daa27c7b4a75d267de36e7"
             }
           ]
         },
@@ -388,42 +400,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "23037469b5c9a28a332b3d56b3a4778e845ae89d501009b726a12a72a8a00b9c"
+              "sha256": "9fbde8d5ccd18dd877991350b6721798491b9703beeb36bc53dc4ce02bb66598"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "cd378e5fa69df98e2b4794d31d4d66700922ce35c5b9fbee019fb7bad333dc18"
+              "sha256": "f333df1c2c331a5c36679b6475de31d13227abe31d4610f1044bbbeaab74566d"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "3b866bb0451a6aeeddb8b7eb0d041732afd97e72858756df34381c330bdcdd8d"
+              "sha256": "2bfb323e8f325f374a36b3f406585b3d7836ff131c13136f65a1602c2958691a"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "2d7d36de19b6caa602ce64a10b55d74efed51d2c61ec7443fed6afca1944636b"
+              "sha256": "c0de52251a4f941c751a1a1c38a2268ae4d07e18f0db70ab551ddf318ad7a225"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "1cd25b46c13a442f3ec61c6992c9fc428b33a8e9c18d4d739cdf10ed7f271b6a"
+              "sha256": "675dabfaccf44bb1ec6cf47b2530c21e5d4320e9f14628f2530b7f0fa154b88f"
             },
             {
               "path": "/assets/paintings/temporary-painting-04/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "531e7854cfe0c017b96681b61d4c57fb5d1f54e79541f85e26f9f338e21eb828"
+              "sha256": "885db726d7b0d92b1f6f0535557684b919912bf3924eed23df10f3ea19412d01"
             }
           ]
         }
@@ -432,11 +444,14 @@
     {
       "slug": "temporary-painting-05",
       "watermark": {
-        "asset": "/assets/brand/watermark-light.png",
-        "corner": "bottom-right",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -448,42 +463,42 @@
               "format": "avif",
               "width": 480,
               "height": 596,
-              "sha256": "17f199b2a0c6b5314d7b8cc4f37a3f68e007e66d3a50818eb4680ce8a95a790e"
+              "sha256": "289d8140c4c885f5fc6f6fc447de02b81a8e37cc5231c0aba0d291590e766dd5"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 596,
-              "sha256": "2acb3f2981b1467728a6daac34276a70449585064812f59cd436accd1f32283f"
+              "sha256": "95e5580c33cde49f68cca79e54790fe920be71daee8507653b4e44cc0336ae67"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 596,
-              "sha256": "c41c956c6c3f101ff6aee7e2c2614066409cd18c639921332641749a6a139991"
+              "sha256": "ce012c3b9c2fb972b671bd1a23d6ba8a85e833db893b9475be490c39f9da8dcc"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 1191,
-              "sha256": "bca1fa4278652ae95e73caea7d62bfcd11d2bffc4766dbd8e260370d41bf88d4"
+              "sha256": "05ae28b9ff9aca4ac1b60883fdc6e0cc3031b1c30fdb832e67dd7cf45e85a4b5"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 1191,
-              "sha256": "86791e767cc06eed240baad44e68a8488ac04117f25f84b1891a3b1633923972"
+              "sha256": "76970303eb4c7ddbebbf6521b190fabedd2ce50962da3011b81559ad42d0a62e"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 1191,
-              "sha256": "cd2425975e51be81a8178fd4b8d4da7e9fbfb419e04d0d00f10ac2a995db311a"
+              "sha256": "8d90b8de352e54a35752a3a434ca2f743ebefe4430c7dba183f3b8ddc0aeefb8"
             }
           ]
         },
@@ -495,42 +510,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "abebae12bcae8f830d3810fe69d81bf22d9525eada494dece670a19789bc2609"
+              "sha256": "5e518170f1d7fdcc4df39ee8c8c8201c9772051b8deda00acaffa77e1d113c1f"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "f54370dbf7cca76448c2fef4ba1730de456a28c962f266cff481c0d5580cfbb3"
+              "sha256": "8728da86e6a30cab4015b681adb0cc1fe1d4142873a54c0ac7088b19815c97b8"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "bd8b1a876bb2ae368049c35a43ac67c68b68e410b5dc8bfae474da9b982cc49f"
+              "sha256": "d6a783154a418041cccee56c480d00ec07a29c294b79e39362d1badfa44a1f06"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "bec90b5b3d6ec71f48aa72029f24098b7a7124e1c009c213986d0b476abf1beb"
+              "sha256": "21d3d66d10eebc5b2d6444c75b553086651637767c698d7408b095bc7e8f92d9"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "bd61313beed40dc64c233539be9548abf87460af0be82144fd8fb75e32551fa3"
+              "sha256": "789f3b61717acbd9a1d9cef78faf9f80e87d4197ec131e4b35cbc05ff2e8b482"
             },
             {
               "path": "/assets/paintings/temporary-painting-05/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "862c7d3efe8f8ef90fd45aa8d935e905848e67c6e485f8e0f8af2d90aa2ec078"
+              "sha256": "b26e8bb31119572e945c9c8fbce7d70b159e4fce686dff9578b580ee02d93844"
             }
           ]
         }
@@ -539,11 +554,14 @@
     {
       "slug": "temporary-painting-06",
       "watermark": {
-        "asset": "/assets/brand/watermark-dark.png",
-        "corner": "bottom-right",
-        "opacity": 0.22,
-        "scale": 0.1,
-        "margin": 0.035,
+        "text": "© Engela Art",
+        "placement": "lower-third",
+        "color": "white",
+        "opacity": 0.28,
+        "fontScale": 0.058,
+        "minFontSize": 18,
+        "maxFontSize": 44,
+        "verticalPosition": 0.58,
         "pixelDifferenceVerified": true
       },
       "images": [
@@ -555,42 +573,42 @@
               "format": "avif",
               "width": 480,
               "height": 478,
-              "sha256": "edd70ecc9a73f5c82cdf0a4d4c6f6b4ad6bb38344770c67375d448c9162a8e1c"
+              "sha256": "10a0f5fe9a6d6c943be1d02d5bb9db2ae4c4f1771f21f7fa4393c711e800cfed"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/main-480.webp",
               "format": "webp",
               "width": 480,
               "height": 478,
-              "sha256": "1f393c63a2be115d0d50e9e86ef3354867b3abf8d3f71788dbeb33b9758463eb"
+              "sha256": "c9fd0491c4c9d1bbf17bf25dec6dac2b374d30528d670b8d80e95115b7d8cc10"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/main-480.jpg",
               "format": "jpeg",
               "width": 480,
               "height": 478,
-              "sha256": "8870e683b887aaa1427ad625bfa172aceed7b43f8e8abff4eec20fc92bd9e3b7"
+              "sha256": "f9f55d06f00afb2dfbf8125e0678f17df4e8149b275b8b77120eb857caef1742"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/main-960.avif",
               "format": "avif",
               "width": 960,
               "height": 957,
-              "sha256": "cef26d3bb39708cb54e84592c57c9d4647516db520f667b73d1e160fbd5aa195"
+              "sha256": "65381403ac0e04704f41471966b76f22ddb7044543fad71021d2180efd59ac55"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/main-960.webp",
               "format": "webp",
               "width": 960,
               "height": 957,
-              "sha256": "439a064fa174b3dc79bae611934621d0ab69991e3bf6c47becd044f1250ad6e8"
+              "sha256": "ddcb31ae1127bfe1490e7ac44389330a4be1d47a5b03dfaa33b2e1666eb3f44e"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/main-960.jpg",
               "format": "jpeg",
               "width": 960,
               "height": 957,
-              "sha256": "e0edd18513bdb657e6d08996a0c6fc1ffbf247f2061afb4af9cc2ab6a42a4c12"
+              "sha256": "e0eb467d42f715fbbd755f96724213eab61778eb4d5d6a42f6fa0629545b03a1"
             }
           ]
         },
@@ -602,42 +620,42 @@
               "format": "avif",
               "width": 640,
               "height": 480,
-              "sha256": "d4362e6df7799728cdc691195253f789281fab59b42c55d0907ace45c42ee6f0"
+              "sha256": "4a3e43b4d9822b423d3703aa18f47ebcbd58acba1db84dfd49ceaae8d7f6515a"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/room-context-640.webp",
               "format": "webp",
               "width": 640,
               "height": 480,
-              "sha256": "4709991429e478d9a2bfbd781254d61a69eccd4dc70858a8393e280def1fdf71"
+              "sha256": "b0548468d302aa132fb38d2f625ebb8bad1ea46e426e21f6474a6ddf1d31c892"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/room-context-640.jpg",
               "format": "jpeg",
               "width": 640,
               "height": 480,
-              "sha256": "1247d61fb7f56baecdd0e77355d08cd9dd997ccbacb80000f2e4b5cdd0bc01b4"
+              "sha256": "ad79b1fb2af40852007bc74573714cc4b537cf1262f5a0e875d7a6c39f9730f2"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/room-context-1200.avif",
               "format": "avif",
               "width": 1200,
               "height": 900,
-              "sha256": "898509435ca293ec0d02d1ef4c429338dd66150d2c1e32d481f8b25c67ef9d59"
+              "sha256": "6f39395e7ec9ce8189c7af4224332589ddba1bcbe49022a0ed570758b76e8a7b"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/room-context-1200.webp",
               "format": "webp",
               "width": 1200,
               "height": 900,
-              "sha256": "dc86370dd4b9feb0613e2ad9abdc503dbf762c4f5e0921d8c129859d3ca1a5a4"
+              "sha256": "314690799336a11f9a31f65ea31cb5e56f053591c88ca6a172eca97e3a5d1c7f"
             },
             {
               "path": "/assets/paintings/temporary-painting-06/room-context-1200.jpg",
               "format": "jpeg",
               "width": 1200,
               "height": 900,
-              "sha256": "f9c9b7261747caa7c6116312ed7b398cc035cc54c12929c3f1fdefe3f2fd94d8"
+              "sha256": "075bf2f63fc4e36f3ed3ed10f9a3d48c6003533c7686bedd656ddda06b8fd889"
             }
           ]
         }

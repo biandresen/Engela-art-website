@@ -162,7 +162,7 @@ Orientation and total face area are derived from numeric width and height. Paint
 
 Keep high-quality master artwork files outside the repository and public deployment. A repeatable local preparation step creates approved responsive web derivatives, such as AVIF, WebP, and JPEG fallbacks with known dimensions.
 
-All public painting derivatives receive the approved Engela Art watermark during preparation. Bake the watermark into each public file rather than relying on a CSS overlay. The process must support consistent responsive scale, margin, opacity, and an approved alternate corner when the default placement obscures important content.
+All public painting derivatives receive the approved Engela Art text watermark during preparation. Bake the watermark into each public file rather than relying on a CSS overlay. The process must support consistent responsive scale, lower-third placement, opacity, and contrast handling so the watermark remains readable without becoming the visual focus.
 
 The repository contains only watermarked web-ready painting derivatives and painting image metadata. Do not commit original-resolution masters, buyer-supplied claim photos, private commission references, or unapproved work-in-progress images. Netlify serves prepared assets rather than performing complex request-time transformation in v1.
 

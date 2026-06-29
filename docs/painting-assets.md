@@ -9,8 +9,9 @@ npm run assets:paintings
 The script reads the six temporary artist-supplied PNGs listed in
 `scripts/painting-assets.config.mjs`, creates responsive AVIF, WebP, and JPEG
 derivatives, and bakes the approved issue #4 watermark into every public
-painting image. Watermark scale, opacity, margin, light/dark variant, and corner
-placement are explicit configuration. A per-file SHA-256 manifest records the
+painting image. The watermark is the text `© Engela Art`, rendered in the lower
+third with explicit opacity, scale, and contrast configuration. A per-file
+SHA-256 manifest records the
 generated output, and generation fails if the watermark does not produce a
 verified pixel difference.
 

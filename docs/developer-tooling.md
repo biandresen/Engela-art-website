@@ -367,7 +367,7 @@ The best learning path is to keep the first version focused, then add complexity
 
 Maintain original artwork photographs outside Git. Add or document one repeatable local command that produces responsive, watermarked, web-ready AVIF/WebP/JPEG derivatives and reports output dimensions and sizes before assets are committed.
 
-Generated public painting derivatives should be deterministic and reviewable. The preparation command applies the approved Engela Art watermark with configurable placement for exceptional compositions. Do not copy private master files into the public asset tree.
+Generated public painting derivatives should be deterministic and reviewable. The preparation command applies the approved `© Engela Art` text watermark with consistent lower-third placement. Do not copy private master files into the public asset tree.
 
 ## Preview verification
 

@@ -221,7 +221,7 @@ The website uses appropriately sized web images, provides no dedicated download 
 
 Every public painting-image derivative carries a subtle Engela Art watermark. This includes gallery thumbnails, homepage painting images, detail and fullscreen-viewer images, room-context images, and painting-specific social previews.
 
-The watermark must be visible enough to identify Engela Art after casual copying but must not cover important artwork details or materially distort color evaluation. Use a consistent corner placement, responsive scale, safe margin, and restrained opacity. If a chosen corner conflicts with important content, an approved alternate corner can be selected for that image.
+The watermark must be visible enough to identify Engela Art after casual copying but must not cover important artwork details or materially distort color evaluation. Use the text `© Engela Art` with consistent lower-third placement, responsive scale, restrained opacity, and contrast support. Do not use the full illustrated logo as the default painting watermark.
 
 Apply the watermark during the image-preparation process so the public image file itself is marked; a CSS-only overlay is insufficient because it leaves the downloaded asset unwatermarked.
 
