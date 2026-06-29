@@ -293,6 +293,40 @@ describe('localized home page', () => {
     )
   })
 
+  it('can show local testimonial preview cards for development review', () => {
+    render(
+      <LocalizedHomePage
+        locale="en"
+        showTestimonialPreview
+        testimonialPreviewEntries={[
+          {
+            ...approvedTestimonial,
+            quote: {
+              no: '[LOKAL FORHÅNDSVISNING] Forhåndsvisning.',
+              en: '[LOCAL PREVIEW] Preview.',
+            },
+          },
+          {
+            ...approvedTestimonial,
+            displayName: 'Preview Buyer 2',
+            date: '2026-06-04',
+            rating: 4,
+          },
+        ]}
+      />,
+    )
+
+    const testimonials = screen.getByRole('region', {
+      name: 'Testimonials',
+    })
+
+    expect(testimonials.textContent).toContain('[LOCAL PREVIEW]')
+    expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
+    expect(
+      within(testimonials).getByRole('button', { name: 'Next testimonial' }),
+    ).toBeTruthy()
+  })
+
   it('renders approved testimonials and customer photos near the lower home page when local data exists', () => {
     render(
       <LocalizedHomePage

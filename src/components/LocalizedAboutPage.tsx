@@ -8,7 +8,7 @@ import type { AboutProcessImage } from '#/lib/about/about'
 import { getAboutContent } from '#/lib/about/about'
 import {
   TestimonialsSection,
-  getApprovedTestimonials,
+  getTestimonialsForDisplay,
 } from '#/lib/testimonials/testimonials'
 import type { Testimonial } from '#/lib/testimonials/testimonials'
 import { env } from '#/env'
@@ -19,16 +19,26 @@ import { Button } from './ui/button'
 type LocalizedAboutPageProps = {
   locale: Locale
   testimonialEntries?: ReadonlyArray<Testimonial>
+  showTestimonialPreview?: boolean
+  testimonialPreviewEntries?: ReadonlyArray<Testimonial>
 }
 
 export function LocalizedAboutPage({
   locale,
   testimonialEntries,
+  showTestimonialPreview = import.meta.env.DEV &&
+    import.meta.env.MODE !== 'test',
+  testimonialPreviewEntries,
 }: LocalizedAboutPageProps) {
   const content = getPageContent(locale, 'about')
   const about = getAboutContent(locale)
   const paths = localizedPaths[locale]
-  const testimonials = testimonialEntries ?? getApprovedTestimonials()
+  const testimonials =
+    testimonialEntries ??
+    getTestimonialsForDisplay({
+      includePreview: showTestimonialPreview,
+      previewEntries: testimonialPreviewEntries,
+    })
 
   return (
     <main>

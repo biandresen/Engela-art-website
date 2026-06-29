@@ -73,6 +73,75 @@ export function getApprovedTestimonials({
   return typeof limit === 'number' ? entries.slice(0, limit) : entries
 }
 
+export function getTestimonialsForDisplay({
+  limit,
+  includePreview = false,
+  previewEntries,
+}: {
+  limit?: number
+  includePreview?: boolean
+  previewEntries?: ReadonlyArray<Testimonial>
+} = {}) {
+  const approvedEntries = getApprovedTestimonials()
+  const canUsePreview =
+    includePreview && (import.meta.env.DEV || previewEntries !== undefined)
+  const entries =
+    approvedEntries.length > 0 || !canUsePreview
+      ? approvedEntries
+      : (previewEntries ?? getLocalPreviewTestimonials())
+
+  return typeof limit === 'number' ? entries.slice(0, limit) : entries
+}
+
+function getLocalPreviewTestimonials(): ReadonlyArray<Testimonial> {
+  if (!import.meta.env.DEV) {
+    return []
+  }
+
+  return [
+    {
+      quote: {
+        no: '[LOKAL FORHÅNDSVISNING] Maleriet ga rommet en rolig varme, og dialogen var tydelig fra første melding.',
+        en: '[LOCAL PREVIEW] The painting brought a quiet warmth to the room, and the conversation was clear from the first message.',
+      },
+      displayName: 'Preview collector 1',
+      date: '2026-06-01',
+      rating: 5,
+      source: {
+        type: 'email',
+        label: {
+          no: 'Lokal forhåndsvisning',
+          en: 'Local preview',
+        },
+      },
+      publicationConsent: {
+        status: 'written',
+        documentedAt: '2026-06-01',
+      },
+    },
+    {
+      quote: {
+        no: '[LOKAL FORHÅNDSVISNING] Det føltes trygt å kjøpe originalkunst når prosessen var så personlig og ryddig.',
+        en: '[LOCAL PREVIEW] Buying original art felt safe because the process was personal and orderly.',
+      },
+      displayName: 'Preview collector 2',
+      date: '2026-06-02',
+      rating: 4,
+      source: {
+        type: 'email',
+        label: {
+          no: 'Lokal forhåndsvisning',
+          en: 'Local preview',
+        },
+      },
+      publicationConsent: {
+        status: 'written',
+        documentedAt: '2026-06-02',
+      },
+    },
+  ]
+}
+
 export function getApprovedCustomerPhotos({
   limit,
 }: {

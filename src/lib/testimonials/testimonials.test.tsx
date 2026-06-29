@@ -14,6 +14,7 @@ import {
   TestimonialsSection,
   getApprovedCustomerPhotos,
   getApprovedTestimonials,
+  getTestimonialsForDisplay,
 } from './testimonials'
 import type { CustomerPhoto, Testimonial } from './testimonials'
 
@@ -232,6 +233,40 @@ describe('testimonials section', () => {
 describe('testimonial data sources', () => {
   it('keeps testimonial production content empty until permissioned quotes exist', () => {
     expect(getApprovedTestimonials()).toEqual([])
+  })
+
+  it('can provide clearly marked local preview testimonials without changing approved content', () => {
+    const entries = getTestimonialsForDisplay({
+      includePreview: true,
+      previewEntries: [
+        {
+          ...approvedTestimonial,
+          quote: {
+            no: '[LOKAL FORHÅNDSVISNING] Forhåndsvisning.',
+            en: '[LOCAL PREVIEW] Preview.',
+          },
+          rating: 5,
+        },
+        {
+          ...approvedTestimonial,
+          displayName: 'Preview Buyer 2',
+          date: '2026-06-04',
+          quote: {
+            no: '[LOKAL FORHÅNDSVISNING] Forhåndsvisning nummer to.',
+            en: '[LOCAL PREVIEW] Preview two.',
+          },
+        },
+      ],
+    })
+
+    expect(getApprovedTestimonials()).toEqual([])
+    expect(entries).toHaveLength(2)
+    expect(entries[0]?.quote.en).toContain('[LOCAL PREVIEW]')
+    expect(entries.map((entry) => entry.rating)).toEqual([5, 4])
+  })
+
+  it('does not include local preview testimonials unless explicitly requested', () => {
+    expect(getTestimonialsForDisplay()).toEqual([])
   })
 
   it('keeps customer-photo production content empty until permissioned photos exist', () => {

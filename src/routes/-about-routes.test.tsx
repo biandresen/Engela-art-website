@@ -239,4 +239,36 @@ describe('about routes', () => {
     expect(carousel.textContent).toContain('Testimonial 2 of 2')
     expect(within(testimonials).getByLabelText('4 of 5 stars')).toBeTruthy()
   })
+
+  it('can show local testimonial preview cards on the About page for development review', () => {
+    render(
+      <LocalizedAboutPage
+        locale="en"
+        showTestimonialPreview
+        testimonialPreviewEntries={[
+          {
+            ...approvedTestimonial,
+            quote: {
+              no: '[LOKAL FORHÅNDSVISNING] Forhåndsvisning.',
+              en: '[LOCAL PREVIEW] Preview.',
+            },
+          },
+          {
+            ...approvedTestimonial,
+            displayName: 'Preview Collector 2',
+            date: '2026-06-12',
+            rating: 4,
+          },
+        ]}
+      />,
+    )
+
+    const testimonials = screen.getByRole('region', { name: 'Testimonials' })
+
+    expect(testimonials.textContent).toContain('[LOCAL PREVIEW]')
+    expect(within(testimonials).getByLabelText('5 of 5 stars')).toBeTruthy()
+    expect(
+      within(testimonials).getByRole('button', { name: 'Next testimonial' }),
+    ).toBeTruthy()
+  })
 })

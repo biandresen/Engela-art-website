@@ -9,7 +9,7 @@ import {
   CustomerPhotosSection,
   TestimonialsSection,
   getApprovedCustomerPhotos,
-  getApprovedTestimonials,
+  getTestimonialsForDisplay,
 } from '#/lib/testimonials/testimonials'
 import type {
   CustomerPhoto,
@@ -26,6 +26,8 @@ type LocalizedHomePageProps = {
   testimonialEntries?: ReadonlyArray<Testimonial>
   customerPhotoEntries?: ReadonlyArray<CustomerPhoto>
   googleProfileUrl?: string
+  showTestimonialPreview?: boolean
+  testimonialPreviewEntries?: ReadonlyArray<Testimonial>
 }
 
 export function LocalizedHomePage({
@@ -33,6 +35,9 @@ export function LocalizedHomePage({
   testimonialEntries,
   customerPhotoEntries,
   googleProfileUrl,
+  showTestimonialPreview = import.meta.env.DEV &&
+    import.meta.env.MODE !== 'test',
+  testimonialPreviewEntries,
 }: LocalizedHomePageProps) {
   const content = getPageContent(locale, 'home')
   const {
@@ -44,7 +49,12 @@ export function LocalizedHomePage({
   const heroRoomContextImage = heroPresentation.roomContextImage
   const heroHasRoomPreview = heroRoomContextImage !== undefined
   const testimonials =
-    testimonialEntries ?? getApprovedTestimonials({ limit: 3 })
+    testimonialEntries ??
+    getTestimonialsForDisplay({
+      limit: 3,
+      includePreview: showTestimonialPreview,
+      previewEntries: testimonialPreviewEntries,
+    })
   const customerPhotos =
     customerPhotoEntries ?? getApprovedCustomerPhotos({ limit: 2 })
   const testimonialsHeading =
