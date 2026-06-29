@@ -21,6 +21,17 @@ type LegalPageContent = {
   sections: Array<LegalSection>
 }
 
+const legalLastUpdated = {
+  isoDate: '2026-06-29',
+  text: {
+    no: 'Sist oppdatert: 29. juni 2026',
+    en: 'Last updated: June 29, 2026',
+  },
+} satisfies {
+  isoDate: `${number}-${number}-${number}`
+  text: Record<Locale, string>
+}
+
 export function LocalizedLegalPage({ locale, page }: LocalizedLegalPageProps) {
   const content = legalContent[locale][page]
 
@@ -35,6 +46,11 @@ export function LocalizedLegalPage({ locale, page }: LocalizedLegalPageProps) {
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground">
           {content.intro}
+        </p>
+        <p className="mt-4 text-sm font-medium text-muted-foreground">
+          <time dateTime={legalLastUpdated.isoDate}>
+            {legalLastUpdated.text[locale]}
+          </time>
         </p>
         <p className="mt-6 rounded-md border border-primary/30 bg-primary/10 p-4 text-sm font-medium leading-6">
           {content.reviewNotice}

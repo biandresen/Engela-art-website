@@ -48,6 +48,7 @@ describe('legal and buyer guidance routes', () => {
       within(main).getByRole('heading', { level: 1, name: 'Privacy' }),
     ).toBeTruthy()
     expect(main.textContent).toContain('Final legal review required')
+    expect(main.textContent).toContain('Last updated: June 29, 2026')
     expect(main.textContent).toContain('controller')
     expect(main.textContent).toContain('Engela Art')
     expect(main.textContent).toContain('kontakt@engelaart.no')
@@ -89,6 +90,7 @@ describe('legal and buyer guidance routes', () => {
       }),
     ).toBeTruthy()
     expect(main.textContent).toContain('Juridisk sluttgjennomgang kreves')
+    expect(main.textContent).toContain('Sist oppdatert: 29. juni 2026')
     expect(main.textContent).toContain(
       'Det opprettes ikke egne sider for vilkår eller betaling og levering',
     )
@@ -158,6 +160,7 @@ describe('legal and buyer guidance routes', () => {
     expect(main.textContent).toContain(
       'Separate Terms or Payment/Delivery pages are not added',
     )
+    expect(main.textContent).toContain('Last updated: June 29, 2026')
     expect(main.textContent).toContain('The seller is Engela Art')
     expect(main.textContent).toContain('original physical paintings')
     expect(main.textContent).toContain('prices in NOK')
