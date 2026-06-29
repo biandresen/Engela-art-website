@@ -1,4 +1,5 @@
 import type { Locale } from '#/lib/i18n/locale'
+import { cn } from '#/lib/utils'
 
 type LocalizedText = Record<Locale, string>
 
@@ -50,6 +51,7 @@ type TestimonialsSectionProps = {
   limit?: number
   googleProfileUrl?: string
   googleProfileLabel?: string
+  className?: string
 }
 
 export const approvedTestimonials: ReadonlyArray<Testimonial> = [
@@ -182,6 +184,7 @@ export function TestimonialsSection({
   limit,
   googleProfileUrl,
   googleProfileLabel,
+  className,
 }: TestimonialsSectionProps) {
   const visibleEntries = entries.filter(isPublishableTestimonial)
   const limitedEntries =
@@ -192,66 +195,65 @@ export function TestimonialsSection({
   }
 
   return (
-    <section
-      aria-label={heading}
-      className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12"
-    >
-      <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          {heading}
-        </h2>
-        {intro ? (
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            {intro}
-          </p>
-        ) : null}
-        {googleProfileUrl ? (
-          <a
-            href={googleProfileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 inline-flex w-fit rounded-sm text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-          >
-            {googleProfileLabel ??
-              (locale === 'no'
-                ? 'Se Google-profilen'
-                : 'View the Google profile')}
-          </a>
-        ) : null}
-      </div>
+    <section aria-label={heading} className={cn('py-16', className)}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {heading}
+          </h2>
+          {intro ? (
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">
+              {intro}
+            </p>
+          ) : null}
+          {googleProfileUrl ? (
+            <a
+              href={googleProfileUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex w-fit rounded-sm text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+            >
+              {googleProfileLabel ??
+                (locale === 'no'
+                  ? 'Se Google-profilen'
+                  : 'View the Google profile')}
+            </a>
+          ) : null}
+        </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {limitedEntries.map((entry) => (
-          <article
-            key={`${entry.displayName}-${entry.date}`}
-            className="border-t border-border pt-5"
-          >
-            <blockquote className="text-lg leading-8">
-              "{entry.quote[locale]}"
-            </blockquote>
-            <footer className="mt-5 text-sm text-muted-foreground">
-              <p className="font-semibold text-foreground">
-                {entry.displayName}
-              </p>
-              <p>
-                <time dateTime={entry.date}>{entry.date}</time>
-                {' - '}
-                {entry.source.type === 'google' ? (
-                  <a
-                    href={entry.source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                  >
-                    {entry.source.label[locale]}
-                  </a>
-                ) : (
-                  entry.source.label[locale]
-                )}
-              </p>
-            </footer>
-          </article>
-        ))}
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {limitedEntries.map((entry) => (
+            <article
+              key={`${entry.displayName}-${entry.date}`}
+              className="border-t border-border pt-5"
+            >
+              <blockquote className="text-lg leading-8">
+                "{entry.quote[locale]}"
+              </blockquote>
+              <footer className="mt-5 text-sm text-muted-foreground">
+                <p className="font-semibold text-foreground">
+                  {entry.displayName}
+                </p>
+                <p>
+                  <time dateTime={entry.date}>{entry.date}</time>
+                  {' - '}
+                  {entry.source.type === 'google' ? (
+                    <a
+                      href={entry.source.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                    >
+                      {entry.source.label[locale]}
+                    </a>
+                  ) : (
+                    entry.source.label[locale]
+                  )}
+                </p>
+              </footer>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

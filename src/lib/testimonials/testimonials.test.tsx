@@ -125,6 +125,23 @@ describe('testimonials section', () => {
     expect(region.textContent).toContain('Selected approved feedback.')
   })
 
+  it('can render as a full-width semantic background band', () => {
+    render(
+      <TestimonialsSection
+        locale="en"
+        entries={[approvedTestimonial]}
+        heading="Collector words"
+        className="bg-muted"
+      />,
+    )
+
+    const region = screen.getByRole('region', { name: 'Collector words' })
+    const content = region.firstElementChild
+
+    expect(region.className).toContain('bg-muted')
+    expect(content?.className).toContain('max-w-7xl')
+  })
+
   it('can link to a configured Google profile without rendering ratings or structured review data', () => {
     render(
       <TestimonialsSection

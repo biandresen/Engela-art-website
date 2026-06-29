@@ -117,6 +117,7 @@ export function LocalizedAboutPage({ locale }: { locale: Locale }) {
         entries={testimonials}
         heading={about.testimonialsHeading}
         intro={about.testimonialsIntro}
+        className="bg-muted"
       />
     </main>
   )
