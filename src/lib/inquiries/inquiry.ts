@@ -68,6 +68,7 @@ export type InquirySubmissionDependencies = {
   now: () => Date
   receiverEmail: string
   senderEmail: string
+  publicContactEmail: string
 }
 
 export type ResolvedInquiryContext = {
@@ -247,6 +248,7 @@ export async function submitInquiry(
         context,
         submittedAt,
         senderEmail: dependencies.senderEmail,
+        publicContactEmail: dependencies.publicContactEmail,
       }),
     )
     if (acknowledgementResult.status !== 'accepted') {
@@ -468,11 +470,13 @@ function createBuyerAcknowledgement({
   context,
   submittedAt,
   senderEmail,
+  publicContactEmail,
 }: {
   input: z.infer<typeof submissionSchema>
   context: ResolvedInquiryContext
   submittedAt: string
   senderEmail: string
+  publicContactEmail: string
 }) {
   const painting = context.paintingSlug
     ? paintingCatalog.getBySlug(context.paintingSlug)
@@ -489,7 +493,7 @@ function createBuyerAcknowledgement({
       'Engela Art has received your inquiry.',
       reservationText,
       'You can expect a personal response from Anne Mari within two business days.',
-      'Please check spam if the automatic acknowledgement is delayed. If no personal response arrives within two business days, email kontakt@engelaart.no.',
+      `Please check spam if the automatic acknowledgement is delayed. If no personal response arrives within two business days, email ${publicContactEmail}.`,
       '',
       painting
         ? `Reference: ${painting.title} (${painting.paintingId})`

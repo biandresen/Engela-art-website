@@ -8,6 +8,7 @@ import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
 import { Textarea } from '#/components/ui/textarea'
+import { getPublicContactEmail } from '#/lib/contact-email'
 import type { Locale } from '#/lib/i18n/locale'
 import { localizedPaths } from '#/lib/i18n/routes'
 import { resolveInquiryContext } from '#/lib/inquiries/inquiry'
@@ -54,6 +55,7 @@ export function LocalizedContactPage({
   search,
 }: LocalizedContactPageProps) {
   const copy = contactCopy[locale]
+  const publicContactEmail = getPublicContactEmail()
   const paths = localizedPaths[locale]
   const context = useMemo(
     () =>
@@ -142,7 +144,7 @@ export function LocalizedContactPage({
             {copy.title}
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            {copy.intro}
+            {copy.intro(publicContactEmail)}
           </p>
 
           <div className="mt-10 border-y border-border py-6">
@@ -352,7 +354,11 @@ export function LocalizedContactPage({
               </p>
 
               {status ? (
-                <StatusMessage status={status} locale={locale} />
+                <StatusMessage
+                  status={status}
+                  locale={locale}
+                  publicContactEmail={publicContactEmail}
+                />
               ) : null}
 
               <Button type="submit" disabled={isSuccess || !loadedAt}>
@@ -369,7 +375,7 @@ export function LocalizedContactPage({
             </h2>
             <p className="mt-3">{copy.fallbackBody}</p>
             <a
-              href="mailto:kontakt@engelaart.no"
+              href={`mailto:${publicContactEmail}`}
               onClick={() =>
                 captureAnalyticsEvent({
                   name: 'outbound_link_clicked',
@@ -379,7 +385,7 @@ export function LocalizedContactPage({
               }
               className="mt-2 inline-block underline underline-offset-4 hover:text-foreground"
             >
-              kontakt@engelaart.no
+              {publicContactEmail}
             </a>
           </section>
 
@@ -452,9 +458,11 @@ function FormField({
 function StatusMessage({
   status,
   locale,
+  publicContactEmail,
 }: {
   status: InquirySubmissionResult
   locale: Locale
+  publicContactEmail: string
 }) {
   const copy = contactCopy[locale]
 
@@ -465,8 +473,8 @@ function StatusMessage({
         className="rounded-md border border-available/40 bg-available/10 p-4 text-sm leading-6"
       >
         {status.acknowledgement === 'delayed'
-          ? copy.successDelayed
-          : copy.success}
+          ? copy.successDelayed(publicContactEmail)
+          : copy.success(publicContactEmail)}
       </div>
     )
   }
@@ -482,14 +490,14 @@ function StatusMessage({
   if (status.status === 'delivery-error') {
     return (
       <div role="alert" className="text-sm leading-6 text-destructive">
-        {copy.deliveryError}
+        {copy.deliveryError(publicContactEmail)}
       </div>
     )
   }
 
   return (
     <div role="alert" className="text-sm leading-6 text-destructive">
-      {copy.rejected}
+      {copy.rejected(publicContactEmail)}
     </div>
   )
 }
@@ -501,8 +509,8 @@ function createClientToken() {
 const contactCopy = {
   no: {
     title: 'Kontakt',
-    intro:
-      'Bruk skjemaet for forespørsler om malerier. Du kan også sende e-post til kontakt@engelaart.no.',
+    intro: (email: string) =>
+      `Bruk skjemaet for forespørsler om malerier. Du kan også sende e-post til ${email}.`,
     name: 'Navn',
     email: 'E-post',
     phone: 'Telefon (valgfritt)',
@@ -536,20 +544,20 @@ const contactCopy = {
     socialTitle: 'Sosiale medier',
     moreQuestionsBefore: 'Flere spørsmål om salg, vilkår eller retur:',
     moreQuestionsLink: 'Gå til salg, vilkår og retur',
-    success:
-      'Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
-    successDelayed:
-      'Henvendelsen er mottatt. Den automatiske bekreftelsen på e-post kan være forsinket og kommer kanskje ikke med en gang. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Hvis bekreftelsen aldri kommer, send e-post til kontakt@engelaart.no.',
+    success: (email: string) =>
+      `Henvendelsen er mottatt. Dette oppretter ingen reservasjon eller avtale. Bekreftelsen på e-post bør komme om kort tid. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Sjekk søppelpost hvis den mangler. Hvis bekreftelsen aldri kommer, send e-post til ${email}.`,
+    successDelayed: (email: string) =>
+      `Henvendelsen er mottatt. Den automatiske bekreftelsen på e-post kan være forsinket og kommer kanskje ikke med en gang. Dette oppretter ingen reservasjon eller avtale. Du kan forvente personlig svar fra Anne Mari innen to virkedager. Hvis bekreftelsen aldri kommer, send e-post til ${email}.`,
     validationError: 'Sjekk feltene som er markert og prøv igjen.',
-    deliveryError:
-      'Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen, eller send e-post til kontakt@engelaart.no.',
-    rejected:
-      'Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen senere eller send e-post til kontakt@engelaart.no.',
+    deliveryError: (email: string) =>
+      `Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen, eller send e-post til ${email}.`,
+    rejected: (email: string) =>
+      `Henvendelsen kunne ikke sendes akkurat nå. Prøv igjen senere eller send e-post til ${email}.`,
   },
   en: {
     title: 'Contact',
-    intro:
-      'Use the form for painting inquiries. You can also email kontakt@engelaart.no.',
+    intro: (email: string) =>
+      `Use the form for painting inquiries. You can also email ${email}.`,
     name: 'Name',
     email: 'Email',
     phone: 'Phone (optional)',
@@ -583,14 +591,14 @@ const contactCopy = {
     socialTitle: 'Social media',
     moreQuestionsBefore: 'More questions about sales, terms, or returns:',
     moreQuestionsLink: 'Go to sales, terms, and returns',
-    success:
-      'Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response from Anne Mari within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email kontakt@engelaart.no.',
-    successDelayed:
-      'Your inquiry has been received. The automatic confirmation email may be delayed and may not arrive immediately. This does not create a reservation or agreement. You can expect a personal response from Anne Mari within two business days. If the confirmation never arrives, email kontakt@engelaart.no.',
+    success: (email: string) =>
+      `Your inquiry has been received. This does not create a reservation or agreement. The confirmation email should arrive shortly. You can expect a personal response from Anne Mari within two business days. Check spam or junk if it is missing. If the confirmation never arrives, email ${email}.`,
+    successDelayed: (email: string) =>
+      `Your inquiry has been received. The automatic confirmation email may be delayed and may not arrive immediately. This does not create a reservation or agreement. You can expect a personal response from Anne Mari within two business days. If the confirmation never arrives, email ${email}.`,
     validationError: 'Check the marked fields and try again.',
-    deliveryError:
-      'The inquiry could not be sent right now. Try again, or email kontakt@engelaart.no.',
-    rejected:
-      'The inquiry could not be sent right now. Try again later or email kontakt@engelaart.no.',
+    deliveryError: (email: string) =>
+      `The inquiry could not be sent right now. Try again, or email ${email}.`,
+    rejected: (email: string) =>
+      `The inquiry could not be sent right now. Try again later or email ${email}.`,
   },
 } as const

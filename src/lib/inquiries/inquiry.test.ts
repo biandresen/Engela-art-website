@@ -27,6 +27,7 @@ function dependencies() {
     now: () => new Date('2026-06-26T10:00:04.000Z'),
     receiverEmail: 'kontakt@engelaart.no',
     senderEmail: 'noreply@engelaart.no',
+    publicContactEmail: 'kontakt@engelaart.no',
   }
 }
 

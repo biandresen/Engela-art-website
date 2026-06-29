@@ -3,6 +3,7 @@ export type MonitoringArea = 'browser' | 'server' | 'inquiry'
 export type MonitoringOperation =
   | 'render-page'
   | 'submit-inquiry'
+  | 'configure-transactional-email'
   | 'send-artist-notification'
   | 'send-buyer-acknowledgement'
 

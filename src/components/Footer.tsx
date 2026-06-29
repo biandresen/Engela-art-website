@@ -1,6 +1,7 @@
 import { Instagram, Mail } from 'lucide-react'
 import { useRouterState } from '@tanstack/react-router'
 
+import { getPublicContactEmail } from '#/lib/contact-email'
 import { getFooterLabels } from '#/lib/i18n/content'
 import { getLocaleFromPathname, localizedPaths } from '#/lib/i18n/routes'
 import { captureAnalyticsEvent } from '#/lib/integrations/client-analytics'
@@ -12,6 +13,7 @@ export default function Footer() {
   })
   const locale = getLocaleFromPathname(pathname)
   const labels = getFooterLabels(locale)
+  const publicContactEmail = getPublicContactEmail()
   const paths = localizedPaths[locale]
   const navigationLinks = [
     { href: paths.home, label: labels.home },
@@ -76,7 +78,7 @@ export default function Footer() {
               ))}
               <li>
                 <a
-                  href={`mailto:${labels.emailAddress}`}
+                  href={`mailto:${publicContactEmail}`}
                   aria-label={labels.email}
                   onClick={() =>
                     captureAnalyticsEvent({
@@ -88,7 +90,7 @@ export default function Footer() {
                   className={`${textLinkClass} inline-flex items-center gap-2`}
                 >
                   <Mail aria-hidden="true" className="size-4" />
-                  {labels.emailAddress}
+                  {publicContactEmail}
                 </a>
               </li>
             </ul>

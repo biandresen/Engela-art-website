@@ -1,4 +1,8 @@
 import { FaqSection } from '#/components/FaqSection'
+import {
+  defaultPublicContactEmail,
+  getPublicContactEmail,
+} from '#/lib/contact-email'
 import type { Locale } from '#/lib/i18n/locale'
 
 type LegalPageKind = 'privacy' | 'sales'
@@ -34,6 +38,7 @@ const legalLastUpdated = {
 
 export function LocalizedLegalPage({ locale, page }: LocalizedLegalPageProps) {
   const content = legalContent[locale][page]
+  const publicContactEmail = getPublicContactEmail()
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12">
@@ -67,7 +72,10 @@ export function LocalizedLegalPage({ locale, page }: LocalizedLegalPageProps) {
                   key={paragraph}
                   className="text-base leading-7 text-muted-foreground"
                 >
-                  {paragraph}
+                  {paragraph.replaceAll(
+                    defaultPublicContactEmail,
+                    publicContactEmail,
+                  )}
                 </p>
               ))}
             </section>

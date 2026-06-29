@@ -1,3 +1,8 @@
+import { defaultPublicContactEmail } from '#/lib/contact-email'
+
+import { resolveIntegrationMode } from './runtime'
+import type { DeployContext, IntegrationMode } from './runtime'
+
 export type TransactionalEmailMessage = {
   to: string
   from: string
@@ -19,6 +24,27 @@ export type EmailSendResult =
 
 export interface TransactionalEmailAdapter {
   send: (message: TransactionalEmailMessage) => Promise<EmailSendResult>
+}
+
+export type TransactionalEmailConfiguration = {
+  email: TransactionalEmailAdapter
+  receiverEmail: string
+  senderEmail: string
+}
+
+export type TransactionalEmailRuntimeConfig = {
+  deployContext: DeployContext
+  requestedMode: IntegrationMode
+  apiKey?: string
+  receiverEmail?: string
+  senderEmail?: string
+}
+
+export class TransactionalEmailConfigurationError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'TransactionalEmailConfigurationError'
+  }
 }
 
 export class NoopTransactionalEmailAdapter implements TransactionalEmailAdapter {
@@ -44,10 +70,13 @@ export class RecordingTransactionalEmailAdapter implements TransactionalEmailAda
 }
 
 export class ResendTransactionalEmailAdapter implements TransactionalEmailAdapter {
-  constructor(private readonly apiKey: string) {}
+  constructor(
+    private readonly apiKey: string,
+    private readonly fetchImpl: typeof fetch = fetch,
+  ) {}
 
   async send(message: TransactionalEmailMessage): Promise<EmailSendResult> {
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await this.fetchImpl('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
@@ -73,5 +102,41 @@ export class ResendTransactionalEmailAdapter implements TransactionalEmailAdapte
       status: 'accepted',
       messageId: body.id ?? 'resend-accepted',
     }
+  }
+}
+
+export function createTransactionalEmailConfiguration({
+  deployContext,
+  requestedMode,
+  apiKey,
+  receiverEmail,
+  senderEmail,
+}: TransactionalEmailRuntimeConfig): TransactionalEmailConfiguration {
+  const mode = resolveIntegrationMode({ deployContext, requestedMode })
+
+  if (mode === 'safe') {
+    return {
+      email: new NoopTransactionalEmailAdapter(),
+      receiverEmail: receiverEmail ?? defaultPublicContactEmail,
+      senderEmail: senderEmail ?? 'noreply@engelaart.no',
+    }
+  }
+
+  if (!apiKey || !receiverEmail || !senderEmail) {
+    const missing = [
+      apiKey ? null : 'EMAIL_PROVIDER_API_KEY',
+      receiverEmail ? null : 'INQUIRY_RECEIVER_EMAIL',
+      senderEmail ? null : 'INQUIRY_SENDER_EMAIL',
+    ].filter(Boolean)
+
+    throw new TransactionalEmailConfigurationError(
+      `Production transactional email is missing ${missing.join(', ')}`,
+    )
+  }
+
+  return {
+    email: new ResendTransactionalEmailAdapter(apiKey),
+    receiverEmail,
+    senderEmail,
   }
 }

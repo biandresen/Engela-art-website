@@ -10,6 +10,9 @@ import {
 import {
   NoopTransactionalEmailAdapter,
   RecordingTransactionalEmailAdapter,
+  ResendTransactionalEmailAdapter,
+  TransactionalEmailConfigurationError,
+  createTransactionalEmailConfiguration,
 } from './email'
 import {
   SentryErrorMonitoringAdapter,
@@ -67,6 +70,78 @@ describe('transactional email adapters', () => {
       messageId: 'recorded-1',
     })
     expect(adapter.messages).toEqual([message])
+  })
+
+  it('keeps transactional email in no-op mode outside production context', () => {
+    const configuration = createTransactionalEmailConfiguration({
+      deployContext: 'deploy-preview',
+      requestedMode: 'production',
+      apiKey: 'provider-key',
+      receiverEmail: 'temporary-receiver@example.com',
+      senderEmail: 'onboarding@resend.dev',
+    })
+
+    expect(configuration.email).toBeInstanceOf(NoopTransactionalEmailAdapter)
+    expect(configuration.receiverEmail).toBe('temporary-receiver@example.com')
+    expect(configuration.senderEmail).toBe('onboarding@resend.dev')
+  })
+
+  it('requires all transactional email settings in production mode', () => {
+    expect(() =>
+      createTransactionalEmailConfiguration({
+        deployContext: 'production',
+        requestedMode: 'production',
+        apiKey: 'provider-key',
+        receiverEmail: 'temporary-receiver@example.com',
+      }),
+    ).toThrow(TransactionalEmailConfigurationError)
+  })
+
+  it('configures the Resend request payload for accepted provider delivery', async () => {
+    const requests: Array<{
+      url: string
+      body: unknown
+      authorization: string
+    }> = []
+    const adapter = new ResendTransactionalEmailAdapter(
+      'provider-key',
+      async (url, init) => {
+        requests.push({
+          url: String(url),
+          body: JSON.parse(String(init?.body)),
+          authorization: String(
+            (init?.headers as Record<string, string>).Authorization,
+          ),
+        })
+
+        return new Response(JSON.stringify({ id: 'resend-message-id' }), {
+          status: 200,
+        })
+      },
+    )
+
+    await expect(
+      adapter.send({
+        ...message,
+        replyTo: 'buyer@example.com',
+      }),
+    ).resolves.toEqual({
+      status: 'accepted',
+      messageId: 'resend-message-id',
+    })
+    expect(requests).toEqual([
+      {
+        url: 'https://api.resend.com/emails',
+        authorization: 'Bearer provider-key',
+        body: {
+          to: 'buyer@example.com',
+          from: 'contact@example.com',
+          reply_to: 'buyer@example.com',
+          subject: 'Inquiry received',
+          text: 'Thank you for your inquiry.',
+        },
+      },
+    ])
   })
 })
 

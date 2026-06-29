@@ -24,6 +24,7 @@ export const env = createEnv({
 
   client: {
     VITE_APP_TITLE: z.string().min(1).optional(),
+    VITE_PUBLIC_CONTACT_EMAIL: z.string().email().optional(),
     VITE_GOOGLE_BUSINESS_PROFILE_URL: z.string().url().optional(),
   },
 

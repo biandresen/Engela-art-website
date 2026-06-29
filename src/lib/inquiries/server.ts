@@ -3,14 +3,12 @@ import { getRequestHeader } from '@tanstack/react-start/server'
 import { z } from 'zod'
 
 import { env } from '#/env'
+import { getPublicContactEmail } from '#/lib/contact-email'
 import {
-  NoopTransactionalEmailAdapter,
-  ResendTransactionalEmailAdapter,
+  TransactionalEmailConfigurationError,
+  createTransactionalEmailConfiguration,
 } from '#/lib/integrations/email'
-import {
-  createErrorMonitoringAdapter,
-  resolveIntegrationMode,
-} from '#/lib/integrations/runtime'
+import { createErrorMonitoringAdapter } from '#/lib/integrations/runtime'
 import { createConfiguredAnalyticsAdapter } from '#/lib/integrations/server'
 
 import { createInquiryRateLimiter, submitInquiry } from './inquiry'
@@ -47,12 +45,14 @@ export const submitInquiryServer = createServerFn({ method: 'POST' })
     const monitoring = createConfiguredMonitoringAdapter()
 
     try {
+      const emailConfiguration = createEmailConfiguration()
       const result = await submitInquiry(input, {
-        email: createEmailAdapter(),
+        email: emailConfiguration.email,
         rateLimiter,
         now: () => new Date(),
-        receiverEmail: env.INQUIRY_RECEIVER_EMAIL ?? 'kontakt@engelaart.no',
-        senderEmail: env.INQUIRY_SENDER_EMAIL ?? 'noreply@engelaart.no',
+        receiverEmail: emailConfiguration.receiverEmail,
+        senderEmail: emailConfiguration.senderEmail,
+        publicContactEmail: getPublicContactEmail(),
       })
 
       if (result.status === 'success') {
@@ -82,6 +82,26 @@ export const submitInquiryServer = createServerFn({ method: 'POST' })
 
       return result
     } catch (error) {
+      if (error instanceof TransactionalEmailConfigurationError) {
+        void monitoring
+          .captureException({
+            error,
+            area: 'inquiry',
+            operation: 'configure-transactional-email',
+            inquiry: {
+              locale: data.locale,
+              type: data.type,
+              painting: data.painting,
+            },
+          })
+          .catch(() => undefined)
+
+        return {
+          status: 'delivery-error',
+          reason: 'artist-notification-failed',
+        }
+      }
+
       void monitoring
         .captureException({
           error,
@@ -99,17 +119,14 @@ export const submitInquiryServer = createServerFn({ method: 'POST' })
     }
   })
 
-function createEmailAdapter() {
-  const mode = resolveIntegrationMode({
+function createEmailConfiguration() {
+  return createTransactionalEmailConfiguration({
     deployContext: env.CONTEXT ?? 'dev',
     requestedMode: env.INTEGRATIONS_MODE,
+    apiKey: env.EMAIL_PROVIDER_API_KEY,
+    receiverEmail: env.INQUIRY_RECEIVER_EMAIL,
+    senderEmail: env.INQUIRY_SENDER_EMAIL,
   })
-
-  if (mode === 'production' && env.EMAIL_PROVIDER_API_KEY) {
-    return new ResendTransactionalEmailAdapter(env.EMAIL_PROVIDER_API_KEY)
-  }
-
-  return new NoopTransactionalEmailAdapter()
 }
 
 function getClientKey() {
