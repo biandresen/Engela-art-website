@@ -261,6 +261,39 @@ describe('painting detail routes', () => {
     }
   })
 
+  it('keeps the desktop artwork column visible while painting information scrolls independently', async () => {
+    const router = createRouter({
+      routeTree,
+      history: createMemoryHistory({
+        initialEntries: ['/en/paintings/temporary-painting-01'],
+      }),
+    })
+
+    await router.load()
+    render(<RouterProvider router={router} />)
+
+    const main = await screen.findByRole('main')
+    const imageGallery = within(main).getByRole('region', {
+      name: 'Painting images',
+    })
+    const paintingInformation = within(main).getByRole('article', {
+      name: 'Jordvarme',
+    })
+    const stickyActions = within(main).getByRole('region', {
+      name: 'Mobile inquiry action',
+    })
+
+    expect(imageGallery.className).toContain('lg:sticky')
+    expect(imageGallery.className).toContain('lg:top-8')
+    expect(imageGallery.className).toContain('lg:max-h-[calc(100vh-4rem)]')
+    expect(imageGallery.className).toContain('lg:overflow-y-auto')
+    expect(paintingInformation.className).toContain(
+      'lg:max-h-[calc(100vh-4rem)]',
+    )
+    expect(paintingInformation.className).toContain('lg:overflow-y-auto')
+    expect(stickyActions.className).toContain('md:hidden')
+  })
+
   it('can start a commission inquiry with the current painting as reference context', async () => {
     const router = createRouter({
       routeTree,

@@ -140,8 +140,11 @@ export function LocalizedPaintingDetailPage({
         </div>
       </nav>
 
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)]">
-        <section aria-label={detail.content.imagesLabel}>
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.8fr)] lg:items-start">
+        <section
+          aria-label={detail.content.imagesLabel}
+          className="lg:sticky lg:top-8 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-1"
+        >
           <div className="grid gap-4 md:grid-cols-[5rem_minmax(0,1fr)]">
             <div
               className="order-2 flex gap-3 overflow-x-auto md:order-1 md:flex-col md:overflow-visible"
@@ -204,11 +207,17 @@ export function LocalizedPaintingDetailPage({
           </div>
         </section>
 
-        <div>
+        <article
+          aria-labelledby="painting-detail-title"
+          className="lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-2"
+        >
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Engela Art
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1
+            id="painting-detail-title"
+            className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl"
+          >
             {painting.title}
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -331,7 +340,7 @@ export function LocalizedPaintingDetailPage({
               {detail.commissionAction.notice}
             </p>
           </div>
-        </div>
+        </article>
       </div>
 
       <div
