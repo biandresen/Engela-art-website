@@ -52,13 +52,10 @@ await sharp(resolve(brandOutput, 'logo-footer-light.png'))
   .webp({ quality: 88, alphaQuality: 100, effort: 5 })
   .toFile(resolve(brandOutput, 'logo-footer-light.webp'))
 
-await sharp(resolve(root, 'assets/brand-source/footer-image.png'))
-  .resize(720, 240, {
-    fit: 'contain',
-    background: { r: 0, g: 0, b: 0, alpha: 0 },
-  })
-  .webp({ quality: 88, alphaQuality: 100, effort: 5 })
-  .toFile(resolve(brandOutput, 'footer-image.webp'))
+await createTransparentFooterAsset(
+  resolve(root, 'assets/brand-source/footer-image.png'),
+  resolve(brandOutput, 'footer-image.webp'),
+)
 
 await createAppIdentityAssets()
 await createSocialAssets()
@@ -122,6 +119,43 @@ async function createWatermarks() {
       420,
     ),
   ])
+}
+
+async function createTransparentFooterAsset(input, output) {
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+  const { width, height, channels } = info
+  const { r, g, b } = parseHex(colors.cream)
+
+  for (let pixelIndex = 0; pixelIndex < width * height; pixelIndex += 1) {
+    const offset = pixelIndex * channels
+    const luminance =
+      0.2126 * data[offset] +
+      0.7152 * data[offset + 1] +
+      0.0722 * data[offset + 2]
+
+    data[offset] = r
+    data[offset + 1] = g
+    data[offset + 2] = b
+    data[offset + 3] = luminance < 236 ? 230 : 0
+  }
+
+  await sharp(data, {
+    raw: {
+      width,
+      height,
+      channels,
+    },
+  })
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 4 })
+    .resize(720, 240, {
+      fit: 'contain',
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .webp({ quality: 88, alphaQuality: 100, effort: 5 })
+    .toFile(output)
 }
 
 async function createPortraitAssets() {

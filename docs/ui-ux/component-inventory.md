@@ -5,7 +5,7 @@
 - Site header
 - Main navigation
 - Mobile navigation
-- Footer with accessible Instagram and Facebook links
+- Footer with accessible Instagram link
 - Page container
 - Section layout
 

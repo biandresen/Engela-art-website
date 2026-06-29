@@ -287,7 +287,7 @@ Den offentlige bedriftsadressen skal være:
 
 Skjemaet på nettstedet er den foretrukne kanalen for kjøpsrelaterte forespørsler.
 
-Instagram og Facebook er sekundære kanaler.
+Instagram er en sekundær kanal for å følge Engela Art.
 
 Kunstneren bør oppbevare viktige salgsavtaler i e-post, slik at begge parter har skriftlig dokumentasjon.
 

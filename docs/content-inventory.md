@@ -18,7 +18,7 @@ Use this as a working checklist while collecting content from the artist.
 | Contact email         | Needed   | Email that receives buyer inquiries.                 |
 | Public phone number   | Optional | Only include if the artist wants phone contact.      |
 | Location/region       | Optional | Useful for pickup/local context.                     |
-| Social links          | Optional | Instagram, Facebook, portfolio platforms, etc.       |
+| Social links          | Optional | Instagram or portfolio platforms, etc.               |
 | Artist portrait       | Needed   | Used on about page.                                  |
 | Studio/process images | Optional | Helps make the site more personal.                   |
 | Privacy/contact text  | Needed   | Explain how inquiry data is used.                    |

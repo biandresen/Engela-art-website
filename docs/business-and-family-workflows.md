@@ -287,7 +287,7 @@ The public business address will be:
 
 The website form is the preferred route for purchase-related inquiries.
 
-Instagram and Facebook are secondary channels.
+Instagram is a secondary channel for following Engela Art.
 
 The artist should keep important sale agreements in email so both parties have a written record.
 

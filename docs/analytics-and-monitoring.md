@@ -31,7 +31,7 @@ tracking. Useful PostHog summaries include:
 - painting detail views by public painting reference
 - inquiry starts by category
 - successful inquiry submissions by category
-- outbound business email, Instagram, and Facebook clicks
+- outbound business email and Instagram clicks
 
 Compare those totals with the private operations register only at an aggregate
 level, for example:

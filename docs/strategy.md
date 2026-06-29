@@ -79,7 +79,7 @@ V1 includes privacy-conscious analytics to understand which content and paths le
 - Painting detail views
 - Painting, interest-list, similar-work, and commission inquiry starts
 - Successful inquiry submissions by inquiry type
-- Outbound email, Instagram, and Facebook clicks
+- Outbound email and Instagram clicks
 
 Analytics must never capture names, email addresses, phone numbers, message text, custom budget text, exact interest-list membership, or other buyer-identifying form data. Painting events may use the public painting slug.
 
@@ -129,7 +129,7 @@ Email marketing can be reconsidered only as a separate feature with explicit opt
 
 ## Social Media Placement
 
-V1 links to Instagram and Facebook through persistent footer icons, Contact-page text links, and an optional About-page Instagram link. It does not embed social feeds, add floating social buttons, or place social actions beside individual paintings.
+V1 links to Instagram through a persistent footer icon, Contact-page text link, and optional About-page Instagram link. It does not embed social feeds, add floating social buttons, or place social actions beside individual paintings.
 
 ## Language and Market Reach
 
@@ -328,7 +328,7 @@ This workflow is intentionally simple. It keeps the first version focused on lau
 
 The website form is the primary channel for purchase-related inquiries. It gives the artist a consistent email record containing the visitor's contact details, language, inquiry type, message, and painting reference.
 
-The site also displays a direct email address as a fallback. Instagram and Facebook links are available for general contact and following the artist, but the interface encourages buyers to use the form or email for purchase discussions so both parties retain a clearer, more formal record.
+The site also displays a direct email address as a fallback. Instagram is available for general following, but the interface encourages buyers to use the form or email for purchase discussions so both parties retain a clearer, more formal record.
 
 Painting-specific inquiry:
 
@@ -544,7 +544,7 @@ Do not launch publicly until the site has:
 - Accurate status, numeric dimensions, year, price, and images for every included painting
 - Official painting title plus complete Norwegian and English summaries, medium text, technique text, optional artist notes, and image alt text for every included painting
 - Final artist biography and introductory copy in both languages
-- Working contact email plus Instagram and Facebook links
+- Working contact email plus Instagram link
 - Confirmed ENK identity details or a documented registration completion step before sales
 - Reviewed privacy, sales, cancellation, and commission terms
 - A real end-to-end inquiry email test

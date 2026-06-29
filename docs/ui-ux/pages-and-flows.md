@@ -167,7 +167,7 @@ Required content:
 - Contact form as the primary path
 - Public email address as a fallback
 - Expected response context
-- Instagram and Facebook text links as secondary contact channels
+- Instagram text link as a secondary follow channel
 - Concise frequently asked questions
 
 Purchase-related copy should encourage the form or direct email rather than social messages because email provides a clearer record for both buyer and artist.
@@ -178,7 +178,7 @@ Beside submit, show a concise localized notice explaining that Engela Art proces
 
 ### Footer
 
-The footer includes persistent, accessible Instagram and Facebook links on every page. V1 does not embed social feeds, add floating social buttons, or repeat social links beside individual paintings.
+The footer includes a persistent, accessible Instagram link on every page. V1 does not embed social feeds, add floating social buttons, or repeat social links beside individual paintings.
 
 The contact flow can also start a commission inquiry for a new painting inspired by the artist's existing work. The copy must state that requests are subject to artist approval and do not guarantee acceptance or exact reproduction.
 

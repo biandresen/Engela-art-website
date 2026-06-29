@@ -14,7 +14,7 @@ Collect this before building the final UI:
 - Artist portrait
 - Process or studio images
 - Contact email
-- Instagram and Facebook links
+- Instagram link
 - Location or region, if public
 - Exhibition/history notes, if relevant
 

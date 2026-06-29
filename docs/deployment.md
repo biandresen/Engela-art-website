@@ -64,8 +64,6 @@ live providers.
 | `POSTHOG_API_KEY`        | Production PostHog project credential.                                                       |
 | `POSTHOG_HOST`           | PostHog EU ingestion host.                                                                   |
 | `SENTRY_DSN`             | Production Sentry project DSN.                                                               |
-| `VITE_INSTAGRAM_URL`     | Confirmed public Engela Art Instagram profile.                                               |
-| `VITE_FACEBOOK_URL`      | Confirmed public Engela Art Facebook profile.                                                |
 
 Production credentials belong in Netlify's environment-variable settings with
 production-only scope. Preview, branch-deploy, and local contexts receive none of
