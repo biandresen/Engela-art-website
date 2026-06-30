@@ -13,18 +13,10 @@ import {
   waitFor,
   within,
 } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 
 import { routeTree } from '#/routeTree.gen'
 import { paintingCatalog } from '#/local-db/paintings'
-
-vi.mock('@tanstack/react-devtools', () => ({
-  TanStackDevtools: () => null,
-}))
-
-vi.mock('@tanstack/react-router-devtools', () => ({
-  TanStackRouterDevtoolsPanel: () => null,
-}))
 
 afterEach(cleanup)
 

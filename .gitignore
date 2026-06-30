@@ -18,9 +18,4 @@ todos.json
 
 # Temporary artist-supplied painting sources. These are local preparation inputs,
 # not public runtime assets or files to commit.
-public/blue-crow.png
-public/broken-woods.png
-public/purple-cotton.png
-public/rough-sea.png
-public/space.png
-public/winter-landscape.png
+assets/painting-source/

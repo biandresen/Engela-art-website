@@ -1,8 +1,8 @@
 # Brand asset preparation
 
-The original Engela Art PNG files in `public/` are preserved as approved source
-media. Runtime pages use the optimized derivatives in `public/assets/brand/` and
-`public/assets/portrait/`.
+The original Engela Art PNG files in `assets/brand-source/` are preserved as
+approved source media. Runtime pages use the optimized derivatives in
+`public/assets/brand/` and `public/assets/portrait/`.
 
 Regenerate the deterministic derivatives with:
 
@@ -14,14 +14,7 @@ The script:
 
 - removes the baked checkerboard only from source pixels connected to the image
   boundary;
-- creates transparent dark-on-light and light-on-dark logo variants;
-- creates the footer logo-with-name WebP derivative from the approved source;
-- creates favicon, manifest, avatar, and Open Graph derivatives;
+- creates the transparent dark-on-light header logo variants;
+- creates the footer WebP derivative from the approved source;
+- creates favicon, manifest icon, and Open Graph derivatives;
 - creates responsive AVIF/WebP portrait crops and a JPEG fallback;
-- creates light and dark variants from the simplified watermark master.
-
-The watermark master in `assets/brand-source/watermark-master.png` was generated
-from the supplied palette-and-brush identity using the built-in image generation
-tool, then converted from a chroma-key background to genuine transparency. Its
-prompt requested a flat, text-free palette-and-brush silhouette with no leaves,
-gradients, shadows, or fine decoration so it remains legible at small sizes.

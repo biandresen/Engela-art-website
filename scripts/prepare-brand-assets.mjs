@@ -1,14 +1,14 @@
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import pngToIco from 'png-to-ico'
 import sharp from 'sharp'
 
 const root = process.cwd()
+const brandSource = resolve(root, 'assets/brand-source')
 const brandOutput = resolve(root, 'public/assets/brand')
 const portraitOutput = resolve(root, 'public/assets/portrait')
 
 const colors = {
-  burgundy: '#4a0f22',
   cream: '#fff7e8',
 }
 
@@ -17,19 +17,11 @@ await Promise.all([
   mkdir(portraitOutput, { recursive: true }),
 ])
 
-const transparentMark = await removeConnectedLightBackground(
-  resolve(root, 'public/engela-art-logo.png'),
-)
 const transparentWordmark = await removeConnectedLightBackground(
-  resolve(root, 'public/engela-art-banner.png'),
+  resolve(brandSource, 'engela-art-banner.png'),
 )
 
 await Promise.all([
-  sharp(transparentMark)
-    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 4 })
-    .resize({ width: 512, withoutEnlargement: true })
-    .png({ compressionLevel: 9, palette: true })
-    .toFile(resolve(brandOutput, 'mark-compact.png')),
   sharp(transparentWordmark)
     .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 4 })
     .resize({ width: 720, withoutEnlargement: true })
@@ -40,32 +32,21 @@ await Promise.all([
     .resize({ width: 720, withoutEnlargement: true })
     .webp({ quality: 88, alphaQuality: 100, effort: 5 })
     .toFile(resolve(brandOutput, 'logo-header-dark.webp')),
-  createMonochromeAsset(
-    transparentWordmark,
-    colors.cream,
-    resolve(brandOutput, 'logo-footer-light.png'),
-    720,
-  ),
 ])
 
-await sharp(resolve(brandOutput, 'logo-footer-light.png'))
-  .webp({ quality: 88, alphaQuality: 100, effort: 5 })
-  .toFile(resolve(brandOutput, 'logo-footer-light.webp'))
-
 await createTransparentFooterAsset(
-  resolve(root, 'assets/brand-source/footer-image.png'),
+  resolve(brandSource, 'footer-image.png'),
   resolve(brandOutput, 'footer-image.webp'),
 )
 
 await createAppIdentityAssets()
 await createSocialAssets()
-await createWatermarks()
 await createPortraitAssets()
 
 console.log('Prepared Engela Art brand and portrait derivatives.')
 
 async function createAppIdentityAssets() {
-  const source = resolve(root, 'public/engela-art-logo-with-background.png')
+  const source = resolve(brandSource, 'engela-art-logo-with-background.png')
   const iconSizes = [16, 32, 48, 192, 512]
 
   await Promise.all(
@@ -83,42 +64,17 @@ async function createAppIdentityAssets() {
   )
 
   await writeFile(resolve(root, 'public/favicon.ico'), favicon)
+  await Promise.all([
+    rm(resolve(brandOutput, 'icon-16.png')),
+    rm(resolve(brandOutput, 'icon-48.png')),
+  ])
 }
 
 async function createSocialAssets() {
-  await Promise.all([
-    sharp(resolve(root, 'public/engela-art-logo-with-background.png'))
-      .resize(512, 512, { fit: 'cover', position: 'centre' })
-      .png({ compressionLevel: 9 })
-      .toFile(resolve(brandOutput, 'social-avatar.png')),
-    sharp(resolve(root, 'public/engela-art-banner-with-background.png'))
-      .resize(1200, 630, { fit: 'cover', position: 'centre' })
-      .jpeg({ quality: 86, mozjpeg: true })
-      .toFile(resolve(brandOutput, 'og-default.jpg')),
-    sharp(resolve(root, 'public/engela-art-background.png'))
-      .resize(640, 640, { fit: 'cover', position: 'centre' })
-      .webp({ quality: 78, effort: 5 })
-      .toFile(resolve(brandOutput, 'pattern-accent.webp')),
-  ])
-}
-
-async function createWatermarks() {
-  const source = resolve(root, 'assets/brand-source/watermark-master.png')
-
-  await Promise.all([
-    createMonochromeAsset(
-      source,
-      colors.burgundy,
-      resolve(brandOutput, 'watermark-dark.png'),
-      420,
-    ),
-    createMonochromeAsset(
-      source,
-      colors.cream,
-      resolve(brandOutput, 'watermark-light.png'),
-      420,
-    ),
-  ])
+  await sharp(resolve(brandSource, 'engela-art-banner-with-background.png'))
+    .resize(1200, 630, { fit: 'cover', position: 'centre' })
+    .jpeg({ quality: 86, mozjpeg: true })
+    .toFile(resolve(brandOutput, 'og-default.jpg'))
 }
 
 async function createTransparentFooterAsset(input, output) {
@@ -159,7 +115,7 @@ async function createTransparentFooterAsset(input, output) {
 }
 
 async function createPortraitAssets() {
-  const source = resolve(root, 'public/engela-art-profile-picture.png')
+  const source = resolve(brandSource, 'engela-art-profile-picture.png')
   const widths = [480, 768, 960]
 
   for (const width of widths) {
@@ -188,32 +144,6 @@ async function createPortraitAssets() {
     })
     .jpeg({ quality: 86, mozjpeg: true })
     .toFile(resolve(portraitOutput, 'engela-960.jpg'))
-}
-
-async function createMonochromeAsset(input, color, output, width) {
-  const { data, info } = await sharp(input)
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true })
-  const { r, g, b } = parseHex(color)
-
-  for (let index = 0; index < data.length; index += info.channels) {
-    data[index] = r
-    data[index + 1] = g
-    data[index + 2] = b
-  }
-
-  await sharp(data, {
-    raw: {
-      width: info.width,
-      height: info.height,
-      channels: info.channels,
-    },
-  })
-    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 4 })
-    .resize({ width, withoutEnlargement: true })
-    .png({ compressionLevel: 9, palette: true })
-    .toFile(output)
 }
 
 async function removeConnectedLightBackground(input) {

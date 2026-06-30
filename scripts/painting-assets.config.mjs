@@ -1,27 +1,27 @@
 export const paintingAssetConfig = [
   {
     slug: 'temporary-painting-01',
-    source: 'public/blue-crow.png',
+    source: 'assets/painting-source/blue-crow.png',
   },
   {
     slug: 'temporary-painting-02',
-    source: 'public/broken-woods.png',
+    source: 'assets/painting-source/broken-woods.png',
   },
   {
     slug: 'temporary-painting-03',
-    source: 'public/purple-cotton.png',
+    source: 'assets/painting-source/purple-cotton.png',
   },
   {
     slug: 'temporary-painting-04',
-    source: 'public/rough-sea.png',
+    source: 'assets/painting-source/rough-sea.png',
   },
   {
     slug: 'temporary-painting-05',
-    source: 'public/space.png',
+    source: 'assets/painting-source/space.png',
   },
   {
     slug: 'temporary-painting-06',
-    source: 'public/winter-landscape.png',
+    source: 'assets/painting-source/winter-landscape.png',
   },
 ]
 

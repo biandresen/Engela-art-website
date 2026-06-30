@@ -17,14 +17,10 @@ verified pixel difference.
 
 ## Temporary source exception
 
-The current inputs arrived under `public/`. They are explicitly ignored by Git
-and must not be referenced by application code. They remain temporary local
-preparation inputs only; runtime catalog records use
+The current inputs live under `assets/painting-source/`. They are explicitly
+ignored by Git and must not be referenced by application code. They remain
+temporary local preparation inputs only; runtime catalog records use
 `/assets/paintings/...` derivatives.
-
-The normal build command removes these exact temporary source filenames from
-the generated deployment output. This preserves the supplied local inputs while
-preventing Netlify from publishing them as public master-image URLs.
 
 This is an exception for issue #5, not the intended operating model. Before
 production deployment, replace these inputs with artist-approved private master

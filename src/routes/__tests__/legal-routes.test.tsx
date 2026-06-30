@@ -16,14 +16,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { routeTree } from '#/routeTree.gen'
 
-vi.mock('@tanstack/react-devtools', () => ({
-  TanStackDevtools: () => null,
-}))
-
-vi.mock('@tanstack/react-router-devtools', () => ({
-  TanStackRouterDevtoolsPanel: () => null,
-}))
-
 beforeEach(() => {
   Element.prototype.scrollIntoView = vi.fn()
 })

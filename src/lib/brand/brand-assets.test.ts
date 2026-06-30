@@ -7,13 +7,9 @@ const root = process.cwd()
 
 const expectedAssets = [
   'public/assets/brand/logo-header-dark.png',
-  'public/assets/brand/logo-footer-light.png',
   'public/assets/brand/footer-image.webp',
-  'public/assets/brand/mark-compact.png',
-  'public/assets/brand/social-avatar.png',
   'public/assets/brand/og-default.jpg',
-  'public/assets/brand/watermark-dark.png',
-  'public/assets/brand/watermark-light.png',
+  'public/assets/brand/icon-32.png',
   'public/assets/brand/icon-192.png',
   'public/assets/brand/icon-512.png',
   'public/assets/portrait/engela-480.avif',
@@ -34,10 +30,7 @@ describe('Engela Art brand asset contract', () => {
   it('provides transparent logo and watermark variants', async () => {
     for (const path of [
       'public/assets/brand/logo-header-dark.png',
-      'public/assets/brand/logo-footer-light.png',
       'public/assets/brand/footer-image.webp',
-      'public/assets/brand/watermark-dark.png',
-      'public/assets/brand/watermark-light.png',
     ]) {
       const metadata = await sharp(resolve(root, path)).metadata()
 
@@ -46,9 +39,9 @@ describe('Engela Art brand asset contract', () => {
   })
 
   it('provides correctly sized social, app, and portrait assets', async () => {
-    await expectDimensions('public/assets/brand/social-avatar.png', 512, 512)
     await expectDimensions('public/assets/brand/og-default.jpg', 1200, 630)
     await expectDimensions('public/assets/brand/footer-image.webp', 720, 240)
+    await expectDimensions('public/assets/brand/icon-32.png', 32, 32)
     await expectDimensions('public/assets/brand/icon-192.png', 192, 192)
     await expectDimensions('public/assets/brand/icon-512.png', 512, 512)
     await expectDimensions('public/assets/portrait/engela-480.webp', 480, 600)
@@ -58,13 +51,16 @@ describe('Engela Art brand asset contract', () => {
 
   it('keeps runtime derivatives materially smaller than source PNGs', async () => {
     const sourcePortrait = await stat(
-      resolve(root, 'public/engela-art-profile-picture.png'),
+      resolve(root, 'assets/brand-source/engela-art-profile-picture.png'),
     )
     const responsivePortrait = await stat(
       resolve(root, 'public/assets/portrait/engela-768.webp'),
     )
     const sourceBanner = await stat(
-      resolve(root, 'public/engela-art-banner-with-background.png'),
+      resolve(
+        root,
+        'assets/brand-source/engela-art-banner-with-background.png',
+      ),
     )
     const openGraphImage = await stat(
       resolve(root, 'public/assets/brand/og-default.jpg'),

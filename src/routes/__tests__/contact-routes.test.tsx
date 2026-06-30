@@ -21,14 +21,6 @@ const { submitInquiryServerMock } = vi.hoisted(() => ({
   submitInquiryServerMock: vi.fn(),
 }))
 
-vi.mock('@tanstack/react-devtools', () => ({
-  TanStackDevtools: () => null,
-}))
-
-vi.mock('@tanstack/react-router-devtools', () => ({
-  TanStackRouterDevtoolsPanel: () => null,
-}))
-
 vi.mock('#/lib/inquiries/server', () => ({
   submitInquiryServer: submitInquiryServerMock,
 }))
