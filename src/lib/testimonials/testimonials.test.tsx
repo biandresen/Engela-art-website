@@ -142,9 +142,12 @@ describe('testimonials section', () => {
 
     const region = screen.getByRole('region', { name: 'Collector words' })
     const articles = within(region).getAllByRole('article')
+    const rating = within(articles[0]).getByRole('img', {
+      name: '4 of 5 stars',
+    })
 
     expect(articles).toHaveLength(1)
-    expect(within(articles[0]).getByLabelText('4 of 5 stars')).toBeTruthy()
+    expect(rating).toBeTruthy()
     expect(within(articles[0]).getByText('2026-06-01')).toBeTruthy()
     expect(region.textContent).toContain(
       'The painting was even more beautiful in person',

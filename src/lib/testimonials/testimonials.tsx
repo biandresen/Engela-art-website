@@ -472,7 +472,7 @@ function StarRating({ rating, locale }: { rating: number; locale: Locale }) {
     locale === 'no' ? `${rating} av 5 stjerner` : `${rating} of 5 stars`
 
   return (
-    <div aria-label={label} className="flex items-center gap-1">
+    <div role="img" aria-label={label} className="flex items-center gap-1">
       {Array.from({ length: 5 }, (_, index) => {
         const isFilled = index < rating
 
